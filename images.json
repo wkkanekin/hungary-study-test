@@ -1,0 +1,46 @@
+{
+  "hero": {
+    "imageUrl": "https://images.unsplash.com/photo-1549877452-9c387954fbc2?auto=format&fit=crop&w=2000&q=60",
+    "logoUrl": "https://placehold.co/200x200/png?text=HU",
+    "logoAlt": "HU"
+  },
+  "basicsCards": [
+    {
+      "id": "hungary",
+      "imageUrl": "https://placehold.co/1200x700/png?text=Hungary",
+      "alt": "ハンガリーについて"
+    },
+    {
+      "id": "university",
+      "imageUrl": "https://placehold.co/1200x700/png?text=University",
+      "alt": "大学の探し方"
+    },
+    {
+      "id": "scholarship",
+      "imageUrl": "https://placehold.co/1200x700/png?text=Scholarship",
+      "alt": "奨学金（スティペンディウム・ハンガリカム）"
+    }
+  ],
+  "snsIcons": {
+    "YouTube": {
+      "type": "svg",
+      "svg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M21.6 7.2a3 3 0 0 0-2.1-2.1C17.8 4.6 12 4.6 12 4.6s-5.8 0-7.5.5A3 3 0 0 0 2.4 7.2 31.6 31.6 0 0 0 2 12a31.6 31.6 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.7.5 7.5.5 7.5.5s5.8 0 7.5-.5a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 22 12a31.6 31.6 0 0 0-.4-4.8z\"/><path d=\"M10 15.5V8.5L16 12l-6 3.5z\" fill=\"white\"/></svg>"
+    },
+    "Instagram": {
+      "type": "svg",
+      "svg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z\"/><path d=\"M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z\" fill=\"white\"/><circle cx=\"17.5\" cy=\"6.5\" r=\"1.2\" fill=\"white\"/></svg>"
+    },
+    "Facebook": {
+      "type": "svg",
+      "svg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.4-.1-2.7-.1-2.7 0-4.5 1.6-4.5 4.6V11H7.1v3h2.5v8h3.9z\"/></svg>"
+    },
+    "X": {
+      "type": "svg",
+      "svg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M18.9 2H22l-6.8 7.8L23 22h-6.4l-5-6.6L5.7 22H2l7.4-8.5L1 2h6.6l4.5 5.9L18.9 2z\"/></svg>"
+    },
+    "note": {
+      "type": "svg",
+      "svg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 3h9l3 3v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z\"/><path d=\"M15 3v4a1 1 0 0 0 1 1h4\" fill=\"white\"/><path d=\"M7.5 11h9M7.5 14h9M7.5 17h6.5\" stroke=\"white\" stroke-width=\"1.6\" stroke-linecap=\"round\" fill=\"none\"/></svg>"
+    }
+  }
+}

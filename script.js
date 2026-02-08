@@ -62,12 +62,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const applyMapSearchBtn = document.getElementById("applyMapSearch");
   const pickedUniEl = document.getElementById("pickedUni");
 
+  // Images (Hero / Basics / SNS icons)
+  const heroLogoImg = document.getElementById("heroLogo");
+  const basicImgHungary = document.getElementById("basicImg_hungary");
+  const basicImgUniversity = document.getElementById("basicImg_university");
+  const basicImgScholarship = document.getElementById("basicImg_scholarship");
+
   // ----------------------------
   // Data stores
   // ----------------------------
   let students = [];
   let suggestPool = [];
   let pickedUniversityName = "";
+
+  let imagesCfg = null;
+  let snsIconStore = {}; // label -> {type, svg, url}
 
   // ----------------------------
   // Helpers
@@ -373,6 +382,65 @@ document.addEventListener("DOMContentLoaded", () => {
     setHitLabel(`おすすめ：${featured.length}名`);
   }
 
+  async function loadImages() {
+    const res = await fetch("images.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("images.json が読み込めません: " + res.status);
+    const cfg = await res.json();
+
+    imagesCfg = cfg || null;
+
+    // SNS icon store
+    const snsIcons = cfg?.snsIcons && typeof cfg.snsIcons === "object" ? cfg.snsIcons : {};
+    snsIconStore = snsIcons || {};
+
+    applyImages(cfg);
+  }
+
+  function applyImages(cfg) {
+    if (!cfg || typeof cfg !== "object") return;
+
+    // Hero bg
+    const heroUrl = String(cfg?.hero?.imageUrl || "").trim();
+    if (heroUrl) {
+      document.documentElement.style.setProperty("--hero-image", `url("${heroUrl}")`);
+    }
+
+    // Hero logo
+    const logoUrl = String(cfg?.hero?.logoUrl || "").trim();
+    const logoAlt = String(cfg?.hero?.logoAlt || "HU").trim();
+    if (heroLogoImg) {
+      if (logoUrl) heroLogoImg.src = logoUrl;
+      heroLogoImg.alt = logoAlt || "HU";
+    }
+
+    // Basics cards images
+    const cards = Array.isArray(cfg?.basicsCards) ? cfg.basicsCards : [];
+    const map = new Map();
+    cards.forEach((c) => {
+      const id = String(c?.id || "").trim();
+      if (!id) return;
+      map.set(id, c);
+    });
+
+    const cHungary = map.get("hungary");
+    if (basicImgHungary && cHungary?.imageUrl) {
+      basicImgHungary.src = String(cHungary.imageUrl);
+      basicImgHungary.alt = String(cHungary.alt || basicImgHungary.alt || "ハンガリーについて");
+    }
+
+    const cUniversity = map.get("university");
+    if (basicImgUniversity && cUniversity?.imageUrl) {
+      basicImgUniversity.src = String(cUniversity.imageUrl);
+      basicImgUniversity.alt = String(cUniversity.alt || basicImgUniversity.alt || "大学の探し方");
+    }
+
+    const cScholarship = map.get("scholarship");
+    if (basicImgScholarship && cScholarship?.imageUrl) {
+      basicImgScholarship.src = String(cScholarship.imageUrl);
+      basicImgScholarship.alt = String(cScholarship.alt || basicImgScholarship.alt || "奨学金（スティペンディウム・ハンガリカム）");
+    }
+  }
+
   async function loadConfig() {
     const res = await fetch("config.json", { cache: "no-store" });
     if (!res.ok) throw new Error("config.json が読み込めません: " + res.status);
@@ -407,9 +475,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ✅ SNSアイコン：絵文字廃止 → 公式っぽいSVG（軽量）
+  // ✅ SNSアイコン：images.json の svg/url を優先 → なければフォールバック
   function iconForLabel(label) {
-    const l = norm(label);
+    const rawLabel = String(label || "").trim();
+    const keyExact = rawLabel;
+    const keyLower = norm(rawLabel);
+
+    // 1) images.json の完全一致キー
+    const iconExact = snsIconStore?.[keyExact];
+    if (iconExact) return iconFromStore(iconExact);
+
+    // 2) images.json の大小無視マッチ（YouTube / youtube など）
+    if (snsIconStore && typeof snsIconStore === "object") {
+      for (const k of Object.keys(snsIconStore)) {
+        if (norm(k) === keyLower) {
+          return iconFromStore(snsIconStore[k]);
+        }
+      }
+    }
+
+    // 3) フォールバック（従来の軽量SVG）
+    const l = keyLower;
 
     // YouTube
     if (l.includes("youtube")) {
@@ -468,6 +554,28 @@ document.addEventListener("DOMContentLoaded", () => {
         <path d="M13.4 10.6a1 1 0 0 0-1.4 0l-3.6 3.6a3 3 0 1 0 4.2 4.2l1.8-1.8-1.4-1.4-1.8 1.8a1 1 0 0 1-1.4-1.4l3.6-3.6a1 1 0 0 1 1.4 0 1 1 0 0 1 0 1.4l-.6.6 1.4 1.4.6-.6a3 3 0 1 0-4.2-4.2z"/>
       </svg>
     `;
+  }
+
+  function iconFromStore(iconObj) {
+    const type = String(iconObj?.type || "").trim().toLowerCase();
+
+    if (type === "svg") {
+      const svg = String(iconObj?.svg || "").trim();
+      return svg || "";
+    }
+
+    if (type === "img") {
+      const url = String(iconObj?.url || "").trim();
+      const alt = String(iconObj?.alt || "").trim() || "icon";
+      if (!url) return "";
+      return `<img src="${esc(url)}" alt="${esc(alt)}" style="width:18px;height:18px;display:block;object-fit:contain;" />`;
+    }
+
+    // unknown type
+    const svgFallback = String(iconObj?.svg || "").trim();
+    if (svgFallback) return svgFallback;
+
+    return "";
   }
 
   // ----------------------------
@@ -711,6 +819,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // ----------------------------
   (async () => {
     try {
+      // images.json を先に読み込む（SNSアイコンが config の描画に必要）
+      await loadImages();
+
       await Promise.all([loadStudents(), loadConfig()]);
       initMap();
     } catch (e) {
@@ -719,7 +830,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (studentListEl) {
         studentListEl.innerHTML = `<div class="card" style="padding:16px">
           <div style="font-weight:950;color:#0f2a5a">読み込みに失敗しました</div>
-          <div class="muted" style="font-weight:850; margin-top:6px">students.json / config.json の配置・ファイル名を確認してください。</div>
+          <div class="muted" style="font-weight:850; margin-top:6px">students.json / config.json / images.json の配置・ファイル名を確認してください。</div>
         </div>`;
       }
     }
