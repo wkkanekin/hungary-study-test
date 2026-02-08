@@ -2,10 +2,25 @@
   "formUrl": "https://forms.gle/xxxxxxxxxx",
   "email": "contact@example.com",
   "socials": [
-    { "label": "YouTube", "url": "https://www.youtube.com/@example" },
-    { "label": "Instagram", "url": "https://www.instagram.com/example" },
-    { "label": "Facebook", "url": "https://www.facebook.com/example" },
-    { "label": "X", "url": "https://x.com/example" },
-    { "label": "note", "url": "https://note.com/example" }
+    {
+      "label": "YouTube",
+      "url": "https://www.youtube.com/@example"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/example"
+    },
+    {
+      "label": "Facebook",
+      "url": "https://www.facebook.com/example"
+    },
+    {
+      "label": "X",
+      "url": "https://x.com/example"
+    },
+    {
+      "label": "note",
+      "url": "https://note.com/example"
+    }
   ]
 }

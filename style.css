@@ -11,9 +11,7 @@
   --radius:18px;
   --max:1040px;
 
-  /* ✅ ヒーロー：ブダペストの有名建築（例）＋国旗オーバーレイ */
-  --hero-image: url("https://images.unsplash.com/photo-1549877452-9c387954fbc2?auto=format&fit=crop&w=2400&q=70");
-  --hero-flag: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22900%22%20height%3D%22600%22%20viewBox%3D%220%200%203%202%22%3E%3Crect%20width%3D%223%22%20height%3D%222%22%20fill%3D%22%23ffffff%22/%3E%3Crect%20width%3D%223%22%20height%3D%220.6667%22%20y%3D%220%22%20fill%3D%22%23ce2939%22/%3E%3Crect%20width%3D%223%22%20height%3D%220.6667%22%20y%3D%221.3333%22%20fill%3D%22%23477050%22/%3E%3C/svg%3E");
+  --hero-image: url("https://images.unsplash.com/photo-1549877452-9c387954fbc2?auto=format&fit=crop&w=2000&q=60");
 }
 
 *{box-sizing:border-box}
@@ -30,12 +28,11 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 .container{max-width:var(--max); margin:0 auto; padding:22px 18px 70px;}
 .section{margin-top:26px}
 .secTitle{
-  font-size:24px;
+  font-size:22px;
   margin:0 0 12px;
   color:#0f2a5a;
   letter-spacing:.02em;
   text-align:center;
-  font-weight:950;
 }
 
 .card{
@@ -188,17 +185,6 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   filter: saturate(1.05);
   transform: scale(1.02);
 }
-.heroBg::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background-image: var(--hero-flag);
-  background-repeat:no-repeat;
-  background-size: 230px auto;
-  background-position: right 26px top 22px;
-  opacity:.96;
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,.22));
-}
 .heroBg::after{
   content:"";
   position:absolute;
@@ -214,14 +200,16 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 .logoBox{
   width:54px;height:54px;
   border-radius:14px;
-  border:1px solid rgba(255,255,255,.55);
+  border:1px dashed rgba(255,255,255,.55);
   background: rgba(255,255,255,.12);
   display:flex; align-items:center; justify-content:center;
+  font-weight:950;
+  color:#fff;
   flex:0 0 auto;
   overflow:hidden;
   backdrop-filter: blur(6px);
 }
-.logoBox svg{width:100%;height:100%;display:block;}
+.logoBox img{width:100%;height:100%;object-fit:cover;display:block;}
 .headerText{flex:1 1 auto; min-width:0;}
 .headerTitle{
   margin:6px 0 6px;
@@ -334,7 +322,7 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   flex-direction:column;
 }
 .basicImgWrap{
-  height:190px;
+  height:170px;
   border-bottom:1px solid rgba(229,231,235,.9);
   background: linear-gradient(135deg, rgba(255,255,255,.7), rgba(243,246,255,.85));
 }
@@ -345,7 +333,7 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   display:block;
 }
 .basicBody{
-  padding:16px 16px 16px;
+  padding:14px 14px 14px;
   display:flex;
   flex-direction:column;
   gap:10px;
@@ -375,12 +363,7 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 }
 
 /* Search */
-/* ✅ “格が小さい”原因：max-width を撤廃して、他セクションと同格に */
-.searchBox{
-  padding:22px;
-  max-width:none;
-  margin:0;
-}
+.searchBox{padding:16px; max-width:820px; margin:0 auto;}
 .searchLabel{
   font-weight:950;
   color:#0f2a5a;
@@ -528,15 +511,14 @@ textarea{resize:vertical; min-height:120px}
 .pickedUni{font-weight:950; color:#0f2a5a}
 
 /* Students list */
-/* ✅ 下部も“格が小さい”原因：max-width を撤廃して統一 */
 .studentList{
   display:flex;
   flex-direction:column;
   gap:12px;
   margin-top:14px;
-  max-width:none;
-  margin-left:0;
-  margin-right:0;
+  max-width:860px;
+  margin-left:auto;
+  margin-right:auto;
 }
 .studentCard{
   padding:16px;
@@ -554,20 +536,11 @@ textarea{resize:vertical; min-height:120px}
 .avatar{
   width:72px;height:72px;border-radius:18px;
   border:1px solid rgba(229,231,235,.9);
-  background: #1d4ed8; /* ✅ 背景を青に */
+  background: #f3f6ff;
   overflow:hidden;
   flex:0 0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:6px; /* 透明部分を見せて“青背景”にする */
 }
-.avatar img{
-  width:100%;
-  height:100%;
-  object-fit:contain; /* ✅ 顔が切れない */
-  display:block;
-}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block;}
 
 .studentName{margin:0;font-weight:950;color:#0f2a5a; font-size:18px}
 
@@ -642,7 +615,7 @@ textarea{resize:vertical; min-height:120px}
 }
 
 /* Empty */
-.emptyCard{padding:16px; max-width:none; margin:0;}
+.emptyCard{padding:16px; max-width:860px; margin:0 auto;}
 .emptyTitle{margin:0 0 6px; color:#0f2a5a; font-weight:950}
 .emptyText{margin:0; font-weight:850; line-height:1.7}
 .inlineLink{color: var(--blue); font-weight:950; text-decoration:none}
@@ -673,7 +646,7 @@ details p{
 }
 
 /* Recruit / Contact / SNS */
-.simpleCard{padding:22px; max-width:none; margin:0;}
+.simpleCard{padding:16px; max-width:860px; margin:0 auto;}
 .recruitLead{margin:0; font-weight:950; color:#0f2a5a; line-height:1.8}
 .ctaRow{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
 .recruitAccordion{margin-top:12px}
@@ -780,7 +753,6 @@ details p{
 /* ✅ PCで全体が小さく見える問題に対応（最大幅を広げた） */
 @media (min-width: 1200px){
   :root{ --max: 1320px; }
-  .secTitle{font-size:28px;}
 }
 
 /* Responsive */
