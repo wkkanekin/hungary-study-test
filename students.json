@@ -25,18 +25,15 @@
     "links": [
       {
         "label": "大学公式サイト",
-        "url": "https://www.bge.hu/",
-        "enabled": true
+        "url": "https://www.bge.hu/"
       },
       {
         "label": "YouTubeインタビュー",
-        "url": "https://youtube.com/xxxx",
-        "enabled": false
+        "url": "https://youtube.com/xxxx"
       },
       {
         "label": "note",
-        "url": "https://note.com/xxxx",
-        "enabled": false
+        "url": "https://note.com/xxxx"
       }
     ],
     "avatar": "https://placehold.co/520x520/png?text=Kaneko",
@@ -68,18 +65,15 @@
     "links": [
       {
         "label": "大学公式サイト",
-        "url": "https://www.elte.hu/en/",
-        "enabled": true
+        "url": "https://www.elte.hu/en/"
       },
       {
         "label": "YouTubeインタビュー",
-        "url": "https://youtube.com/xxxx",
-        "enabled": false
+        "url": "https://youtube.com/xxxx"
       },
       {
         "label": "note",
-        "url": "https://note.com/xxxx",
-        "enabled": false
+        "url": "https://note.com/xxxx"
       }
     ],
     "avatar": "https://placehold.co/520x520/png?text=Airi",
@@ -111,18 +105,15 @@
     "links": [
       {
         "label": "大学公式サイト",
-        "url": "https://u-szeged.hu/english",
-        "enabled": true
+        "url": "https://u-szeged.hu/english"
       },
       {
         "label": "YouTubeインタビュー",
-        "url": "https://youtube.com/xxxx",
-        "enabled": false
+        "url": "https://youtube.com/xxxx"
       },
       {
         "label": "note",
-        "url": "https://note.com/xxxx",
-        "enabled": false
+        "url": "https://note.com/xxxx"
       }
     ],
     "avatar": "https://placehold.co/520x520/png?text=Kenta",
