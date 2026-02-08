@@ -126,27 +126,8 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   gap: 14px;
   position: relative;
 }
-.topBrand{
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  font-weight: 950;
-  color: #0f2a5a;
-  flex: 0 0 auto;
-}
-.topBrandLogo{
-  width: 34px;
-  height: 34px;
-  border-radius: 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(29,78,216,.10);
-  border: 1px solid rgba(29,78,216,.18);
-}
-.topBrandText{ white-space: nowrap; }
 
+/* ✅ スマホで横スクロールできるように（はみ出し分はスライドで見れる） */
 .topNav{
   display: flex;
   gap: 10px;
@@ -155,6 +136,7 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   flex: 1 1 auto;
   padding-bottom: 2px;
   position: relative;
+  white-space: nowrap;
 }
 .topNav a{
   text-decoration: none;
@@ -768,9 +750,9 @@ details p{
   font-weight:900;
 }
 
-/* ✅ PCでは横に広げる（タブレット以下は現状維持） */
+/* ✅ PCで全体が小さく見える問題に対応（最大幅を広げた） */
 @media (min-width: 1200px){
-  :root{ --max: 1240px; }
+  :root{ --max: 1320px; }
 }
 
 /* Responsive */

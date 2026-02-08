@@ -139,6 +139,14 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
+  function isLinkReady(linkObj) {
+    // ready が明示されていればそれを優先
+    if (typeof linkObj?.ready === "boolean") return linkObj.ready;
+
+    // 指定が無い場合は基本 true 扱い
+    return true;
+  }
+
   function renderStudents(list) {
     if (!studentListEl) return;
     studentListEl.innerHTML = "";
@@ -158,9 +166,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const tagsHtml = (stu.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("");
 
+      // ✅ note / YouTube などを ready:false で「準備中」表示にできる
       const linksHtml = (stu.links || [])
-        .filter((l) => l && l.label && l.url)
-        .map((l) => `<a class="linkPill" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`)
+        .filter((l) => l && l.label)
+        .map((l) => {
+          const label = String(l.label || "");
+          const ready = isLinkReady(l);
+          const url = String(l.url || "#");
+
+          if (!ready) {
+            return `<span class="linkPill disabled" aria-disabled="true">${esc(label)}（準備中）</span>`;
+          }
+          if (!l.url) {
+            return `<span class="linkPill disabled" aria-disabled="true">${esc(label)}（設定中）</span>`;
+          }
+          return `<a class="linkPill" href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}</a>`;
+        })
         .join("");
 
       const bookingBtn = disabled
@@ -213,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!hasAnySearchCondition()) {
       const featured = getFeaturedStudents(2);
       renderStudents(featured);
-      setHitLabel(`ピックアップ：${featured.length}名`);
+      setHitLabel(`おすすめ：${featured.length}名`);
       scrollToStudents();
       return;
     }
@@ -249,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const featured = getFeaturedStudents(2);
     renderStudents(featured);
-    setHitLabel(`ピックアップ：${featured.length}名`);
+    setHitLabel(`おすすめ：${featured.length}名`);
   }
 
   function showAllStudents() {
@@ -349,7 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const featured = getFeaturedStudents(2);
     renderStudents(featured);
-    setHitLabel(`ピックアップ：${featured.length}名`);
+    setHitLabel(`おすすめ：${featured.length}名`);
   }
 
   async function loadConfig() {
@@ -386,14 +407,67 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // ✅ SNSアイコン：絵文字廃止 → 公式っぽいSVG（軽量）
   function iconForLabel(label) {
     const l = norm(label);
-    if (l.includes("youtube")) return "▶️";
-    if (l.includes("instagram")) return "📷";
-    if (l.includes("facebook")) return "📘";
-    if (l === "x" || l.includes("twitter")) return "𝕏";
-    if (l.includes("note")) return "📝";
-    return "🔗";
+
+    // YouTube
+    if (l.includes("youtube")) {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.8 4.6 12 4.6 12 4.6s-5.8 0-7.5.5A3 3 0 0 0 2.4 7.2 31.6 31.6 0 0 0 2 12a31.6 31.6 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.7.5 7.5.5 7.5.5s5.8 0 7.5-.5a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 22 12a31.6 31.6 0 0 0-.4-4.8z"/>
+          <path d="M10 15.5V8.5L16 12l-6 3.5z" fill="white"/>
+        </svg>
+      `;
+    }
+
+    // Instagram
+    if (l.includes("instagram")) {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z"/>
+          <path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" fill="white"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="white"/>
+        </svg>
+      `;
+    }
+
+    // Facebook
+    if (l.includes("facebook")) {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.5 1.6-1.5h1.7V4.9c-.3 0-1.4-.1-2.7-.1-2.7 0-4.5 1.6-4.5 4.6V11H7.1v3h2.5v8h3.9z"/>
+        </svg>
+      `;
+    }
+
+    // X / Twitter
+    if (l === "x" || l.includes("twitter")) {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M18.9 2H22l-6.8 7.8L23 22h-6.4l-5-6.6L5.7 22H2l7.4-8.5L1 2h6.6l4.5 5.9L18.9 2z"/>
+        </svg>
+      `;
+    }
+
+    // note
+    if (l.includes("note")) {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 3h9l3 3v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
+          <path d="M15 3v4a1 1 0 0 0 1 1h4" fill="white"/>
+          <path d="M7.5 11h9M7.5 14h9M7.5 17h6.5" stroke="white" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        </svg>
+      `;
+    }
+
+    // default
+    return `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M10.6 13.4a1 1 0 0 0 1.4 0l3.6-3.6a3 3 0 1 0-4.2-4.2l-1.8 1.8 1.4 1.4 1.8-1.8a1 1 0 0 1 1.4 1.4l-3.6 3.6a1 1 0 0 1-1.4 0 1 1 0 0 1 0-1.4l.6-.6-1.4-1.4-.6.6a3 3 0 1 0 4.2 4.2z"/>
+        <path d="M13.4 10.6a1 1 0 0 0-1.4 0l-3.6 3.6a3 3 0 1 0 4.2 4.2l1.8-1.8-1.4-1.4-1.8 1.8a1 1 0 0 1-1.4-1.4l3.6-3.6a1 1 0 0 1 1.4 0 1 1 0 0 1 0 1.4l-.6.6 1.4 1.4.6-.6a3 3 0 1 0-4.2-4.2z"/>
+      </svg>
+    `;
   }
 
   // ----------------------------
