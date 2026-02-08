@@ -149,10 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function isLinkReady(linkObj) {
-    // ready が明示されていればそれを優先
     if (typeof linkObj?.ready === "boolean") return linkObj.ready;
-
-    // 指定が無い場合は基本 true 扱い
     return true;
   }
 
@@ -175,7 +172,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const tagsHtml = (stu.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("");
 
-      // ✅ note / YouTube などを ready:false で「準備中」表示にできる
       const linksHtml = (stu.links || [])
         .filter((l) => l && l.label)
         .map((l) => {
@@ -239,7 +235,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Students list controls
   // ----------------------------
   function applyFilterAndJump() {
-    // 条件が無い場合は「おすすめ」だけ表示してLPを短く
     if (!hasAnySearchCondition()) {
       const featured = getFeaturedStudents(2);
       renderStudents(featured);
@@ -283,7 +278,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function showAllStudents() {
-    // 「全登録者を一覧で見たい」用：検索条件に関係なく全員表示
     renderStudents(students);
     setHitLabel(`全学生：${students.length}名`);
     scrollToStudents();
@@ -382,14 +376,42 @@ document.addEventListener("DOMContentLoaded", () => {
     setHitLabel(`おすすめ：${featured.length}名`);
   }
 
-  async function loadImages() {
-    const res = await fetch("images.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("images.json が読み込めません: " + res.status);
-    const cfg = await res.json();
+  // ✅ images.json が無くても全体が止まらないようにする
+  async function tryLoadImagesAny() {
+    const candidates = [
+      "images.json",
+      "Images.json",
+      "IMAGES.json",
+      "imiges.json",
+      "imiges.Json",
+      "Imiges.json",
+      "imiges.JSON",
+    ];
 
-    imagesCfg = cfg || null;
+    for (const filename of candidates) {
+      try {
+        const res = await fetch(filename, { cache: "no-store" });
+        if (!res.ok) continue;
+        const cfg = await res.json();
+        return cfg;
+      } catch (e) {
+        // 次候補へ
+      }
+    }
+    return null;
+  }
 
-    // SNS icon store
+  async function loadImagesOptional() {
+    const cfg = await tryLoadImagesAny();
+    if (!cfg) {
+      console.warn("images.json（または代替名）が見つかりません。画像はデフォルトで動作します。");
+      imagesCfg = null;
+      snsIconStore = {};
+      return;
+    }
+
+    imagesCfg = cfg;
+
     const snsIcons = cfg?.snsIcons && typeof cfg.snsIcons === "object" ? cfg.snsIcons : {};
     snsIconStore = snsIcons || {};
 
@@ -437,7 +459,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const cScholarship = map.get("scholarship");
     if (basicImgScholarship && cScholarship?.imageUrl) {
       basicImgScholarship.src = String(cScholarship.imageUrl);
-      basicImgScholarship.alt = String(cScholarship.alt || basicImgScholarship.alt || "奨学金（スティペンディウム・ハンガリカム）");
+      basicImgScholarship.alt = String(
+        cScholarship.alt || basicImgScholarship.alt || "奨学金（スティペンディウム・ハンガリカム）"
+      );
     }
   }
 
@@ -475,17 +499,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ✅ SNSアイコン：images.json の svg/url を優先 → なければフォールバック
   function iconForLabel(label) {
     const rawLabel = String(label || "").trim();
     const keyExact = rawLabel;
     const keyLower = norm(rawLabel);
 
-    // 1) images.json の完全一致キー
     const iconExact = snsIconStore?.[keyExact];
     if (iconExact) return iconFromStore(iconExact);
 
-    // 2) images.json の大小無視マッチ（YouTube / youtube など）
     if (snsIconStore && typeof snsIconStore === "object") {
       for (const k of Object.keys(snsIconStore)) {
         if (norm(k) === keyLower) {
@@ -494,10 +515,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // 3) フォールバック（従来の軽量SVG）
+    // fallback
     const l = keyLower;
 
-    // YouTube
     if (l.includes("youtube")) {
       return `
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -507,7 +527,6 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
 
-    // Instagram
     if (l.includes("instagram")) {
       return `
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -518,7 +537,6 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
 
-    // Facebook
     if (l.includes("facebook")) {
       return `
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -527,7 +545,6 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
 
-    // X / Twitter
     if (l === "x" || l.includes("twitter")) {
       return `
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -536,7 +553,6 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
 
-    // note
     if (l.includes("note")) {
       return `
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -547,7 +563,6 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
 
-    // default
     return `
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M10.6 13.4a1 1 0 0 0 1.4 0l3.6-3.6a3 3 0 1 0-4.2-4.2l-1.8 1.8 1.4 1.4 1.8-1.8a1 1 0 0 1 1.4 1.4l-3.6 3.6a1 1 0 0 1-1.4 0 1 1 0 0 1 0-1.4l.6-.6-1.4-1.4-.6.6a3 3 0 1 0 4.2 4.2z"/>
@@ -571,7 +586,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return `<img src="${esc(url)}" alt="${esc(alt)}" style="width:18px;height:18px;display:block;object-fit:contain;" />`;
     }
 
-    // unknown type
     const svgFallback = String(iconObj?.svg || "").trim();
     if (svgFallback) return svgFallback;
 
@@ -768,7 +782,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function initMap() {
-    if (!mapEl || !window.L) return;
+    if (!mapEl) {
+      console.warn("huMap 要素が見つかりません");
+      return;
+    }
+    if (!window.L) {
+      console.error("Leaflet(L) が読み込めていません。index.html の Leaflet script を確認してください。");
+      if (mapStatusEl) mapStatusEl.textContent = "地図ライブラリの読み込みに失敗";
+      return;
+    }
 
     if (mapStatusEl) mapStatusEl.textContent = "準備中…";
 
@@ -806,7 +828,6 @@ document.addEventListener("DOMContentLoaded", () => {
       cityCount++;
     });
 
-    // ✅ 「都市マーカー」→「都市」表記へ変更
     if (mapCountsEl) {
       mapCountsEl.style.display = "inline-flex";
       mapCountsEl.textContent = `都市：${cityCount} / 大学：${universities.length}`;
@@ -818,21 +839,37 @@ document.addEventListener("DOMContentLoaded", () => {
   // Boot
   // ----------------------------
   (async () => {
+    // ✅ ここが重要：images が死んでも students/map は動かす
     try {
-      // images.json を先に読み込む（SNSアイコンが config の描画に必要）
-      await loadImages();
+      await loadImagesOptional();
+    } catch (e) {
+      console.warn("images.json 読み込みでエラー（無視して続行）:", e);
+    }
 
-      await Promise.all([loadStudents(), loadConfig()]);
+    try {
+      await loadStudents();
+    } catch (e) {
+      console.error(e);
+      if (studentListEl) {
+        studentListEl.innerHTML = `<div class="card" style="padding:16px">
+          <div style="font-weight:950;color:#0f2a5a">現役生一覧の読み込みに失敗しました</div>
+          <div class="muted" style="font-weight:850; margin-top:6px">students.json の配置・ファイル名を確認してください。</div>
+        </div>`;
+      }
+    }
+
+    try {
+      await loadConfig();
+    } catch (e) {
+      console.error(e);
+    }
+
+    // ✅ 地図は必ず起動を試みる
+    try {
       initMap();
     } catch (e) {
       console.error(e);
-      if (mapStatusEl) mapStatusEl.textContent = "読み込み失敗";
-      if (studentListEl) {
-        studentListEl.innerHTML = `<div class="card" style="padding:16px">
-          <div style="font-weight:950;color:#0f2a5a">読み込みに失敗しました</div>
-          <div class="muted" style="font-weight:850; margin-top:6px">students.json / config.json / images.json の配置・ファイル名を確認してください。</div>
-        </div>`;
-      }
+      if (mapStatusEl) mapStatusEl.textContent = "地図の初期化でエラー";
     }
   })();
 });
