@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ハンガリー現役大学生に直接聞けるオンライン留学相談</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Leaflet (Map) -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header / Hero -->
+    <header class="card heroHeader" id="top">
+      <div class="heroBg" aria-hidden="true"></div>
+
+      <div class="headerRow">
+        <div class="logoBox" aria-label="ロゴ（ダミー）">
+          <span>HU</span>
+        </div>
+
+        <div class="headerText">
+          <h1 class="headerTitle">ハンガリー現役大学生に直接聞けるオンライン留学相談</h1>
+          <p class="headerSub">
+            留学・進学・現地生活について、実際に学んでいる現役生が1対1でお話しします。
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- ✅ 案A：ヒーローの下に横目次（ここから sticky で上に吸着） -->
+    <header class="topBar" aria-label="目次">
+      <div class="topBarInner">
+        <a href="#top" class="topBrand" aria-label="トップへ戻る">
+          <span class="topBrandLogo" aria-hidden="true">HU</span>
+          <span class="topBrandText">ハンガリー留学相談</span>
+        </a>
+
+        <nav class="topNav" aria-label="横目次">
+          <a href="#service">サービス</a>
+          <a href="#flow">流れ</a>
+          <a href="#basics-cards">全体像</a>
+          <a href="#search">検索</a>
+          <a href="#mapSearch">地図</a>
+          <a href="#students">現役生</a>
+          <a href="#faq">FAQ</a>
+          <a href="#recruit">募集</a>
+          <a href="#contact">問い合わせ</a>
+          <a href="#sns">SNS</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Service -->
+    <section class="section" id="service">
+      <h2 class="secTitle">サービス内容</h2>
+
+      <div class="grid3">
+        <div class="infoCard">
+          <h3>形式</h3>
+          <p class="big">オンライン（Zoom）</p>
+          <p class="small muted">※面談は 40分 で実施します</p>
+        </div>
+
+        <div class="infoCard">
+          <h3>料金</h3>
+          <p class="big">6,000円 / 40分</p>
+          <p class="small muted">（予約ページ側の案内に従ってください）</p>
+        </div>
+
+        <div class="infoCard">
+          <h3>相談内容</h3>
+          <p class="big">生活・大学・出願</p>
+          <p class="small muted">（実体験をもとにお話しします）</p>
+        </div>
+      </div>
+
+      <div class="purposeBox">
+        <div class="badgeLine">
+          <span class="badge">初めての留学相談でもご安心ください</span>
+        </div>
+
+        <p class="lead">
+          相談の目的は、いま感じている不安や疑問を整理し、次の行動を明確にすることです。
+        </p>
+
+        <div class="list">
+          <div class="item">どの大学・専攻が合いそうか</div>
+          <div class="item">現地での生活費や暮らしの実態</div>
+          <div class="item">出願でつまずきやすいポイント</div>
+        </div>
+
+        <p class="after">
+          実際にハンガリーで学び、生活している現役生の一次情報をもとに、整理できます。
+        </p>
+      </div>
+    </section>
+
+    <!-- Flow -->
+    <section class="section" id="flow">
+      <h2 class="secTitle">相談の流れ（かんたん3ステップ）</h2>
+      <div class="grid3 flowWrap">
+        <div class="stepCard">
+          <div class="stepTop"><span class="stepNum">1</span>現役生を探す</div>
+          <p>検索や地図から、気になる大学・現役生を探します。</p>
+        </div>
+        <div class="stepCard">
+          <div class="stepTop"><span class="stepNum">2</span>予約する</div>
+          <p>カードの「空き枠を見る」から予約ページへ進みます。</p>
+        </div>
+        <div class="stepCard">
+          <div class="stepTop"><span class="stepNum">3</span>オンライン留学相談（40分）</div>
+          <p>聞きたいことをメモしておくと、40分を濃く使えます。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Basics cards -->
+    <section class="section" id="basics-cards">
+      <h2 class="secTitle">全体像（3つの入口）</h2>
+      <p class="basicsIntro">
+        詳細は別ページでまとめています。気になるところから読んでください。
+      </p>
+
+      <div class="grid3 basicsGrid">
+        <article class="basicCard">
+          <div class="basicImgWrap" aria-label="画像ダミー（後で差し替え）">
+            <img class="basicImg" src="https://placehold.co/1200x700/png?text=Hungary" alt="ハンガリーについて（ダミー画像）" />
+          </div>
+          <div class="basicBody">
+            <p class="basicKicker">ハンガリーについて</p>
+            <p class="basicDesc">生活感・費用感・治安・英語など、まず押さえるポイントを整理。</p>
+            <div class="basicFooter">
+              <a class="btn" href="basics-hungary.html">詳細を見る</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="basicCard">
+          <div class="basicImgWrap" aria-label="画像ダミー（後で差し替え）">
+            <img class="basicImg" src="https://placehold.co/1200x700/png?text=University" alt="大学の探し方（ダミー画像）" />
+          </div>
+          <div class="basicBody">
+            <p class="basicKicker">大学の探し方</p>
+            <p class="basicDesc">探し方の手順・公式情報の見方・英語要件のチェックポイント。</p>
+            <div class="basicFooter">
+              <a class="btn" href="basics-university.html">詳細を見る</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="basicCard">
+          <div class="basicImgWrap" aria-label="画像ダミー（後で差し替え）">
+            <img class="basicImg" src="https://placehold.co/1200x700/png?text=Scholarship" alt="奨学金（ダミー画像）" />
+          </div>
+          <div class="basicBody">
+            <p class="basicKicker">奨学金（スティペンディウム・ハンガリカム）</p>
+            <p class="basicDesc">何がカバーされるか／難易度／応募プロセスの全体像を整理。</p>
+            <div class="basicFooter">
+              <a class="btn" href="basics-scholarship.html">詳細を見る</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Search -->
+    <section class="section" id="search">
+      <h2 class="secTitle">現役生を探す</h2>
+
+      <div class="card searchBox">
+        <!-- row 1 -->
+        <div class="searchRow">
+          <label class="srOnly" for="keyword">大学名・地域・キーワード</label>
+          <div class="suggestWrap">
+            <div class="searchLabel">大学名・地域・キーワード</div>
+            <input
+              id="keyword"
+              type="text"
+              autocomplete="off"
+              placeholder="大学名・地域・キーワード（例：Budapest / ELTE / 医学 / 奨学金）"
+            />
+            <div id="suggestBox" class="suggestBox" role="listbox" aria-label="検索候補"></div>
+          </div>
+        </div>
+
+        <!-- row 2 -->
+        <div class="searchRow twoColsRow">
+          <div>
+            <select id="regionFilter" aria-label="地域">
+              <option value="">地域指定なし</option>
+              <option value="ブダペスト">ブダペスト</option>
+              <option value="セゲド">セゲド</option>
+              <option value="ペーチ">ペーチ</option>
+              <option value="デブレツェン">デブレツェン</option>
+              <option value="ミシュコルツ">ミシュコルツ</option>
+              <option value="ヴェスプレーム">ヴェスプレーム</option>
+              <option value="ショプロン">ショプロン</option>
+            </select>
+          </div>
+
+          <div>
+            <select id="courseFilter" aria-label="分野">
+              <option value="">分野指定なし</option>
+              <option value="医学部">医学部</option>
+              <option value="理系">理系</option>
+              <option value="社会系">社会系</option>
+              <option value="教育">教育</option>
+              <option value="芸術">芸術</option>
+              <option value="経営">経営</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- row 3 -->
+        <div class="searchRow centerActions">
+          <button class="btn primary" id="applySearch" type="button">検索</button>
+          <button class="btn" id="clearSearch" type="button">条件クリア</button>
+          <button class="btn" id="showAllStudents" type="button">全学生を見る</button>
+        </div>
+
+        <p class="muted searchNote">
+          ※ 初期表示はおすすめのみです。「全学生を見る」で全登録者を一覧表示できます。
+        </p>
+      </div>
+    </section>
+
+    <!-- Map Search -->
+    <section class="section" id="mapSearch">
+      <h2 class="secTitle">地図から大学を探す</h2>
+      <p class="muted">
+        都市をクリック → その都市の大学一覧が出ます。大学名をクリックすると、そのまま現役生一覧へ絞り込み＆移動します。
+      </p>
+
+      <div class="mapLayout">
+        <div class="mapCard">
+          <div id="huMap" class="huMap" aria-label="Hungary map"></div>
+
+          <div class="mapBar">
+            <div class="mapLeft">
+              <span id="mapStatus" class="mapStatus">読み込み中…</span>
+              <!-- ✅ 初期の「都市:- / 大学:-」は見せない。JSで値が入ったら表示 -->
+              <span id="mapCounts" class="pill" style="display:none;">都市：- / 大学：-</span>
+            </div>
+
+            <div class="mapRight">
+              <button class="btn primary" id="applyMapSearch" type="button">検索する</button>
+              <button class="btn" id="clearUniFilter" type="button" disabled>条件クリア</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card mapResults">
+          <h3 class="mapResultsTitle">大学一覧</h3>
+          <div id="mapHint" class="mapHint">地図上の都市をクリックしてください</div>
+          <div id="uniList" class="uniList"></div>
+
+          <div class="mapPicked">
+            <div class="muted">
+              選択中：<span id="pickedUni" class="pickedUni">未選択</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Students -->
+    <section class="section" id="students">
+      <h2 class="secTitle">現役生一覧 <span id="hitCount" class="hitCount"></span></h2>
+
+      <div id="noResults" class="card emptyCard" style="display:none;">
+        <h3 class="emptyTitle">現在、該当する現役生が見つかりませんでした。</h3>
+        <p class="muted emptyText">
+          条件を変えて再検索してください。<br />
+          現役生として参加したい方は <a href="#recruit" class="inlineLink">現役生募集中</a> をご確認ください。
+        </p>
+      </div>
+
+      <div id="studentList" class="studentList" aria-label="現役生一覧"></div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <h2 class="secTitle">よくある質問（FAQ）</h2>
+
+      <div class="faqCard">
+        <details>
+          <summary>留学エージェントと何が違うんですか？</summary>
+          <p>
+            本サービスは、現地在住の現役学生が「経験ベースの情報」を共有する相談サービスです。手続き代行や合否の保証は行いません。
+          </p>
+        </details>
+
+        <details>
+          <summary>どんな相談ができますか？</summary>
+          <p>
+            生活費・住まい・大学の雰囲気・授業や試験の実際・治安・出願の進め方（体験談）などが多いです。
+          </p>
+        </details>
+
+        <details>
+          <summary>支払い方法は？</summary>
+          <p>
+            予約ページ側の案内に従ってください。
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Recruit -->
+    <section class="section" id="recruit">
+      <h2 class="secTitle">現役生募集中</h2>
+
+      <div class="card simpleCard">
+        <p class="recruitLead">
+          現役生を積極的に募集しております。<br />
+          「大学の情報を必要としている人に、経験ベースでリアルを共有したい」方は、ぜひご参加ください。
+        </p>
+
+        <div class="ctaRow">
+          <button class="btn primary" id="openRecruitForm" type="button">申し込みフォームへ</button>
+        </div>
+
+        <details class="recruitAccordion" id="recruitAccordion">
+          <summary class="srOnly">申し込みフォーム</summary>
+
+          <form id="recruitForm" class="recruitForm" autocomplete="on">
+            <div class="formGrid">
+              <div class="field">
+                <label for="rf_name">名前（表示名）※ニックネーム可</label>
+                <input id="rf_name" name="name" type="text" required />
+              </div>
+
+              <div class="field">
+                <label for="rf_uni">大学名</label>
+                <input id="rf_uni" name="university" type="text" required />
+              </div>
+
+              <div class="field">
+                <label for="rf_year">学年・課程</label>
+                <input id="rf_year" name="year" type="text" required />
+              </div>
+
+              <div class="field">
+                <label for="rf_email">メールアドレス（折り返し連絡用）</label>
+                <input id="rf_email" name="email" type="email" required />
+              </div>
+
+              <div class="field full">
+                <label for="rf_note">自由記述（任意）</label>
+                <textarea
+                  id="rf_note"
+                  name="note"
+                  rows="5"
+                  placeholder="質問・補足があればご自由にお書きください"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="formHelp">
+              ※ まずは簡単な情報だけで大丈夫です。<br />
+              内容を確認後、こちらから詳しくご連絡いたします。
+            </div>
+
+            <div class="ctaRow">
+              <button class="btn primary" type="submit">送信（メール下書きを作成）</button>
+            </div>
+          </form>
+        </details>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact">
+      <h2 class="secTitle">お問い合わせ</h2>
+
+      <div class="card simpleCard">
+        <p class="muted">お問い合わせはメールで受け付けています。</p>
+
+        <div class="contactOnly">
+          <a class="contactMail" id="contactEmailLink" href="#">
+            <span class="mailIcon" aria-hidden="true">✉️</span>
+            <span class="mailText" id="contactEmailText">contact@example.com</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SNS -->
+    <section class="section" id="sns">
+      <h2 class="secTitle">SNS・外部リンク</h2>
+
+      <div class="card simpleCard">
+        <p class="muted">各アイコンをタップすると移動します。</p>
+
+        <div class="snsGrid" id="snsGrid" aria-label="SNSリンク"></div>
+      </div>
+    </section>
+
+    <!-- Philosophy -->
+    <section class="section" id="philosophy">
+      <div class="card simpleCard philosophyCard">
+        <h2 class="secTitle philosophyTitle">理念</h2>
+        <p class="philoHead">留学を、一部の人の特別なものにしない。</p>
+        <p class="philoSub">現役学生の声から、留学を考える。</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      ハンガリー現役大学生に直接聞けるオンライン留学相談
+    </footer>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+[
+  {
+    "enabled": true,
+    "featured": true,
+    "name": "カネコ（運営）",
+    "avatar": "https://placehold.co/240x240/png?text=Kaneko",
+    "bookingUrl": "https://calendly.com/",
+    "university": "Eötvös Loránd University (ELTE)",
+    "region": "ブダペスト",
+    "course": "社会系",
+    "major": "International Relations",
+    "year": "学士3年",
+    "language": "英語 / 日本語",
+    "meeting": "Zoom（40分）",
+    "bio": "日本で会社員→ハンガリー進学。出願、生活、奨学金のリアルを共有します。",
+    "tags": ["出願", "生活費", "奨学金", "ブダペスト"],
+    "stipendium": { "has": true, "name": "Stipendium Hungaricum" },
+    "links": [
+      { "label": "note", "url": "#" },
+      { "label": "YouTubeインタビュー", "url": "#" }
+    ]
+  },
+  {
+    "enabled": false,
+    "featured": false,
+    "name": "サンプル（準備中）",
+    "avatar": "https://placehold.co/240x240/png?text=Student",
+    "bookingUrl": "#",
+    "university": "University of Szeged",
+    "region": "セゲド",
+    "course": "医学部",
+    "major": "Medicine",
+    "year": "学士1年",
+    "language": "英語 / 日本語",
+    "meeting": "Zoom（40分）",
+    "bio": "現在準備中です。",
+    "tags": ["医学部", "セゲド"],
+    "stipendium": { "has": false, "name": "" },
+    "links": [
+      { "label": "note", "url": "#" },
+      { "label": "YouTubeインタビュー", "url": "#" }
+    ]
+  },
+  {
+    "enabled": false,
+    "featured": false,
+    "name": "サンプル2（準備中）",
+    "avatar": "https://placehold.co/240x240/png?text=Student",
+    "bookingUrl": "#",
+    "university": "University of Debrecen",
+    "region": "デブレツェン",
+    "course": "理系",
+    "major": "Computer Science",
+    "year": "学士2年",
+    "language": "英語 / 日本語",
+    "meeting": "Zoom（40分）",
+    "bio": "現在準備中です。",
+    "tags": ["理系", "デブレツェン"],
+    "stipendium": { "has": false, "name": "" },
+    "links": [
+      { "label": "note", "url": "#" },
+      { "label": "YouTubeインタビュー", "url": "#" }
+    ]
+  }
+]
