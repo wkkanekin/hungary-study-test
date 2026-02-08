@@ -31,12 +31,12 @@
       {
         "label": "YouTubeインタビュー",
         "url": "https://youtube.com/xxxx",
-        "enabled": true
+        "enabled": false
       },
       {
         "label": "note",
         "url": "https://note.com/xxxx",
-        "enabled": true
+        "enabled": false
       }
     ],
     "avatar": "https://placehold.co/520x520/png?text=Kaneko",
@@ -83,49 +83,6 @@
       }
     ],
     "avatar": "https://placehold.co/520x520/png?text=Airi",
-    "bookingUrl": "#"
-  },
-  {
-    "id": "kenta",
-    "enabled": false,
-    "featured": false,
-    "name": "ケンタ（20代）",
-    "region": "セゲド",
-    "course": "医学部",
-    "university": "University of Szeged",
-    "major": "Medicine（学士/MD）",
-    "year": "学士4年",
-    "language": "CEFR B2（英語）",
-    "meeting": "Zoomのみ",
-    "stipendium": {
-      "has": false,
-      "name": ""
-    },
-    "bio": "医学部の勉強量や試験の厳しさ、日々の学習ルーティン、生活費の実態など、継続してやり切る視点でリアルを共有できます。",
-    "tags": [
-      "#医学部",
-      "#セゲド",
-      "#試験対策",
-      "#生活費"
-    ],
-    "links": [
-      {
-        "label": "大学公式サイト",
-        "url": "https://u-szeged.hu/english",
-        "enabled": true
-      },
-      {
-        "label": "YouTubeインタビュー",
-        "url": "https://youtube.com/xxxx",
-        "enabled": false
-      },
-      {
-        "label": "note",
-        "url": "https://note.com/xxxx",
-        "enabled": false
-      }
-    ],
-    "avatar": "https://placehold.co/520x520/png?text=Kenta",
     "bookingUrl": "#"
   }
 ]
