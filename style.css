@@ -124,7 +124,6 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   display: flex;
   align-items: center;
   gap: 14px;
-  position: relative;
 }
 .topBrand{
   display: inline-flex;
@@ -154,7 +153,6 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   -webkit-overflow-scrolling: touch;
   flex: 1 1 auto;
   padding-bottom: 2px;
-  position: relative;
 }
 .topNav a{
   text-decoration: none;
@@ -167,26 +165,6 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   white-space: nowrap;
 }
 .topNav a:hover{ background: #f3f6ff; }
-
-/* ✅ スマホで「横スクロールできる」ことが分かるヒント（左右フェード） */
-.topNav::before,
-.topNav::after{
-  content:"";
-  position: sticky;
-  top: 0;
-  width: 18px;
-  height: 100%;
-  pointer-events: none;
-  z-index: 2;
-}
-.topNav::before{
-  left: 0;
-  background: linear-gradient(90deg, rgba(244,246,251,1), rgba(244,246,251,0));
-}
-.topNav::after{
-  right: 0;
-  background: linear-gradient(270deg, rgba(244,246,251,1), rgba(244,246,251,0));
-}
 
 /* Header / Hero */
 .heroHeader{
@@ -597,14 +575,6 @@ textarea{resize:vertical; min-height:120px}
   text-decoration:none;
 }
 .linkPill:hover{transform: translateY(-1px)}
-.linkPill.disabled{
-  opacity:.72;
-  cursor:not-allowed;
-  transform:none !important;
-  background:#f3f4f6;
-  border-color: rgba(229,231,235,.9);
-  color:#374151;
-}
 .badgeMini{
   display:inline-flex;
   align-items:center;
@@ -730,35 +700,9 @@ details p{
   border-radius:12px;
   background:#f3f6ff;
   border:1px solid rgba(29,78,216,.18);
-  color:#0f2a5a;
-}
-.snsIcon svg{
-  width:18px;
-  height:18px;
-  display:block;
-  fill: currentColor;
+  font-size:18px;
 }
 .snsLabel{font-weight:950; color:#0f2a5a; font-size:12px}
-
-/* Philosophy */
-.philosophyCard{
-  text-align:center;
-}
-.philosophyTitle{
-  margin-bottom:10px;
-}
-.philoHead{
-  margin:0;
-  font-weight:950;
-  color:#0f2a5a;
-  line-height:1.7;
-}
-.philoSub{
-  margin:6px 0 0;
-  font-weight:900;
-  color:#475569;
-  line-height:1.7;
-}
 
 /* Footer */
 .footer{
@@ -766,11 +710,6 @@ details p{
   text-align:center;
   color:#6b7280;
   font-weight:900;
-}
-
-/* ✅ PCでは横に広げる（タブレット以下は現状維持） */
-@media (min-width: 1200px){
-  :root{ --max: 1240px; }
 }
 
 /* Responsive */
