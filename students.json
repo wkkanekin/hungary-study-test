@@ -1,65 +1,131 @@
 [
   {
+    "id": "kaneko",
     "enabled": true,
     "featured": true,
-    "name": "カネコ（運営）",
-    "avatar": "https://placehold.co/240x240/png?text=Kaneko",
-    "bookingUrl": "https://calendly.com/",
-    "university": "Eötvös Loránd University (ELTE)",
+    "name": "カネコ（30代）",
+    "region": "ブダペスト",
+    "course": "経営",
+    "university": "Budapest University of Economics and Business",
+    "major": "Tourism Management（修士）",
+    "year": "修士1年",
+    "language": "CEFR C1（英語）",
+    "meeting": "Zoomのみ",
+    "stipendium": {
+      "has": true,
+      "name": "スティペンディウム・ハンガリカム"
+    },
+    "bio": "日本で大学を卒業後、外資系製薬会社に勤務。その後、社会人留学としてハンガリー大学院へ進学。準備期間・費用感・現地生活・学業との両立など、実体験ベースでお話しできます。",
+    "tags": [
+      "#社会人留学",
+      "#英語学習",
+      "#キャリアチェンジ",
+      "#ブダペスト生活"
+    ],
+    "links": [
+      {
+        "label": "大学公式サイト",
+        "url": "https://www.bge.hu/",
+        "ready": true
+      },
+      {
+        "label": "YouTube",
+        "url": "https://youtube.com/xxxx",
+        "ready": false
+      },
+      {
+        "label": "note",
+        "url": "https://note.com/xxxx",
+        "ready": false
+      }
+    ],
+    "avatar": "https://placehold.co/520x520/png?text=Kaneko",
+    "bookingUrl": "https://calendly.com/..."
+  },
+  {
+    "id": "airi",
+    "enabled": false,
+    "featured": false,
+    "name": "アイリ（20代）",
     "region": "ブダペスト",
     "course": "社会系",
-    "major": "International Relations",
+    "university": "Eötvös Loránd University",
+    "major": "Psychology（学士）",
     "year": "学士3年",
-    "language": "英語 / 日本語",
-    "meeting": "Zoom（40分）",
-    "bio": "日本で会社員→ハンガリー進学。出願、生活、奨学金のリアルを共有します。",
-    "tags": ["出願", "生活費", "奨学金", "ブダペスト"],
-    "stipendium": { "has": true, "name": "Stipendium Hungaricum" },
+    "language": "CEFR C1（英語）",
+    "meeting": "Zoomのみ",
+    "stipendium": {
+      "has": false,
+      "name": ""
+    },
+    "bio": "高校卒業後すぐに単身でハンガリーへ。情報や人脈がない中で苦労した経験から、これから挑戦する人が孤立しないための情報共有を大切にしています。",
+    "tags": [
+      "#単身留学",
+      "#ELTE",
+      "#現地生活",
+      "#メンタル"
+    ],
     "links": [
-      { "label": "note", "url": "#", "ready": false },
-      { "label": "YouTubeインタビュー", "url": "#", "ready": false }
-    ]
+      {
+        "label": "大学公式サイト",
+        "url": "https://www.elte.hu/en/",
+        "ready": true
+      },
+      {
+        "label": "YouTube",
+        "url": "https://youtube.com/xxxx",
+        "ready": false
+      },
+      {
+        "label": "note",
+        "url": "https://note.com/xxxx",
+        "ready": false
+      }
+    ],
+    "avatar": "https://placehold.co/520x520/png?text=Airi",
+    "bookingUrl": "#"
   },
   {
+    "id": "kenta",
     "enabled": false,
     "featured": false,
-    "name": "サンプル（準備中）",
-    "avatar": "https://placehold.co/240x240/png?text=Student",
-    "bookingUrl": "#",
-    "university": "University of Szeged",
+    "name": "ケンタ（20代）",
     "region": "セゲド",
     "course": "医学部",
-    "major": "Medicine",
-    "year": "学士1年",
-    "language": "英語 / 日本語",
-    "meeting": "Zoom（40分）",
-    "bio": "現在準備中です。",
-    "tags": ["医学部", "セゲド"],
-    "stipendium": { "has": false, "name": "" },
+    "university": "University of Szeged",
+    "major": "Medicine（学士/MD）",
+    "year": "学士4年",
+    "language": "CEFR B2（英語）",
+    "meeting": "Zoomのみ",
+    "stipendium": {
+      "has": false,
+      "name": ""
+    },
+    "bio": "医学部の勉強量や試験の厳しさ、日々の学習ルーティン、生活費の実態など、継続してやり切る視点でリアルを共有できます。",
+    "tags": [
+      "#医学部",
+      "#セゲド",
+      "#試験対策",
+      "#生活費"
+    ],
     "links": [
-      { "label": "note", "url": "#", "ready": false },
-      { "label": "YouTubeインタビュー", "url": "#", "ready": false }
-    ]
-  },
-  {
-    "enabled": false,
-    "featured": false,
-    "name": "サンプル2（準備中）",
-    "avatar": "https://placehold.co/240x240/png?text=Student",
-    "bookingUrl": "#",
-    "university": "University of Debrecen",
-    "region": "デブレツェン",
-    "course": "理系",
-    "major": "Computer Science",
-    "year": "学士2年",
-    "language": "英語 / 日本語",
-    "meeting": "Zoom（40分）",
-    "bio": "現在準備中です。",
-    "tags": ["理系", "デブレツェン"],
-    "stipendium": { "has": false, "name": "" },
-    "links": [
-      { "label": "note", "url": "#", "ready": false },
-      { "label": "YouTubeインタビュー", "url": "#", "ready": false }
-    ]
+      {
+        "label": "大学公式サイト",
+        "url": "https://u-szeged.hu/english",
+        "ready": true
+      },
+      {
+        "label": "YouTube",
+        "url": "https://youtube.com/xxxx",
+        "ready": false
+      },
+      {
+        "label": "note",
+        "url": "https://note.com/xxxx",
+        "ready": false
+      }
+    ],
+    "avatar": "https://placehold.co/520x520/png?text=Kenta",
+    "bookingUrl": "#"
   }
 ]
