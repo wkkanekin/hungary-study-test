@@ -172,6 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const tagsHtml = (stu.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("");
 
+      // ✅ note / YouTube などを ready:false で「準備中」表示にできる
       const linksHtml = (stu.links || [])
         .filter((l) => l && l.label)
         .map((l) => {
@@ -360,13 +361,43 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ----------------------------
+  // JSON loading helpers
+  // ----------------------------
+  async function fetchText(url) {
+    const u = new URL(url, location.href).toString();
+    const res = await fetch(u, { cache: "no-store" });
+    if (!res.ok) {
+      const t = await res.text().catch(() => "");
+      throw new Error(`${url} fetch失敗: ${res.status} ${res.statusText} / body=${t.slice(0, 120)}`);
+    }
+    return await res.text();
+  }
+
+  function stripBOM(s) {
+    // UTF-8 BOM(\\uFEFF) を除去
+    if (!s) return s;
+    return s.charCodeAt(0) === 0xfeff ? s.slice(1) : s;
+  }
+
+  function safeJsonParse(text, filenameForMsg) {
+    const raw = stripBOM(String(text ?? ""));
+    try {
+      return JSON.parse(raw);
+    } catch (e) {
+      const head = raw.slice(0, 180).replaceAll("\n", "\\n");
+      throw new Error(`${filenameForMsg} JSONパース失敗: ${e?.message || e} / 先頭=${head}`);
+    }
+  }
+
+  // ----------------------------
   // Load JSON
   // ----------------------------
   async function loadStudents() {
-    const res = await fetch("students.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("students.json が読み込めません: " + res.status);
-    const data = await res.json();
-    if (!Array.isArray(data)) throw new Error("students.json の形式が不正です（配列にしてください）");
+    const txt = await fetchText("students.json");
+    const data = safeJsonParse(txt, "students.json");
+    if (!Array.isArray(data)) {
+      throw new Error(`students.json の形式が不正です（配列にしてください）。type=${typeof data}`);
+    }
 
     students = data;
     suggestPool = buildSuggestPool(students);
@@ -376,7 +407,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setHitLabel(`おすすめ：${featured.length}名`);
   }
 
-  // ✅ images.json が無くても全体が止まらないようにする
   async function tryLoadImagesAny() {
     const candidates = [
       "images.json",
@@ -387,12 +417,10 @@ document.addEventListener("DOMContentLoaded", () => {
       "Imiges.json",
       "imiges.JSON",
     ];
-
     for (const filename of candidates) {
       try {
-        const res = await fetch(filename, { cache: "no-store" });
-        if (!res.ok) continue;
-        const cfg = await res.json();
+        const txt = await fetchText(filename);
+        const cfg = safeJsonParse(txt, filename);
         return cfg;
       } catch (e) {
         // 次候補へ
@@ -410,7 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    imagesCfg = cfg;
+    imagesCfg = cfg || null;
 
     const snsIcons = cfg?.snsIcons && typeof cfg.snsIcons === "object" ? cfg.snsIcons : {};
     snsIconStore = snsIcons || {};
@@ -466,9 +494,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function loadConfig() {
-    const res = await fetch("config.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("config.json が読み込めません: " + res.status);
-    const cfg = await res.json();
+    const txt = await fetchText("config.json");
+    const cfg = safeJsonParse(txt, "config.json");
 
     if (contactEmailLink && contactEmailText) {
       const email = String(cfg.email || "").trim();
@@ -499,14 +526,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // ✅ SNSアイコン：images.json の svg/url を優先 → なければフォールバック
   function iconForLabel(label) {
     const rawLabel = String(label || "").trim();
     const keyExact = rawLabel;
     const keyLower = norm(rawLabel);
 
+    // 1) images.json の完全一致キー
     const iconExact = snsIconStore?.[keyExact];
     if (iconExact) return iconFromStore(iconExact);
 
+    // 2) images.json の大小無視マッチ（YouTube / youtube など）
     if (snsIconStore && typeof snsIconStore === "object") {
       for (const k of Object.keys(snsIconStore)) {
         if (norm(k) === keyLower) {
@@ -515,7 +545,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // fallback
+    // 3) フォールバック（軽量SVG）
     const l = keyLower;
 
     if (l.includes("youtube")) {
@@ -782,12 +812,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function initMap() {
-    if (!mapEl) {
-      console.warn("huMap 要素が見つかりません");
-      return;
-    }
+    if (!mapEl) return;
     if (!window.L) {
-      console.error("Leaflet(L) が読み込めていません。index.html の Leaflet script を確認してください。");
       if (mapStatusEl) mapStatusEl.textContent = "地図ライブラリの読み込みに失敗";
       return;
     }
@@ -839,32 +865,39 @@ document.addEventListener("DOMContentLoaded", () => {
   // Boot
   // ----------------------------
   (async () => {
-    // ✅ ここが重要：images が死んでも students/map は動かす
+    // images は任意
     try {
       await loadImagesOptional();
     } catch (e) {
       console.warn("images.json 読み込みでエラー（無視して続行）:", e);
     }
 
+    // students（ここが今落ちてる）
     try {
       await loadStudents();
     } catch (e) {
       console.error(e);
+
+      const msg = (e && e.message) ? e.message : String(e);
+
       if (studentListEl) {
         studentListEl.innerHTML = `<div class="card" style="padding:16px">
           <div style="font-weight:950;color:#0f2a5a">現役生一覧の読み込みに失敗しました</div>
-          <div class="muted" style="font-weight:850; margin-top:6px">students.json の配置・ファイル名を確認してください。</div>
+          <div class="muted" style="font-weight:850; margin-top:6px">原因：</div>
+          <div style="margin-top:6px;white-space:pre-wrap;font-weight:850;color:#374151">${esc(msg)}</div>
         </div>`;
       }
+      setHitLabel("");
     }
 
+    // config（多少落ちても致命傷じゃない）
     try {
       await loadConfig();
     } catch (e) {
       console.error(e);
     }
 
-    // ✅ 地図は必ず起動を試みる
+    // map
     try {
       initMap();
     } catch (e) {
