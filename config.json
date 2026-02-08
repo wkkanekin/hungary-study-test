@@ -1,26 +1,30 @@
 {
-  "formUrl": "https://forms.gle/xxxxxxxxxx",
-  "email": "contact@example.com",
+  "email": "hungary.study@example.com",
   "socials": [
     {
       "label": "YouTube",
-      "url": "https://www.youtube.com/@example"
+      "url": "https://www.youtube.com/",
+      "enabled": false
     },
     {
       "label": "Instagram",
-      "url": "https://www.instagram.com/example"
+      "url": "https://www.instagram.com/",
+      "enabled": false
     },
     {
       "label": "Facebook",
-      "url": "https://www.facebook.com/example"
+      "url": "https://www.facebook.com/",
+      "enabled": false
     },
     {
       "label": "X",
-      "url": "https://x.com/example"
+      "url": "https://x.com/",
+      "enabled": false
     },
     {
       "label": "note",
-      "url": "https://note.com/example"
+      "url": "https://note.com/",
+      "enabled": false
     }
   ]
 }
