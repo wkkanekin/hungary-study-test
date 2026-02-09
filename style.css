@@ -725,36 +725,22 @@ details p{
 
 /* Philosophy */
 .philosophyCard{
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 28px 22px;
-  text-align: center;
-  max-width: 980px;
-  margin: 0 auto;
+  text-align:center;
 }
-
-.philosophyCard .secTitle{
-  margin-top: 0;
+.philosophyTitle{
+  margin-bottom:10px;
 }
-
-/* HTML側で使っているクラスに合わせる */
-.philosophyText{
-  margin: 14px 0 0 0;
-  line-height: 1.9;
-  color: #0f2a5a;
-  font-weight: 900;
+.philoHead{
+  margin:0;
+  font-weight:950;
+  color:#0f2a5a;
+  line-height:1.7;
 }
-
-@media (max-width: 560px){
-  .philosophyCard{
-    padding: 22px 16px;
-    border-radius: 18px;
-  }
-  .philosophyText{
-    line-height: 1.85;
-  }
+.philoSub{
+  margin:6px 0 0;
+  font-weight:900;
+  color:#475569;
+  line-height:1.7;
 }
 
 /* Footer */

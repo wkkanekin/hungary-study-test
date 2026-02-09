@@ -5,11 +5,11 @@
   "socials": [
     {
       "label": "YouTube",
-      "url": "youtube.com/@hungarystudy_jp"
+      "url": "https://www.youtube.com/@hungarystudy_jp"
     },
     {
       "label": "Instagram",
-      "url": "https://www.instagram.com/example"
+      "url": "https://www.instagram.com/hungarystudy_jp"
     },
     {
       "label": "Facebook",
@@ -18,10 +18,6 @@
     {
       "label": "X",
       "url": "https://x.com/HungaryStudy_JP"
-    },
-    {
-      "label": "note",
-      "url": "https://note.com/example"
     }
   ]
 }
