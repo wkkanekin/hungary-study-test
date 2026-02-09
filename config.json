@@ -1,11 +1,11 @@
 {
   "country": "hungary",
   "formUrl": "https://forms.gle/xxxxxxxxxx",
-  "email": "contact@example.com",
+  "email": "info@hungarystudy.org",
   "socials": [
     {
       "label": "YouTube",
-      "url": "https://www.youtube.com/@example"
+      "url": "youtube.com/@hungarystudy_jp"
     },
     {
       "label": "Instagram",
@@ -13,11 +13,11 @@
     },
     {
       "label": "Facebook",
-      "url": "https://www.facebook.com/example"
+      "url": "https://www.facebook.com/hungarystudy_jp"
     },
     {
       "label": "X",
-      "url": "https://x.com/example"
+      "url": "https://x.com/HungaryStudy_JP"
     },
     {
       "label": "note",
