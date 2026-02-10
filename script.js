@@ -1,28 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   // ----------------------------
-  // Recruit: 「申し込みフォームへ」ボタンでアコーディオンを開閉（2重情報を避ける）
-  // ----------------------------
-  const openRecruitFormBtn = document.getElementById("openRecruitForm");
-  const recruitAccordionEl = document.getElementById("recruitAccordion");
-
-  if (openRecruitFormBtn && recruitAccordionEl) {
-    openRecruitFormBtn.setAttribute("aria-expanded", String(!!recruitAccordionEl.open));
-
-    openRecruitFormBtn.addEventListener("click", () => {
-      const willOpen = !recruitAccordionEl.open;
-      recruitAccordionEl.open = willOpen;
-
-      openRecruitFormBtn.textContent = willOpen ? "フォームを閉じる" : "申し込みフォームへ";
-      openRecruitFormBtn.setAttribute("aria-expanded", String(willOpen));
-
-      if (willOpen) {
-        recruitAccordionEl.scrollIntoView({ behavior: "smooth", block: "start" });
-        document.getElementById("rf_name")?.focus();
-      }
-    });
-  }
-
-  // ----------------------------
   // Elements
   // ----------------------------
   const keywordInput = document.getElementById("keyword");
@@ -37,20 +14,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const noResultsEl = document.getElementById("noResults");
   const hitCountEl = document.getElementById("hitCount");
 
-  // Contact
-  const contactEmailLink = document.getElementById("contactEmailLink");
-  const contactEmailText = document.getElementById("contactEmailText");
-
   // SNS
   const snsGridEl = document.getElementById("snsGrid");
 
-  // Recruit form
-  const recruitForm = document.getElementById("recruitForm");
-  const rfName = document.getElementById("rf_name");
-  const rfUni = document.getElementById("rf_uni");
-  const rfYear = document.getElementById("rf_year");
-  const rfEmail = document.getElementById("rf_email");
-  const rfNote = document.getElementById("rf_note");
+  // Contact (統合フォーム)
+  const contactForm = document.getElementById("contactForm");
+  const cfName = document.getElementById("cf_name");
+  const cfEmail = document.getElementById("cf_email");
+  const cfUniWrap = document.getElementById("cf_uni_wrap");
+  const cfYearWrap = document.getElementById("cf_year_wrap");
+  const cfUni = document.getElementById("cf_uni");
+  const cfYear = document.getElementById("cf_year");
+  const cfMessage = document.getElementById("cf_message");
+  const contactNoteEl = document.getElementById("contactNote");
 
   // Map
   const mapEl = document.getElementById("huMap");
@@ -77,6 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let imagesCfg = null;
   let snsIconStore = {}; // label -> {type, svg, url}
+
+  // config
+  let contactToEmail = ""; // config.json の email
 
   // ----------------------------
   // Helpers
@@ -497,12 +476,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const txt = await fetchText("config.json");
     const cfg = safeJsonParse(txt, "config.json");
 
-    if (contactEmailLink && contactEmailText) {
-      const email = String(cfg.email || "").trim();
-      contactEmailLink.href = email ? `mailto:${encodeURIComponent(email)}` : "#";
-      contactEmailText.textContent = email || "設定中";
+    // email（contact用 mailto 宛先）
+    contactToEmail = String(cfg.email || "").trim();
+    if (contactForm) {
+      contactForm.dataset.mailto = contactToEmail;
     }
 
+    // SNS
     if (snsGridEl) {
       snsGridEl.innerHTML = "";
       const socials = Array.isArray(cfg.socials) ? cfg.socials : [];
@@ -519,10 +499,6 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
         snsGridEl.appendChild(a);
       });
-    }
-
-    if (recruitForm) {
-      recruitForm.dataset.mailto = String(cfg.email || "").trim();
     }
   }
 
@@ -583,7 +559,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
 
-    // ✅ TikTok 追加（images.json が無い場合のフォールバック）
+    // TikTok
     if (l.includes("tiktok") || l.includes("tik tok")) {
       return `
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -639,48 +615,260 @@ document.addEventListener("DOMContentLoaded", () => {
   if (showAllStudentsBtn) showAllStudentsBtn.addEventListener("click", showAllStudents);
 
   // ----------------------------
-  // Recruit mailto submit
+  // Contact Form (統合フォーム)
   // ----------------------------
-  function buildRecruitMailto() {
-    const to = (recruitForm?.dataset?.mailto || "").trim();
+  function getInquiryType() {
+    if (!contactForm) return "pre";
+    const el = contactForm.querySelector('input[name="inquiryType"]:checked');
+    return String(el?.value || "pre");
+  }
 
-    const name = rfName?.value?.trim() || "";
-    const uni = rfUni?.value?.trim() || "";
-    const year = rfYear?.value?.trim() || "";
-    const email = rfEmail?.value?.trim() || "";
-    const note = rfNote?.value?.trim() || "";
+  // ✅ ここが「ラジオごとの本文テンプレ」
+  function templateForType(type) {
+    if (type === "pre") {
+      return [
+        "【相談前の質問】",
+        "",
+        "現在のご職業：",
+        "",
+        "志望大学/専攻（候補でもOK）：",
+        "",
+        "検討状況（情報収集中/出願準備中/出願済/合格後）：",
+        "",
+        "入学希望時期（例：2026年9月）：",
+        "",
+        "見た現役生（候補があれば）：",
+        "",
+        "聞きたいこと（箇条書き・最大3つ）：",
+        "・",
+        "・",
+        "・",
+      ].join("\n");
+    }
 
-    const subject = `【現役生 申し込み】${name || "（名前未入力）"}`;
+    if (type === "post") {
+      return [
+        "【相談後の連絡】",
+        "",
+        "相談した現役生（名前/大学）：",
+        "",
+        "予約日時（例：2/12 20:00 JST）：",
+        "",
+        "連絡内容（箇条書き）：",
+        "・",
+        "・",
+        "",
+        "（日時変更が必要な場合）希望候補：",
+        "・",
+        "・",
+      ].join("\n");
+    }
+
+    if (type === "student") {
+      return [
+        "【現役生登録】",
+        "",
+        "大学/専攻（プログラム名）：",
+        "",
+        "学年・課程：",
+        "",
+        "滞在都市：",
+        "",
+        "奨学金（スティペンディウム等）の有無：",
+        "",
+        "話せるテーマ（箇条書き）：",
+        "・出願（英語要件/書類/面接）",
+        "・生活費/家探し/治安",
+        "・授業/試験/学生生活",
+        "・",
+        "",
+        "対応可能な曜日・時間帯（日本時間JST）：",
+        "・",
+        "・",
+        "",
+        "一言プロフィール（任意・3行程度）：",
+      ].join("\n");
+    }
+
+    if (type === "partner") {
+      return [
+        "【提携・取材・運営】",
+        "",
+        "所属/媒体（URL）：",
+        "",
+        "担当者名：",
+        "",
+        "目的（取材/提携/運営参加など）：",
+        "",
+        "希望内容（できるだけ具体的に）：",
+        "",
+        "希望時期/締切：",
+        "",
+        "連絡先（メール/その他）：",
+      ].join("\n");
+    }
+
+    return "";
+  }
+
+  function noteForType(type) {
+    // ユーザー要望：下側に「予約は…」の重複表示は不要
+    // → ここは種別ごとの短い補助だけ出す
+    if (type === "pre") return "※ 質問は「最大3つ」までに絞ると、回答が早くなります。";
+    if (type === "post") return "※ 予約日時と相談した現役生が分かると、確認がスムーズです。";
+    if (type === "student") return "※ 現役生登録は、大学名・学年/課程の入力が必須です。";
+    if (type === "partner") return "※ 目的・希望内容・締切を具体的にご記載ください。";
+    return "";
+  }
+
+  function subjectForType(type, name) {
+    const n = name || "（名前未入力）";
+    if (type === "pre") return `【相談前の質問】${n}`;
+    if (type === "post") return `【相談後の連絡】${n}`;
+    if (type === "student") return `【現役生登録】${n}`;
+    if (type === "partner") return `【提携/取材/運営】${n}`;
+    return `【お問い合わせ】${n}`;
+  }
+
+  function setStudentFieldsVisible(isStudent) {
+    if (cfUniWrap) cfUniWrap.classList.toggle("isHidden", !isStudent);
+    if (cfYearWrap) cfYearWrap.classList.toggle("isHidden", !isStudent);
+
+    if (cfUni) cfUni.required = !!isStudent;
+    if (cfYear) cfYear.required = !!isStudent;
+
+    // 非現役生に切り替えたときは値を残してもいいが、誤送信を減らすならクリア
+    if (!isStudent) {
+      if (cfUni) cfUni.value = "";
+      if (cfYear) cfYear.value = "";
+    }
+  }
+
+  function applyContactUiByType(type, forceTemplate = false) {
+    const isStudent = type === "student";
+    setStudentFieldsVisible(isStudent);
+
+    // 本文テンプレ切替
+    if (cfMessage) {
+      const tpl = templateForType(type);
+      // 初回 or 空のとき or 強制時だけテンプレを入れる（途中入力を上書きしない）
+      const current = String(cfMessage.value || "").trim();
+      if (forceTemplate || !current) {
+        cfMessage.value = tpl;
+      }
+    }
+
+    // 下側の補助（予約注意の重複は出さない）
+    if (contactNoteEl) {
+      contactNoteEl.textContent = noteForType(type);
+    }
+  }
+
+  function buildContactMailto() {
+    const to = (contactForm?.dataset?.mailto || contactToEmail || "").trim();
+
+    const type = getInquiryType();
+    const name = cfName?.value?.trim() || "";
+    const email = cfEmail?.value?.trim() || "";
+    const uni = cfUni?.value?.trim() || "";
+    const year = cfYear?.value?.trim() || "";
+    const message = cfMessage?.value?.trim() || "";
+
+    const subject = subjectForType(type, name);
+
+    const typeLabel =
+      type === "pre"
+        ? "志願者：相談前の質問"
+        : type === "post"
+        ? "志願者：相談後の連絡"
+        : type === "student"
+        ? "現役生：登録したい"
+        : type === "partner"
+        ? "提携・取材・運営"
+        : "お問い合わせ";
+
     const bodyLines = [
-      "現役生の申し込み（LP）",
+      "お問い合わせ（LP）",
       "",
-      `名前（表示名）：${name}`,
-      `大学名：${uni}`,
-      `学年・課程：${year}`,
-      `メールアドレス：${email}`,
+      `用件：${typeLabel}`,
       "",
-      "自由記述（任意）：",
-      note || "（なし）",
+      `お名前：${name}`,
+      `メール：${email}`,
+      ...(type === "student" ? [`大学名：${uni}`, `学年・課程：${year}`] : []),
       "",
-      "※ まずは簡単な情報だけで大丈夫です。内容を確認後、こちらから詳しくご連絡いたします。",
+      "本文：",
+      message || "（本文なし）",
+      "",
+      "※ 予約は各現役生カードの「空き枠を見る」から行ってください（このフォームでは予約できません）。",
     ];
 
     const body = bodyLines.join("\n");
     return `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
-  if (recruitForm) {
-    recruitForm.addEventListener("submit", (e) => {
+  function initContactForm() {
+    if (!contactForm) return;
+
+    // ラジオ変更で切替
+    const radios = Array.from(contactForm.querySelectorAll('input[name="inquiryType"]'));
+    radios.forEach((r) => {
+      r.addEventListener("change", () => {
+        const type = getInquiryType();
+        applyContactUiByType(type, false);
+      });
+    });
+
+    // 初期状態適用（テンプレは初回強制）
+    applyContactUiByType(getInquiryType(), true);
+
+    // submit: mailto 下書き
+    contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
 
-      const email = rfEmail?.value?.trim() || "";
-      if (!email) {
-        alert("メールアドレス（折り返し連絡用）を入力してください。");
-        rfEmail?.focus();
+      const to = (contactForm?.dataset?.mailto || contactToEmail || "").trim();
+      if (!to) {
+        alert("送信先メールアドレス（config.json の email）が未設定です。");
         return;
       }
 
-      window.location.href = buildRecruitMailto();
+      const name = cfName?.value?.trim() || "";
+      const email = cfEmail?.value?.trim() || "";
+
+      if (!name) {
+        alert("お名前（必須）を入力してください。");
+        cfName?.focus();
+        return;
+      }
+      if (!email) {
+        alert("メールアドレス（必須）を入力してください。");
+        cfEmail?.focus();
+        return;
+      }
+
+      const type = getInquiryType();
+      if (type === "student") {
+        const uni = cfUni?.value?.trim() || "";
+        const year = cfYear?.value?.trim() || "";
+        if (!uni) {
+          alert("大学名（現役生は必須）を入力してください。");
+          cfUni?.focus();
+          return;
+        }
+        if (!year) {
+          alert("学年・課程（現役生は必須）を入力してください。");
+          cfYear?.focus();
+          return;
+        }
+      }
+
+      const msg = cfMessage?.value?.trim() || "";
+      if (!msg) {
+        alert("本文（必須）を入力してください。");
+        cfMessage?.focus();
+        return;
+      }
+
+      window.location.href = buildContactMailto();
     });
   }
 
@@ -881,7 +1069,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.warn("images.json 読み込みでエラー（無視して続行）:", e);
     }
 
-    // students（ここが今落ちてる）
+    // students
     try {
       await loadStudents();
     } catch (e) {
@@ -899,9 +1087,16 @@ document.addEventListener("DOMContentLoaded", () => {
       setHitLabel("");
     }
 
-    // config（多少落ちても致命傷じゃない）
+    // config（SNS + contact宛先）
     try {
       await loadConfig();
+    } catch (e) {
+      console.error(e);
+    }
+
+    // contact form init（config後でOK）
+    try {
+      initContactForm();
     } catch (e) {
       console.error(e);
     }

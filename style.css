@@ -128,7 +128,7 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   position: relative;
 }
 
-/* ✅ スマホで横スクロールできるように（はみ出し分はスライドで見れる） */
+/* ✅ スマホで横スクロールできるように */
 .topNav{
   display: flex;
   gap: 10px;
@@ -151,7 +151,7 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 }
 .topNav a:hover{ background: #f3f6ff; }
 
-/* ✅ スマホで「横スクロールできる」ことが分かるヒント（左右フェード） */
+/* ✅ 左右フェード */
 .topNav::before,
 .topNav::after{
   content:"";
@@ -244,7 +244,6 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   border:1px solid rgba(229,231,235,.85);
   box-shadow: 0 12px 26px rgba(17,24,39,.08);
 }
-.infoCard.flat{ box-shadow:none; }
 .infoCard h3{
   margin:0 0 10px;
   font-size:14px;
@@ -277,8 +276,6 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 }
 .badgeLine{margin-bottom:10px;}
 .purposeBox .lead{font-weight:950; color:#0f2a5a; margin:0 0 10px}
-.purposeBox .list{color:#111827; font-weight:850}
-.purposeBox .list .item{margin-top:6px}
 .purposeBox .after{margin:10px 0 0; font-weight:850; color:#374151}
 
 /* Flow */
@@ -646,13 +643,9 @@ details p{
   line-height:1.75;
 }
 
-/* Recruit / Contact / SNS */
+/* Common card body */
 .simpleCard{padding:16px; max-width:860px; margin:0 auto;}
-.recruitLead{margin:0; font-weight:950; color:#0f2a5a; line-height:1.8}
 .ctaRow{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
-.recruitAccordion{margin-top:12px}
-
-.recruitForm{margin-top:12px}
 .formGrid{
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -673,21 +666,48 @@ details p{
   line-height:1.7;
 }
 
-.contactOnly{margin-top:10px}
-.contactMail{
+/* ✅ Contact Form（統合フォーム） */
+.contactForm{margin-top:12px}
+.contactLabel{
+  font-weight:950;
+  color:#0f2a5a;
+  margin:0 0 8px;
+}
+
+/* ラジオ（カード風） */
+.radioGrid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px;
+}
+.radioItem{
   display:flex;
   align-items:center;
   gap:10px;
-  padding:14px;
-  border-radius:18px;
+  padding:12px 12px;
+  border-radius:16px;
   border:1px solid rgba(229,231,235,.9);
   background: rgba(255,255,255,.92);
-  box-shadow: 0 10px 22px rgba(17,24,39,.05);
-  text-decoration:none;
+  box-shadow: 0 10px 22px rgba(17,24,39,.04);
+  cursor:pointer;
+  font-weight:900;
+  color:#0f2a5a;
 }
-.mailIcon{font-size:20px}
-.mailText{font-weight:950; color:#0f2a5a}
+.radioItem input{transform: scale(1.05);}
 
+/* 種別の補助（予約文の重複は出さない） */
+.contactNote{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:14px;
+  background: rgba(243,246,255,.8);
+  border:1px dashed rgba(29,78,216,.22);
+  color:#0f2a5a;
+  font-weight:850;
+  line-height:1.6;
+}
+
+/* SNS */
 .snsGrid{
   margin-top:12px;
   display:grid;
@@ -723,7 +743,7 @@ details p{
 }
 .snsLabel{font-weight:950; color:#0f2a5a; font-size:12px}
 
-/* ✅ Philosophy（理念）：白枠（カード）をCSSで追加 */
+/* ✅ Philosophy（理念）：白枠（カード） */
 .philosophyCard{
   max-width: 860px;
   margin: 0 auto;
@@ -754,7 +774,7 @@ details p{
   font-weight:900;
 }
 
-/* ✅ PCで全体が小さく見える問題に対応（最大幅を広げた） */
+/* ✅ PCで全体が小さく見える問題に対応 */
 @media (min-width: 1200px){
   :root{ --max: 1320px; }
 }
@@ -767,4 +787,5 @@ details p{
   .twoColsRow{grid-template-columns:1fr}
   .formGrid{grid-template-columns:1fr}
   .snsGrid{grid-template-columns: repeat(3, minmax(0, 1fr));}
+  .radioGrid{grid-template-columns:1fr;}
 }
