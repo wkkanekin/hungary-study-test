@@ -712,12 +712,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function noteForType(type) {
-    // ユーザー要望：下側に「予約は…」の重複表示は不要
-    // → ここは種別ごとの短い補助だけ出す
-    if (type === "pre") return "※ 質問は「最大3つ」までに絞ると、回答が早くなります。";
-    if (type === "post") return "※ 予約日時と相談した現役生が分かると、確認がスムーズです。";
+    // 下側に「予約は…」の重複表示は不要（セクション冒頭に1回出している）
+    if (type === "pre") return "※ 質問は最大3つまで、箇条書きにすると回答が早くなります。";
+    if (type === "post") return "※ 予約日時と相談した現役生が分かると、確認がスムーズです（JST推奨）。";
     if (type === "student") return "※ 現役生登録は、大学名・学年/課程の入力が必須です。";
-    if (type === "partner") return "※ 目的・希望内容・締切を具体的にご記載ください。";
+    if (type === "partner") return "※ URLと希望時期/締切まで書くと、判断が早くなります。";
     return "";
   }
 
@@ -748,10 +747,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const isStudent = type === "student";
     setStudentFieldsVisible(isStudent);
 
-    // 本文テンプレ切替
+    // 本文テンプレ切替（途中入力は上書きしない）
     if (cfMessage) {
       const tpl = templateForType(type);
-      // 初回 or 空のとき or 強制時だけテンプレを入れる（途中入力を上書きしない）
       const current = String(cfMessage.value || "").trim();
       if (forceTemplate || !current) {
         cfMessage.value = tpl;
