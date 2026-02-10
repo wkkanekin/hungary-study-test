@@ -374,7 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function stripBOM(s) {
-    // UTF-8 BOM(\\uFEFF) を除去
+    // UTF-8 BOM(\uFEFF) を除去
     if (!s) return s;
     return s.charCodeAt(0) === 0xfeff ? s.slice(1) : s;
   }
@@ -579,6 +579,15 @@ document.addEventListener("DOMContentLoaded", () => {
       return `
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M18.9 2H22l-6.8 7.8L23 22h-6.4l-5-6.6L5.7 22H2l7.4-8.5L1 2h6.6l4.5 5.9L18.9 2z"/>
+        </svg>
+      `;
+    }
+
+    // ✅ TikTok 追加（images.json が無い場合のフォールバック）
+    if (l.includes("tiktok") || l.includes("tik tok")) {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M16.6 2c.4 2.4 1.8 4.2 4.4 4.6v3.3c-1.6.1-3.1-.4-4.4-1.2v7.1c0 4-3.3 6.7-7.1 6.2-2.7-.4-5-2.7-5.4-5.5C3.5 12.9 6.4 10 10 10c.4 0 .8 0 1.2.1v3.6c-.3-.1-.6-.2-1-.2-1.8 0-3.2 1.5-3.2 3.3 0 1.8 1.4 3.3 3.2 3.3 2.1 0 3.3-1.6 3.3-3.7V2h3.1z"/>
         </svg>
       `;
     }

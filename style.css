@@ -723,24 +723,27 @@ details p{
 }
 .snsLabel{font-weight:950; color:#0f2a5a; font-size:12px}
 
-/* Philosophy */
+/* ✅ Philosophy（理念）：白枠（カード）をCSSで追加 */
 .philosophyCard{
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(229,231,235,.9);
+  box-shadow: 0 10px 22px rgba(17,24,39,.05);
   text-align:center;
 }
-.philosophyTitle{
-  margin-bottom:10px;
-}
-.philoHead{
-  margin:0;
-  font-weight:950;
+.philosophyText{
+  margin: 12px 0 0;
   color:#0f2a5a;
-  line-height:1.7;
+  font-weight: 900;
+  line-height: 1.9;
 }
-.philoSub{
-  margin:6px 0 0;
-  font-weight:900;
-  color:#475569;
-  line-height:1.7;
+.philosophyText + .philosophyText{
+  margin-top: 14px;
+  color:#111827;
+  font-weight: 850;
 }
 
 /* Footer */
