@@ -57,6 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // config
   let contactToEmail = ""; // config.json の email
 
+  // ✅ Contact template state（ここが今回の修正点）
+  // 「前回自動で入れたテンプレと一致している場合」は上書きしてOKにする
+  let lastContactType = "";
+  let lastContactTemplate = "";
+
   // ----------------------------
   // Helpers
   // ----------------------------
@@ -151,7 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const tagsHtml = (stu.tags || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("");
 
-      // ✅ note / YouTube などを ready:false で「準備中」表示にできる
       const linksHtml = (stu.links || [])
         .filter((l) => l && l.label)
         .map((l) => {
@@ -353,7 +357,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function stripBOM(s) {
-    // UTF-8 BOM(\uFEFF) を除去
     if (!s) return s;
     return s.charCodeAt(0) === 0xfeff ? s.slice(1) : s;
   }
@@ -401,9 +404,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const txt = await fetchText(filename);
         const cfg = safeJsonParse(txt, filename);
         return cfg;
-      } catch (e) {
-        // 次候補へ
-      }
+      } catch (e) {}
     }
     return null;
   }
@@ -428,13 +429,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function applyImages(cfg) {
     if (!cfg || typeof cfg !== "object") return;
 
-    // Hero bg
     const heroUrl = String(cfg?.hero?.imageUrl || "").trim();
     if (heroUrl) {
       document.documentElement.style.setProperty("--hero-image", `url("${heroUrl}")`);
     }
 
-    // Hero logo
     const logoUrl = String(cfg?.hero?.logoUrl || "").trim();
     const logoAlt = String(cfg?.hero?.logoAlt || "HU").trim();
     if (heroLogoImg) {
@@ -442,7 +441,6 @@ document.addEventListener("DOMContentLoaded", () => {
       heroLogoImg.alt = logoAlt || "HU";
     }
 
-    // Basics cards images
     const cards = Array.isArray(cfg?.basicsCards) ? cfg.basicsCards : [];
     const map = new Map();
     cards.forEach((c) => {
@@ -476,13 +474,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const txt = await fetchText("config.json");
     const cfg = safeJsonParse(txt, "config.json");
 
-    // email（contact用 mailto 宛先）
     contactToEmail = String(cfg.email || "").trim();
     if (contactForm) {
       contactForm.dataset.mailto = contactToEmail;
     }
 
-    // SNS
     if (snsGridEl) {
       snsGridEl.innerHTML = "";
       const socials = Array.isArray(cfg.socials) ? cfg.socials : [];
@@ -502,17 +498,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ✅ SNSアイコン：images.json の svg/url を優先 → なければフォールバック
   function iconForLabel(label) {
     const rawLabel = String(label || "").trim();
     const keyExact = rawLabel;
     const keyLower = norm(rawLabel);
 
-    // 1) images.json の完全一致キー
     const iconExact = snsIconStore?.[keyExact];
     if (iconExact) return iconFromStore(iconExact);
 
-    // 2) images.json の大小無視マッチ（YouTube / youtube など）
     if (snsIconStore && typeof snsIconStore === "object") {
       for (const k of Object.keys(snsIconStore)) {
         if (norm(k) === keyLower) {
@@ -521,7 +514,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // 3) フォールバック（軽量SVG）
     const l = keyLower;
 
     if (l.includes("youtube")) {
@@ -559,7 +551,6 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
 
-    // TikTok
     if (l.includes("tiktok") || l.includes("tik tok")) {
       return `
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -623,13 +614,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return String(el?.value || "pre");
   }
 
-  // ✅ ここが「ラジオごとの本文テンプレ」
   function templateForType(type) {
     if (type === "pre") {
       return [
         "【相談前の質問】",
         "",
-        "現在のご職業(学生/社会人/その他）：",
+        "現在のご職業：",
         "",
         "志望大学/専攻（候補でもOK）：",
         "",
@@ -637,7 +627,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "",
         "入学希望時期（例：2026年9月）：",
         "",
-        "興味のある現役生（候補があれば）：",
+        "見た現役生（候補があれば）：",
         "",
         "聞きたいこと（箇条書き・最大3つ）：",
         "・",
@@ -712,7 +702,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function noteForType(type) {
-    // 下側に「予約は…」の重複表示は不要（セクション冒頭に1回出している）
     if (type === "pre") return "※ 質問は最大3つまで、箇条書きにすると回答が早くなります。";
     if (type === "post") return "※ 予約日時と相談した現役生が分かると、確認がスムーズです（JST推奨）。";
     if (type === "student") return "※ 現役生登録は、大学名・学年/課程の入力が必須です。";
@@ -736,27 +725,42 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cfUni) cfUni.required = !!isStudent;
     if (cfYear) cfYear.required = !!isStudent;
 
-    // 非現役生に切り替えたときは値を残してもいいが、誤送信を減らすならクリア
     if (!isStudent) {
       if (cfUni) cfUni.value = "";
       if (cfYear) cfYear.value = "";
     }
   }
 
+  // ✅ ここが修正点：
+  // 1) 本文が空 → テンプレを入れる
+  // 2) 本文が「前回自動で入れたテンプレと完全一致」→ ユーザーが未編集なので上書きOK
+  // 3) それ以外（ユーザー編集済み）→ 上書きしない
   function applyContactUiByType(type, forceTemplate = false) {
     const isStudent = type === "student";
     setStudentFieldsVisible(isStudent);
 
-    // 本文テンプレ切替（途中入力は上書きしない）
     if (cfMessage) {
       const tpl = templateForType(type);
-      const current = String(cfMessage.value || "").trim();
-      if (forceTemplate || !current) {
+      const current = String(cfMessage.value || "");
+
+      const currentTrim = current.trim();
+      const lastTrim = String(lastContactTemplate || "").trim();
+
+      const canOverwrite =
+        forceTemplate ||
+        !currentTrim ||
+        (lastTrim && currentTrim === lastTrim);
+
+      if (canOverwrite) {
         cfMessage.value = tpl;
       }
+
+      // 「最後に自動で入れたテンプレ」を更新
+      lastContactType = type;
+      lastContactTemplate = tpl;
+      cfMessage.dataset.lastTemplateType = type;
     }
 
-    // 下側の補助（予約注意の重複は出さない）
     if (contactNoteEl) {
       contactNoteEl.textContent = noteForType(type);
     }
@@ -807,7 +811,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function initContactForm() {
     if (!contactForm) return;
 
-    // ラジオ変更で切替
     const radios = Array.from(contactForm.querySelectorAll('input[name="inquiryType"]'));
     radios.forEach((r) => {
       r.addEventListener("change", () => {
@@ -816,10 +819,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // 初期状態適用（テンプレは初回強制）
     applyContactUiByType(getInquiryType(), true);
 
-    // submit: mailto 下書き
     contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
 
@@ -1060,20 +1061,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // Boot
   // ----------------------------
   (async () => {
-    // images は任意
     try {
       await loadImagesOptional();
     } catch (e) {
       console.warn("images.json 読み込みでエラー（無視して続行）:", e);
     }
 
-    // students
     try {
       await loadStudents();
     } catch (e) {
       console.error(e);
 
-      const msg = (e && e.message) ? e.message : String(e);
+      const msg = e && e.message ? e.message : String(e);
 
       if (studentListEl) {
         studentListEl.innerHTML = `<div class="card" style="padding:16px">
@@ -1085,21 +1084,18 @@ document.addEventListener("DOMContentLoaded", () => {
       setHitLabel("");
     }
 
-    // config（SNS + contact宛先）
     try {
       await loadConfig();
     } catch (e) {
       console.error(e);
     }
 
-    // contact form init（config後でOK）
     try {
       initContactForm();
     } catch (e) {
       console.error(e);
     }
 
-    // map
     try {
       initMap();
     } catch (e) {
