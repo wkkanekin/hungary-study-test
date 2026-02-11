@@ -11,8 +11,8 @@
   --radius:18px;
   --max:1040px;
 
-  /* JS(images.json)で上書きされる。読み込み失敗時のフォールバック */
-  --hero-image: url("https://images.unsplash.com/photo-1549877452-9c387954fbc2?auto=format&fit=crop&w=2000&q=60");
+  /* ✅ JS(images.json)で上書きされる。読み込み完了まで「デフォルト画像を出さない」 */
+  --hero-image: none;
 }
 
 *{box-sizing:border-box}
@@ -180,9 +180,13 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 .heroBg{
   position:absolute;
   inset:0;
+
+  /* ✅ 読み込み完了まで無地（デフォルト画像のチラ見えを消す） */
+  background-color: #0b1b3a;
   background-image: var(--hero-image);
   background-size: cover;
   background-position:center;
+
   filter: saturate(1.05);
   transform: scale(1.02);
 }
