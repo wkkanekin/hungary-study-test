@@ -1,23 +1,23 @@
 {
   "hero": {
-    "imageUrl": "https://images.unsplash.com/photo-1549877452-9c387954fbc2?auto=format&fit=crop&w=2000&q=60",
-    "logoUrl": "https://placehold.co/200x200/png?text=HU",
-    "logoAlt": "HU"
+    "imageUrl": "images/hero-image.jpg",
+    "logoUrl": "images/logo.png",
+    "logoAlt": "Hungary Study"
   },
   "basicsCards": [
     {
       "id": "hungary",
-      "imageUrl": "https://placehold.co/1200x700/png?text=Hungary",
+      "imageUrl": "images/hungary.jpg",
       "alt": "ハンガリーについて"
     },
     {
       "id": "university",
-      "imageUrl": "https://placehold.co/1200x700/png?text=University",
+      "imageUrl": "images/university-campus.jpg",
       "alt": "大学の探し方"
     },
     {
       "id": "scholarship",
-      "imageUrl": "https://placehold.co/1200x700/png?text=Scholarship",
+      "imageUrl": "images/scholarship.jpg",
       "alt": "奨学金（スティペンディウム・ハンガリカム）"
     }
   ],
