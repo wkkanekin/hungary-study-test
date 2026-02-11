@@ -99,6 +99,23 @@ th, td{
 }
 tbody tr:last-child td{border-bottom:none}
 
+.noteBox{
+  margin-top:12px;
+  padding:12px 12px;
+  border-radius:14px;
+  border:1px dashed rgba(29,78,216,.22);
+  background: rgba(243,246,255,.85);
+  color:#0f2a5a;
+  font-weight:850;
+  line-height:1.7;
+}
+
+.stepList{
+  margin:0;
+  padding-left:18px;
+  line-height:1.9;
+}
+
 .footer{
   margin-top:28px;
   text-align:center;

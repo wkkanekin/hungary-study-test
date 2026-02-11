@@ -2,5 +2,27 @@
   "hero": {
     "imageUrl": "images/hungary.jpg",
     "alt": "Budapest city"
+  },
+  "images": {
+    "hero": {
+      "url": "images/hungary.jpg",
+      "alt": "ブダペストの街並み"
+    },
+    "safety": {
+      "url": "https://example.com/safety.jpg",
+      "alt": "ブダペストの街の様子"
+    },
+    "costs": {
+      "url": "https://example.com/apartment.jpg",
+      "alt": "ハンガリーの住まい"
+    },
+    "scholarship": {
+      "url": "https://example.com/scholarship.jpg",
+      "alt": "奨学金のイメージ"
+    },
+    "english": {
+      "url": "https://example.com/classroom.jpg",
+      "alt": "大学の授業風景"
+    }
   }
 }

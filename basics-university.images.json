@@ -1,6 +1,20 @@
 {
-  "hero": {
-    "imageUrl": "images/university-campus.jpg",
-    "alt": "University"
+  "images": {
+    "hero": {
+      "url": "images/university-hero.jpg",
+      "alt": "大学キャンパスのイメージ"
+    },
+    "search": {
+      "url": "images/university-search.jpg",
+      "alt": "大学を調べるイメージ"
+    },
+    "requirements": {
+      "url": "images/university-requirements.jpg",
+      "alt": "出願要件の確認イメージ"
+    },
+    "patterns": {
+      "url": "images/university-patterns.jpg",
+      "alt": "専攻別の選考イメージ"
+    }
   }
 }
