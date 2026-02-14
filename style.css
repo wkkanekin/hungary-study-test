@@ -173,22 +173,35 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 
 /* =========================
    Header / Hero
-   ・枠も画像も 16:9 に統一できれば
-     → coverでも切れない＆空白なし
+   ✅ 背景が大きすぎる問題対策：
+   ・aspect-ratio固定をやめて height を制御
+   ・PCでは低めにして「どーん感」を抑える
    ========================= */
 .heroHeader{
   position:relative;
   overflow:hidden;
-  aspect-ratio: 16 / 9;
-  height:auto;
+
+  /* ✅ PCで大きすぎない */
+  height: 520px;
+  max-height: 65vh;
+
   padding:22px 22px 18px;
   display:flex;
   align-items:flex-start;
 }
 
+@media (max-width: 980px){
+  .heroHeader{
+    height: 420px;
+    max-height: 62vh;
+    padding:18px 18px 16px;
+  }
+}
+
 @media (max-width: 720px){
   .heroHeader{
-    aspect-ratio: 16 / 10;
+    height: 320px;
+    max-height: none;
     padding:16px 14px 14px;
   }
 }
@@ -198,22 +211,22 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   inset:0;
   background-color:#0b1b3a;
   background-image: var(--hero-image);
-  background-size: cover;     /* 空白なし */
-  background-position: center;/* 16:9なら切れない */
+  background-size: cover;      /* 空白なし */
+  background-position: center; /* 16:9なら切れにくい */
   transform: scale(1.01);
-  filter: saturate(1.05);
+  filter: saturate(1.02);
 }
 
-/* ✅ 文字の可読性UP（暗めグラデ強め） */
+/* ✅ 文字の可読性UP（背景を少し引く） */
 .heroBg::after{
   content:"";
   position:absolute;
   inset:0;
   background: linear-gradient(
     120deg,
-    rgba(8,18,44,.82) 0%,
-    rgba(8,18,44,.55) 40%,
-    rgba(8,18,44,.15) 70%,
+    rgba(8,18,44,.88) 0%,
+    rgba(8,18,44,.65) 40%,
+    rgba(8,18,44,.25) 70%,
     rgba(255,255,255,0) 100%
   );
 }
@@ -226,10 +239,10 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   width:100%;
 }
 
-/* ✅ ロゴを大きく */
+/* ロゴ */
 .logoBox{
-  width:72px;
-  height:72px;
+  width:68px;
+  height:68px;
   border-radius:18px;
   border:1px solid rgba(255,255,255,.35);
   background: rgba(255,255,255,.12);
@@ -243,8 +256,8 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 
 @media (max-width: 720px){
   .logoBox{
-    width:56px;
-    height:56px;
+    width:54px;
+    height:54px;
     border-radius:16px;
   }
 }
@@ -252,26 +265,32 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 .logoBox img{
   width:100%;
   height:100%;
-  object-fit:contain; /* ロゴはcontain */
+  object-fit:contain;
   display:block;
 }
 
 .headerText{flex:1 1 auto; min-width:0;}
 
-/* ✅ タイトルを大きく */
+/* ✅ タイトルは「大きすぎない」方向に調整 */
 .headerTitle{
   margin:6px 0 6px;
-  font-size:44px;
-  line-height:1.12;
+  font-size:40px;
+  line-height:1.14;
   letter-spacing:.01em;
   font-weight:950;
   color:#fff;
   text-shadow: 0 10px 26px rgba(0,0,0,.24);
 }
 
+@media (max-width: 980px){
+  .headerTitle{
+    font-size:34px;
+  }
+}
+
 @media (max-width: 720px){
   .headerTitle{
-    font-size:28px;
+    font-size:26px;
     line-height:1.18;
   }
 }
@@ -280,8 +299,8 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   margin:0;
   color: rgba(255,255,255,.92);
   font-weight:850;
-  font-size:16px;
-  line-height:1.55;
+  font-size:15px;
+  line-height:1.6;
   text-shadow: 0 10px 26px rgba(0,0,0,.18);
 }
 
