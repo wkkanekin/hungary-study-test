@@ -11,7 +11,7 @@
   --radius:18px;
   --max:1040px;
 
-  /* ✅ JS(images.json)で上書きされる。読み込み完了まで「デフォルト画像を出さない」 */
+  /* JS(images.json)で上書きされる */
   --hero-image: none;
 }
 
@@ -171,39 +171,65 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   background: linear-gradient(270deg, rgba(244,246,251,1), rgba(244,246,251,0));
 }
 
-/* Header / Hero */
+/* =========================
+   Header / Hero
+   ここが「切れない＆空白なし」の要点：
+   ・ヒーロー枠も16:9固定
+   ・画像も16:9に統一（別作業）
+   ・backgroundはcover（空白なし）
+   ========================= */
 .heroHeader{
-  padding:18px 18px 16px;
   position:relative;
   overflow:hidden;
+
+  /* ✅ 16:9枠 */
+  aspect-ratio: 16 / 9;
+  height: auto;
+
+  /* テキスト用の内側余白 */
+  padding:18px 18px 16px;
+  display:flex;
+  align-items:flex-start;
 }
+
+@media (max-width: 720px){
+  .heroHeader{
+    /* スマホでも16:9維持 */
+    aspect-ratio: 16 / 10;
+    padding:16px 14px 14px;
+  }
+}
+
 .heroBg{
   position:absolute;
   inset:0;
-
-  /* ✅ 読み込み完了まで無地（デフォルト画像のチラ見えを消す） */
   background-color: #0b1b3a;
+
+  /* JSで --hero-image が入る */
   background-image: var(--hero-image);
 
-  /* ✅ ここが重要：PC/iPadで切れないように contain */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position:center;
+  /* ✅ 空白なし */
+  background-size: cover;
 
+  /* ✅ 16:9画像なら切れない（枠も16:9だから） */
+  background-position: center;
+  transform: scale(1.01);
   filter: saturate(1.05);
-  transform: scale(1.02);
 }
+
 .heroBg::after{
   content:"";
   position:absolute;
   inset:0;
   background: linear-gradient(120deg, rgba(8,18,44,.74), rgba(8,18,44,.35), rgba(255,255,255,0));
 }
+
 .headerRow{
   position:relative;
   display:flex;
   align-items:flex-start;
   gap:14px;
+  width:100%;
 }
 .logoBox{
   width:54px;height:54px;
@@ -326,28 +352,20 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   display:flex;
   flex-direction:column;
 }
-.basicImgWrap{
-  height:170px;
-  border-bottom:1px solid rgba(229,231,235,.9);
 
-  /* ✅ 余白OKで切れない */
-  background:#ffffff;
+/* ✅ TOP 3カード画像：枠も16:9固定で、cover（空白なし） */
+.basicImgWrap{
+  aspect-ratio: 16 / 9;
+  height:auto;
+  overflow:hidden;
+  border-bottom:1px solid rgba(229,231,235,.9);
+  background:#fff;
 }
 .basicImg{
   width:100%;
   height:100%;
-
-  /* ✅ cover → contain */
-  object-fit:contain;
+  object-fit:cover; /* 空白なし */
   display:block;
-}
-
-/* ✅ aspect-ratio対応ブラウザなら、端末幅に応じて高さも自然に */
-@supports (aspect-ratio: 16 / 9){
-  .basicImgWrap{
-    height:auto;
-    aspect-ratio:16 / 9;
-  }
 }
 
 .basicBody{

@@ -15,7 +15,7 @@
 html{scroll-behavior:smooth}
 body{
   margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiragyo, Arial, sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, Arial, sans-serif;
   background: linear-gradient(180deg, #eef3ff 0%, var(--bg) 34%, var(--bg) 100%);
   color:var(--text);
 }
@@ -77,21 +77,19 @@ h3{
   box-shadow: 0 10px 24px rgba(29,78,216,.18);
 }
 
+/* ✅ basics画像：枠16:9固定 + cover（空白なし） */
 .heroWrap{
   overflow:hidden;
   background:#fff;
+  border-radius:18px;
 }
+
 .heroImg{
   width:100%;
-  height:320px;
-  object-fit:contain; /* ✅ 切れない */
+  aspect-ratio: 16 / 9;
+  height:auto;
+  object-fit:cover;
   display:block;
-}
-@supports (aspect-ratio: 16 / 9){
-  .heroImg{
-    height:auto;
-    aspect-ratio:16 / 9;
-  }
 }
 
 .tableWrap{overflow:auto}
@@ -117,6 +115,6 @@ tbody tr:last-child td{border-bottom:none}
 
 @media (max-width: 720px){
   h1{font-size:26px}
-  .heroImg{height:220px}
+  .heroImg{ aspect-ratio: 16 / 10; }
   table{min-width:520px}
 }
