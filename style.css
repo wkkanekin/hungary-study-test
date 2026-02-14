@@ -184,7 +184,10 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   /* ✅ 読み込み完了まで無地（デフォルト画像のチラ見えを消す） */
   background-color: #0b1b3a;
   background-image: var(--hero-image);
-  background-size: cover;
+
+  /* ✅ ここが重要：PC/iPadで切れないように contain */
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position:center;
 
   filter: saturate(1.05);
@@ -326,14 +329,27 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 .basicImgWrap{
   height:170px;
   border-bottom:1px solid rgba(229,231,235,.9);
-  background: linear-gradient(135deg, rgba(255,255,255,.7), rgba(243,246,255,.85));
+
+  /* ✅ 余白OKで切れない */
+  background:#ffffff;
 }
 .basicImg{
   width:100%;
   height:100%;
-  object-fit:cover;
+
+  /* ✅ cover → contain */
+  object-fit:contain;
   display:block;
 }
+
+/* ✅ aspect-ratio対応ブラウザなら、端末幅に応じて高さも自然に */
+@supports (aspect-ratio: 16 / 9){
+  .basicImgWrap{
+    height:auto;
+    aspect-ratio:16 / 9;
+  }
+}
+
 .basicBody{
   padding:14px 14px 14px;
   display:flex;

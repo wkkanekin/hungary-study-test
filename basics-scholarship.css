@@ -77,12 +77,21 @@ h3{
   box-shadow: 0 10px 24px rgba(29,78,216,.18);
 }
 
-.heroWrap{overflow:hidden}
+.heroWrap{
+  overflow:hidden;
+  background:#fff;
+}
 .heroImg{
   width:100%;
   height:320px;
-  object-fit:cover;
+  object-fit:contain; /* ✅ 切れない */
   display:block;
+}
+@supports (aspect-ratio: 16 / 9){
+  .heroImg{
+    height:auto;
+    aspect-ratio:16 / 9;
+  }
 }
 
 .tableWrap{overflow:auto}
@@ -98,24 +107,6 @@ th, td{
   vertical-align:top;
 }
 tbody tr:last-child td{border-bottom:none}
-
-.noteBox{
-  margin-top:12px;
-  padding:12px 12px;
-  border-radius:14px;
-  border:1px dashed rgba(29,78,216,.22);
-  background: rgba(243,246,255,.85);
-  color:#0f2a5a;
-  font-weight:850;
-  line-height:1.7;
-}
-
-.checklist{
-  margin:10px 0 0;
-  padding-left:18px;
-  line-height:1.9;
-}
-.checklist li{margin:4px 0}
 
 .footer{
   margin-top:28px;
