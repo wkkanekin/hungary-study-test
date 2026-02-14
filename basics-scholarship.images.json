@@ -5,23 +5,23 @@
   },
   "images": {
     "hero": {
-      "url": "images/scholarship-hero.jpg",
+      "url": "images/scholarship.jpg",
       "alt": "奨学金のイメージ"
     },
     "overview": {
-      "url": "images/scholarship-overview.jpg",
+      "url": "images/scholarship.jpg",
       "alt": "留学準備のイメージ"
     },
     "benefits": {
-      "url": "images/scholarship-benefits.jpg",
+      "url": "images/scholarship.jpg",
       "alt": "費用と支援のイメージ"
     },
     "timeline": {
-      "url": "images/scholarship-timeline.jpg",
+      "url": "images/scholarship.jpg",
       "alt": "カレンダーと計画のイメージ"
     },
     "pitfalls": {
-      "url": "images/scholarship-pitfalls.jpg",
+      "url": "images/scholarship.jpg",
       "alt": "注意点のイメージ"
     }
   }
