@@ -173,28 +173,21 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 
 /* =========================
    Header / Hero
-   ここが「切れない＆空白なし」の要点：
-   ・ヒーロー枠も16:9固定
-   ・画像も16:9に統一（別作業）
-   ・backgroundはcover（空白なし）
+   ・枠も画像も 16:9 に統一できれば
+     → coverでも切れない＆空白なし
    ========================= */
 .heroHeader{
   position:relative;
   overflow:hidden;
-
-  /* ✅ 16:9枠 */
   aspect-ratio: 16 / 9;
-  height: auto;
-
-  /* テキスト用の内側余白 */
-  padding:18px 18px 16px;
+  height:auto;
+  padding:22px 22px 18px;
   display:flex;
   align-items:flex-start;
 }
 
 @media (max-width: 720px){
   .heroHeader{
-    /* スマホでも16:9維持 */
     aspect-ratio: 16 / 10;
     padding:16px 14px 14px;
   }
@@ -203,63 +196,99 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 .heroBg{
   position:absolute;
   inset:0;
-  background-color: #0b1b3a;
-
-  /* JSで --hero-image が入る */
+  background-color:#0b1b3a;
   background-image: var(--hero-image);
-
-  /* ✅ 空白なし */
-  background-size: cover;
-
-  /* ✅ 16:9画像なら切れない（枠も16:9だから） */
-  background-position: center;
+  background-size: cover;     /* 空白なし */
+  background-position: center;/* 16:9なら切れない */
   transform: scale(1.01);
   filter: saturate(1.05);
 }
 
+/* ✅ 文字の可読性UP（暗めグラデ強め） */
 .heroBg::after{
   content:"";
   position:absolute;
   inset:0;
-  background: linear-gradient(120deg, rgba(8,18,44,.74), rgba(8,18,44,.35), rgba(255,255,255,0));
+  background: linear-gradient(
+    120deg,
+    rgba(8,18,44,.82) 0%,
+    rgba(8,18,44,.55) 40%,
+    rgba(8,18,44,.15) 70%,
+    rgba(255,255,255,0) 100%
+  );
 }
 
 .headerRow{
   position:relative;
   display:flex;
   align-items:flex-start;
-  gap:14px;
+  gap:16px;
   width:100%;
 }
+
+/* ✅ ロゴを大きく */
 .logoBox{
-  width:54px;height:54px;
-  border-radius:14px;
-  border:1px dashed rgba(255,255,255,.55);
+  width:72px;
+  height:72px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.35);
   background: rgba(255,255,255,.12);
-  display:flex; align-items:center; justify-content:center;
-  font-weight:950;
-  color:#fff;
-  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   overflow:hidden;
   backdrop-filter: blur(6px);
+  flex:0 0 auto;
 }
-.logoBox img{width:100%;height:100%;object-fit:cover;display:block;}
+
+@media (max-width: 720px){
+  .logoBox{
+    width:56px;
+    height:56px;
+    border-radius:16px;
+  }
+}
+
+.logoBox img{
+  width:100%;
+  height:100%;
+  object-fit:contain; /* ロゴはcontain */
+  display:block;
+}
+
 .headerText{flex:1 1 auto; min-width:0;}
+
+/* ✅ タイトルを大きく */
 .headerTitle{
   margin:6px 0 6px;
-  font-size:28px;
-  line-height:1.25;
-  letter-spacing:.02em;
+  font-size:44px;
+  line-height:1.12;
+  letter-spacing:.01em;
   font-weight:950;
   color:#fff;
-  text-shadow: 0 10px 26px rgba(0,0,0,.22);
+  text-shadow: 0 10px 26px rgba(0,0,0,.24);
 }
+
+@media (max-width: 720px){
+  .headerTitle{
+    font-size:28px;
+    line-height:1.18;
+  }
+}
+
 .headerSub{
   margin:0;
   color: rgba(255,255,255,.92);
-  font-weight:800;
+  font-weight:850;
+  font-size:16px;
   line-height:1.55;
   text-shadow: 0 10px 26px rgba(0,0,0,.18);
+}
+
+@media (max-width: 720px){
+  .headerSub{
+    font-size:13px;
+  }
 }
 
 /* grids */
@@ -353,7 +382,8 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   flex-direction:column;
 }
 
-/* ✅ TOP 3カード画像：枠も16:9固定で、cover（空白なし） */
+/* ✅ TOP 3カード画像：枠16:9固定 + cover（空白なし）
+   ※画像自体も16:9に揃えると「切れない」 */
 .basicImgWrap{
   aspect-ratio: 16 / 9;
   height:auto;
@@ -364,7 +394,7 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
 .basicImg{
   width:100%;
   height:100%;
-  object-fit:cover; /* 空白なし */
+  object-fit:cover;
   display:block;
 }
 
