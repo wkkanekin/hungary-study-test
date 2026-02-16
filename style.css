@@ -13,6 +13,9 @@
 
   /* ✅ JS(images.json)で上書きされる。読み込み完了まで「デフォルト画像を出さない」 */
   --hero-image: none;
+
+  /* ✅ HEROの見え方調整（端末別に上書き可能） */
+  --hero-pos: 50% 50%;
 }
 
 *{box-sizing:border-box}
@@ -176,6 +179,11 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   padding:18px 18px 16px;
   position:relative;
   overflow:hidden;
+
+  /* ✅ 端末に応じてヒーロー高さを確保（PCで切れやすい問題を抑える） */
+  min-height: clamp(120px, 18vw, 240px);
+  display:flex;
+  align-items:center;
 }
 .heroBg{
   position:absolute;
@@ -185,7 +193,9 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   background-color: #0b1b3a;
   background-image: var(--hero-image);
   background-size: cover;
-  background-position:center;
+
+  /* ✅ 端末ごとに調整できるよう変数化 */
+  background-position: var(--hero-pos);
 
   filter: saturate(1.05);
   transform: scale(1.02);
@@ -781,6 +791,25 @@ details p{
 /* ✅ PCで全体が小さく見える問題に対応 */
 @media (min-width: 1200px){
   :root{ --max: 1320px; }
+}
+
+/* ✅ HEROの表示最適化（PC / タブレット / スマホ） */
+@media (min-width: 1024px){
+  /* PC: 横長でも切れにくいよう、少し高さを確保 */
+  .heroHeader{ min-height: clamp(150px, 14vw, 260px); }
+  :root{ --hero-pos: 50% 45%; }
+}
+@media (max-width: 1023px) and (min-width: 721px){
+  /* タブレット: ほどよく中央寄せ */
+  .heroHeader{ min-height: clamp(140px, 20vw, 240px); }
+  :root{ --hero-pos: 50% 50%; }
+}
+@media (max-width: 720px){
+  /* スマホ: 文字が読みやすいよう縦を少し確保（切れ方も緩和） */
+  .heroHeader{ padding:16px 14px 14px; min-height: 170px; }
+  .headerTitle{ font-size:22px; }
+  .logoBox{ width:48px; height:48px; border-radius:14px; }
+  :root{ --hero-pos: 55% 40%; }
 }
 
 /* Responsive */
