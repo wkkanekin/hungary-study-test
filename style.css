@@ -11,14 +11,11 @@
   --radius:18px;
   --max:1040px;
 
-  /* JS(images.json)で上書きされる */
+  /* ✅ JS(images.json)で上書きされる。読み込み完了まで「デフォルト画像を出さない」 */
   --hero-image: none;
 
-  /* HEROの見せ位置（containでも有効） */
+  /* ✅ HEROの見え方調整（端末別に上書き可能） */
   --hero-pos: 50% 50%;
-
-  /* 余白のベース色（containで左右上下に出る部分） */
-  --hero-fill: #0b1b3a;
 }
 
 *{box-sizing:border-box}
@@ -183,39 +180,32 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
   position:relative;
   overflow:hidden;
 
-  /* ✅ containは「切れない」代わりに小さく見えるので高さを確保 */
-  min-height: clamp(160px, 18vw, 320px);
+  /* ✅ 端末に応じてヒーロー高さを確保（PCで切れやすい問題を抑える） */
+  min-height: clamp(120px, 18vw, 240px);
   display:flex;
   align-items:center;
 }
-
 .heroBg{
   position:absolute;
   inset:0;
 
-  /* ✅ 余白のベース色 */
-  background-color: var(--hero-fill);
-
+  /* ✅ 読み込み完了まで無地（デフォルト画像のチラ見えを消す） */
+  background-color: #0b1b3a;
   background-image: var(--hero-image);
+  background-size: cover;
 
-  /* ✅ 建物を「全部入れる」ために contain */
-  background-size: contain;
-  background-repeat: no-repeat;
-
-  /* ✅ 見せ位置 */
+  /* ✅ 端末ごとに調整できるよう変数化 */
   background-position: var(--hero-pos);
 
-  /* ✅ ここで拡大するとまた切れるので削除 */
   filter: saturate(1.05);
+  transform: scale(1.02);
 }
-
 .heroBg::after{
   content:"";
   position:absolute;
   inset:0;
   background: linear-gradient(120deg, rgba(8,18,44,.74), rgba(8,18,44,.35), rgba(255,255,255,0));
 }
-
 .headerRow{
   position:relative;
   display:flex;
@@ -803,23 +793,23 @@ details p{
   :root{ --max: 1320px; }
 }
 
-/* ✅ HEROの表示最適化（PC / タブレット / スマホ）
-   containで「全部入る」を保証しつつ、端末ごとに高さを最適化 */
+/* ✅ HEROの表示最適化（PC / タブレット / スマホ） */
 @media (min-width: 1024px){
-  .heroHeader{ min-height: clamp(210px, 18vw, 380px); }
-  :root{ --hero-pos: 50% 50%; }
+  /* PC: 横長でも切れにくいよう、少し高さを確保 */
+  .heroHeader{ min-height: clamp(150px, 14vw, 260px); }
+  :root{ --hero-pos: 50% 45%; }
 }
-
 @media (max-width: 1023px) and (min-width: 721px){
-  .heroHeader{ min-height: clamp(190px, 26vw, 340px); }
+  /* タブレット: ほどよく中央寄せ */
+  .heroHeader{ min-height: clamp(140px, 20vw, 240px); }
   :root{ --hero-pos: 50% 50%; }
 }
-
 @media (max-width: 720px){
-  .heroHeader{ padding:16px 14px 14px; min-height: 220px; }
+  /* スマホ: 文字が読みやすいよう縦を少し確保（切れ方も緩和） */
+  .heroHeader{ padding:16px 14px 14px; min-height: 170px; }
   .headerTitle{ font-size:22px; }
   .logoBox{ width:48px; height:48px; border-radius:14px; }
-  :root{ --hero-pos: 50% 50%; }
+  :root{ --hero-pos: 55% 40%; }
 }
 
 /* Responsive */
