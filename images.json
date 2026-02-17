@@ -4,6 +4,12 @@
     "logoUrl": "images/logo-hungary-study.png",
     "logoAlt": "Hungary Study"
   },
+
+  "favicon": {
+    "url": "images/favicon.png",
+    "type": "image/png"
+  },
+
   "basicsCards": [
     {
       "id": "hungary",

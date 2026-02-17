@@ -441,6 +441,26 @@ document.addEventListener("DOMContentLoaded", () => {
       heroLogoImg.alt = logoAlt || "HU";
     }
 
+    // ============================
+    // ✅ FAVICON（images.jsonで管理）
+    // ============================
+    const faviconUrl = String(cfg?.favicon?.url || "").trim();
+    const faviconType = String(cfg?.favicon?.type || "image/png").trim();
+
+    if (faviconUrl) {
+      let link = document.getElementById("dynamicFavicon");
+
+      if (!link) {
+        link = document.createElement("link");
+        link.id = "dynamicFavicon";
+        link.rel = "icon";
+        document.head.appendChild(link);
+      }
+
+      link.type = faviconType;
+      link.href = faviconUrl;
+    }
+
     const cards = Array.isArray(cfg?.basicsCards) ? cfg.basicsCards : [];
     const map = new Map();
     cards.forEach((c) => {
