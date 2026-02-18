@@ -127,40 +127,39 @@
     ],
     "avatar": "https://placehold.co/520x520/png?text=Kenta",
     "bookingUrl": "#"
-  }
-{
-  "id": "ユウ",
-  "enabled": true,
-  "featured": false,
-  "name": "ユウ（20代）",
-  "region": "ブダペスト",
-  "course": "経営",
-  "university": "International Business School, Budapest",
-  "major": "Business management（学士）",
-  "year": "学士2年",
-  "language": "CEFR C1（英語）",
-  "meeting": "Zoomのみ",
-  "stipendium": {
-    "has": false,
-    "name": ""
   },
-  "bio": "日本の高校卒業後、IBS（International Business School, Budapest）へ進学。Business Managementを専攻し、University of Buckinghamとのダブルディグリー課程に在籍しています。英語が得意ではなかった状態から海外大学へ進学した経験をもとに、出願準備・英語力の伸ばし方・授業の難易度・ダブルディグリーの実態などをリアルにお話しできます。",
-  "tags": [
-  "#IBS",
-  "#ダブルディグリー",
-  "#イギリス学位",
-  "#高校卒業後すぐ留学",
-  "#英語不安から挑戦"
-],
-  "links": [
-    {
-      "label": "大学公式サイト",
-      "url": "https://www.ibs-b.hu/en/",
-      "ready": true
-    }
-  ],
-  "avatar": "images/students/yu.jpg",
-  "bookingUrl": "#"
-}
-
+  {
+    "id": "yu",
+    "enabled": true,
+    "featured": false,
+    "name": "ユウ（20代）",
+    "region": "ブダペスト",
+    "course": "経営",
+    "university": "International Business School, Budapest",
+    "major": "Business Management（学士）",
+    "year": "学士2年",
+    "language": "CEFR C1（英語）",
+    "meeting": "Zoomのみ",
+    "stipendium": {
+      "has": false,
+      "name": ""
+    },
+    "bio": "日本の高校卒業後、IBS（International Business School, Budapest）へ進学。Business Managementを専攻し、University of Buckinghamとのダブルディグリー課程に在籍しています。英語が得意ではなかった状態から海外大学へ進学した経験をもとに、出願準備・英語力の伸ばし方・授業の難易度・ダブルディグリーの実態などをリアルにお話しできます。",
+    "tags": [
+      "#IBS",
+      "#ダブルディグリー",
+      "#イギリス学位",
+      "#高校卒業後すぐ留学",
+      "#英語不安から挑戦"
+    ],
+    "links": [
+      {
+        "label": "大学公式サイト",
+        "url": "https://www.ibs-b.hu/en/",
+        "ready": true
+      }
+    ],
+    "avatar": "images/students/yu.jpg",
+    "bookingUrl": "#"
+  }
 ]
