@@ -131,7 +131,7 @@
   {
     "id": "yu",
     "enabled": true,
-    "featured": false,
+    "featured": true,
     "name": "ユウ（20代）",
     "region": "ブダペスト",
     "course": "経営",
