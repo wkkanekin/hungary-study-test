@@ -915,6 +915,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const universities = [
     { name: "Budapest University of Technology and Economics", city: "ブダペスト" },
+    { name: "International Business School, Budapest", city: "ブダペスト" },
     { name: "Corvinus University of Budapest", city: "ブダペスト" },
     { name: "Eötvös Loránd University", city: "ブダペスト" },
     { name: "Semmelweis University", city: "ブダペスト" },
