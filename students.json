@@ -1,165 +1,227 @@
 [
-  {
-    "id": "kaneko",
-    "enabled": true,
-    "featured": true,
-    "name": "カネコ（30代）",
-    "region": "ブダペスト",
-    "course": "経営",
-    "university": "Budapest University of Economics and Business",
-    "major": "Tourism Management（修士）",
-    "year": "修士1年",
-    "language": "CEFR C1（英語）",
-    "meeting": "Zoomのみ",
-    "stipendium": {
-      "has": true,
-      "name": "スティペンディウム・ハンガリカム"
-    },
-    "bio": "日本で大学を卒業後、外資系製薬会社に勤務。その後、社会人留学としてハンガリー大学院へ進学。留学準備・費用感・現地生活・学業との両立など、実体験ベースでお話しできます。",
-    "tags": [
-      "#社会人留学",
-      "#英語学習",
-      "#キャリアチェンジ",
-      "#ブダペスト生活"
-    ],
-    "links": [
-      {
-        "label": "大学公式サイト",
-        "url": "https://www.bge.hu/",
-        "ready": true
-      },
-      {
-        "label": "YouTube",
-        "url": "https://youtube.com/xxxx",
-        "ready": false
-      },
-      {
-        "label": "note",
-        "url": "https://note.com/xxxx",
-        "ready": false
-      }
-    ],
-    "avatar": "images/students/kaneko.jpg",
-    "bookingUrl": "https://calendly.com/wkkanekin/meet-with-me"
-  },
-  {
-    "id": "airi",
-    "enabled": false,
-    "featured": false,
-    "name": "アイリ（20代）",
-    "region": "ブダペスト",
-    "course": "社会系",
-    "university": "Eötvös Loránd University",
-    "major": "Psychology（学士）",
-    "year": "学士3年",
-    "language": "CEFR C1（英語）",
-    "meeting": "Zoomのみ",
-    "stipendium": {
-      "has": false,
-      "name": ""
-    },
-    "bio": "高校卒業後すぐに単身でハンガリーへ。情報や人脈がない中で苦労した経験から、これから挑戦する人が孤立しないための情報共有を大切にしています。",
-    "tags": [
-      "#単身留学",
-      "#ELTE",
-      "#現地生活",
-      "#メンタル"
-    ],
-    "links": [
-      {
-        "label": "大学公式サイト",
-        "url": "https://www.elte.hu/en/",
-        "ready": true
-      },
-      {
-        "label": "YouTube",
-        "url": "https://youtube.com/xxxx",
-        "ready": false
-      },
-      {
-        "label": "note",
-        "url": "https://note.com/xxxx",
-        "ready": false
-      }
-    ],
-    "avatar": "https://placehold.co/520x520/png?text=Airi",
-    "bookingUrl": "#"
-  },
-  {
-    "id": "kenta",
-    "enabled": false,
-    "featured": false,
-    "name": "ケンタ（20代）",
-    "region": "セゲド",
-    "course": "医学部",
-    "university": "University of Szeged",
-    "major": "Medicine（学士/MD）",
-    "year": "学士4年",
-    "language": "CEFR B2（英語）",
-    "meeting": "Zoomのみ",
-    "stipendium": {
-      "has": false,
-      "name": ""
-    },
-    "bio": "医学部の勉強量や試験の厳しさ、日々の学習ルーティン、生活費の実態など、継続してやり切る視点でリアルを共有できます。",
-    "tags": [
-      "#医学部",
-      "#セゲド",
-      "#試験対策",
-      "#生活費"
-    ],
-    "links": [
-      {
-        "label": "大学公式サイト",
-        "url": "https://u-szeged.hu/english",
-        "ready": true
-      },
-      {
-        "label": "YouTube",
-        "url": "https://youtube.com/xxxx",
-        "ready": false
-      },
-      {
-        "label": "note",
-        "url": "https://note.com/xxxx",
-        "ready": false
-      }
-    ],
-    "avatar": "https://placehold.co/520x520/png?text=Kenta",
-    "bookingUrl": "#"
-  },
-  {
-    "id": "yu",
-    "enabled": true,
-    "featured": true,
-    "name": "ユウ（20代）",
-    "region": "ブダペスト",
-    "course": "経営",
-    "university": "International Business School, Budapest",
-    "major": "Business Management（学士）",
-    "year": "学士2年",
-    "language": "CEFR C1（英語）",
-    "meeting": "Zoomのみ",
-    "stipendium": {
-      "has": false,
-      "name": ""
-    },
-    "bio": "日本の高校卒業後、IBS（International Business School, Budapest）へ進学。Business Managementを専攻し、University of Buckinghamとのダブルディグリー課程に在籍しています。英語が得意ではなかった状態から海外大学へ進学した経験をもとに、出願準備・英語力の伸ばし方・授業の難易度・ダブルディグリーの実態などをリアルにお話しできます。",
-    "tags": [
-      "#IBS",
-      "#ダブルディグリー",
-      "#イギリス学位",
-      "#高校卒業後すぐ留学",
-      "#英語不安から挑戦"
-    ],
-    "links": [
-      {
-        "label": "大学公式サイト",
-        "url": "https://www.ibs-b.hu/en/",
-        "ready": true
-      }
-    ],
-    "avatar": "images/students/yu.jpeg",
-    "bookingUrl": "#"
-  }
+{
+"id": "kaneko",
+"enabled": true,
+"featured": true,
+"name": "カネコ（30代）",
+"region": "ブダペスト",
+"course": "経営",
+"university": "Budapest University of Economics and Business",
+"major": "Tourism Management（修士）",
+"entryYear": "2024",
+"year": "修士1年",
+"admissionEnglish": "CEFR C1（英語）",
+"selectionFormat": "書類＋面接（オンライン）",
+"timeToPass": "英語対策6ヶ月＋出願準備3ヶ月",
+"previousEducation": "日本の大学 卒（学部）",
+"workYears": 5,
+"language": "CEFR C1（英語）",
+"meeting": "Zoomのみ",
+"stipendium": {
+"has": true,
+"name": "スティペンディウム・ハンガリカム"
+},
+"onlineConversation": [
+{
+"label": "英語C1まで上げたオンライン英会話",
+"url": "https://example.com/affiliate-link?sid=kaneko",
+"ready": true
+}
+],
+"studyMaterials": [
+{
+"label": "（教材例）IELTS公式問題集",
+"url": "https://example.com/material-affiliate?sid=kaneko",
+"ready": true
+}
+],
+"bio": "日本で大学を卒業後、外資系製薬会社に勤務。その後、社会人留学としてハンガリー大学院へ進学。留学準備・費用感・現地生活・学業との両立など、実体験ベースでお話しできます。",
+"tags": [
+"#社会人留学",
+"#英語学習",
+"#キャリアチェンジ",
+"#ブダペスト生活"
+],
+"links": [
+{
+"label": "大学公式サイト",
+"url": "https://www.bge.hu/",
+"ready": true
+},
+{
+"label": "YouTube",
+"url": "https://youtube.com/xxxx",
+"ready": false
+},
+{
+"label": "note",
+"url": "https://note.com/xxxx",
+"ready": false
+}
+],
+"avatar": "images/students/kaneko.jpg",
+"bookingUrl": "https://calendly.com/wkkanekin/meet-with-me"
+},
+{
+"id": "airi",
+"enabled": false,
+"featured": false,
+"name": "アイリ（20代）",
+"region": "ブダペスト",
+"course": "社会系",
+"university": "Eötvös Loránd University",
+"major": "Psychology（学士）",
+"entryYear": "",
+"year": "学士3年",
+"admissionEnglish": "",
+"selectionFormat": "",
+"timeToPass": "",
+"previousEducation": "",
+"workYears": "",
+"language": "CEFR C1（英語）",
+"meeting": "Zoomのみ",
+"stipendium": {
+"has": false,
+"name": ""
+},
+"onlineConversation": [
+{
+"label": "英語C1まで上げたオンライン英会話",
+"url": "https://example.com/affiliate-link?sid=airi",
+"ready": true
+}
+],
+"studyMaterials": [],
+"bio": "高校卒業後すぐに単身でハンガリーへ。情報や人脈がない中で苦労した経験から、これから挑戦する人が孤立しないための情報共有を大切にしています。",
+"tags": [
+"#単身留学",
+"#ELTE",
+"#現地生活",
+"#メンタル"
+],
+"links": [
+{
+"label": "大学公式サイト",
+"url": "https://www.elte.hu/en/",
+"ready": true
+},
+{
+"label": "YouTube",
+"url": "https://youtube.com/xxxx",
+"ready": false
+},
+{
+"label": "note",
+"url": "https://note.com/xxxx",
+"ready": false
+}
+],
+"avatar": "https://placehold.co/520x520/png?text=Airi",
+"bookingUrl": "#"
+},
+{
+"id": "kenta",
+"enabled": false,
+"featured": false,
+"name": "ケンタ（20代）",
+"region": "セゲド",
+"course": "医学部",
+"university": "University of Szeged",
+"major": "Medicine（学士/MD）",
+"entryYear": "",
+"year": "学士4年",
+"admissionEnglish": "",
+"selectionFormat": "",
+"timeToPass": "",
+"previousEducation": "",
+"workYears": "",
+"language": "CEFR B2（英語）",
+"meeting": "Zoomのみ",
+"stipendium": {
+"has": false,
+"name": ""
+},
+"onlineConversation": [
+{
+"label": "英語B2まで上げたオンライン英会話",
+"url": "https://example.com/affiliate-link?sid=kenta",
+"ready": true
+}
+],
+"studyMaterials": [],
+"bio": "医学部の勉強量や試験の厳しさ、日々の学習ルーティン、生活費の実態など、継続してやり切る視点でリアルを共有できます。",
+"tags": [
+"#医学部",
+"#セゲド",
+"#試験対策",
+"#生活費"
+],
+"links": [
+{
+"label": "大学公式サイト",
+"url": "https://u-szeged.hu/english",
+"ready": true
+},
+{
+"label": "YouTube",
+"url": "https://youtube.com/xxxx",
+"ready": false
+},
+{
+"label": "note",
+"url": "https://note.com/xxxx",
+"ready": false
+}
+],
+"avatar": "https://placehold.co/520x520/png?text=Kenta",
+"bookingUrl": "#"
+},
+{
+"id": "yu",
+"enabled": true,
+"featured": true,
+"name": "ユウ（20代）",
+"region": "ブダペスト",
+"course": "経営",
+"university": "International Business School, Budapest",
+"major": "Business Management（学士）",
+"entryYear": "2023",
+"year": "学士2年",
+"admissionEnglish": "CEFR C1（英語）",
+"selectionFormat": "書類＋面接（オンライン）",
+"timeToPass": "",
+"previousEducation": "日本の高校 卒",
+"workYears": 0,
+"language": "CEFR C1（英語）",
+"meeting": "Zoomのみ",
+"stipendium": {
+"has": false,
+"name": ""
+},
+"onlineConversation": [
+{
+"label": "英語C1まで上げたオンライン英会話",
+"url": "https://example.com/affiliate-link?sid=yu",
+"ready": true
+}
+],
+"studyMaterials": [],
+"bio": "日本の高校卒業後、IBS（International Business School, Budapest）へ進学。Business Managementを専攻し、University of Buckinghamとのダブルディグリー課程に在籍しています。英語が得意ではなかった状態から海外大学へ進学した経験をもとに、出願準備・英語力の伸ばし方・授業の難易度・ダブルディグリーの実態などをリアルにお話しできます。",
+"tags": [
+"#IBS",
+"#ダブルディグリー",
+"#イギリス学位",
+"#高校卒業後すぐ留学",
+"#英語不安から挑戦"
+],
+"links": [
+{
+"label": "大学公式サイト",
+"url": "https://www.ibs-b.hu/en/",
+"ready": true
+}
+],
+"avatar": "images/students/yu.jpg",
+"bookingUrl": "#"
+}
 ]
