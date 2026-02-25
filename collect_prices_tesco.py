@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
 
+import requests
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
 
@@ -44,145 +45,182 @@ def load_basket(path: str) -> Tuple[str, str, List[BasketItem]]:
     return source, currency, items
 
 
-def _normalize_int(s: str) -> Optional[int]:
-    # "2 999" / "2 999" / "2999" -> 2999
-    s = s.replace("\u00A0", " ")
-    s = re.sub(r"\s+", "", s).strip()
-    if not s.isdigit():
+def extract_product_id(url: str) -> Optional[str]:
+    m = re.search(r"/products/(\d+)", url)
+    return m.group(1) if m else None
+
+
+def build_api_url_from_page_url(page_url: str, product_id: str) -> str:
+    """
+    Tesco groceries の商品ページは国/言語で分かれるが、
+    APIは概ね以下形で商品JSONを返す（ここを組み立てる）。
+    例: https://bevasarlas.tesco.hu/groceries/en-HU/products/2004009639931
+    -> https://bevasarlas.tesco.hu/groceries/en-HU/products/2004009639931
+       （ページ）を開いて、XHRのJSONレスポンスURLを捕まえる方が確実
+
+    なのでこの関数は補助。基本は Playwright でXHRを捕まえる。
+    """
+    # フォールバックとして、ページURL自体を返す（ここからXHR捕まえる）
+    return page_url
+
+
+def normalize_huf(value: Any) -> Optional[int]:
+    # TescoのJSONは pence/cents 的な minor unit じゃなく、そのまま数値HUFの場合が多いが、
+    # 念のため int へ
+    try:
+        if value is None:
+            return None
+        if isinstance(value, (int, float)):
+            if value <= 0:
+                return None
+            return int(round(value))
+        if isinstance(value, str):
+            s = value.strip()
+            s = s.replace("\u00A0", " ")
+            s = re.sub(r"\s+", "", s)
+            if s.isdigit():
+                n = int(s)
+                return n if n > 0 else None
         return None
-    return int(s)
+    except Exception:
+        return None
 
 
-def _extract_unit_price_any(text: str) -> Optional[Tuple[int, str]]:
+def pick_price_from_product_json(obj: Dict[str, Any], prefer_unit_price: bool) -> Tuple[Optional[int], str]:
     """
-    例: "1084 Ft/kg" / "2999 Ft/litre" / "2999 Ft/l" / "97 Ft/db"
-    Tescoは英語ページだと litre など表記が混ざる可能性があるので広めに取る
+    Tescoの商品JSONは構造が変わり得るので、複数候補から価格を拾う。
+    目標:
+      - 通常価格（HUF）
+      - unit price（Ft/kg など）があれば prefer_unit_price=True のとき優先
     """
-    patterns = [
-        r"(\d[\d\s\u00A0]{1,12})\s*Ft\s*/\s*(kg|l|db)\b",
-        r"(\d[\d\s\u00A0]{1,12})\s*Ft\s*/\s*(litre|liter)\b",
+    # 候補パスを幅広く探索する
+    # unit price系
+    unit_candidates = []
+
+    # pack price系
+    price_candidates = []
+
+    # よくある: obj['price']['value']
+    def dig(d: Any, path: List[str]) -> Any:
+        cur = d
+        for k in path:
+            if not isinstance(cur, dict) or k not in cur:
+                return None
+            cur = cur[k]
+        return cur
+
+    # pack price候補
+    possible_price_paths = [
+        ["price", "value"],
+        ["price", "amount"],
+        ["prices", "price"],
+        ["prices", "current", "value"],
+        ["prices", "current", "price"],
+        ["product", "price", "value"],
+        ["product", "prices", "price"],
     ]
-    for pat in patterns:
-        m = re.search(pat, text, flags=re.IGNORECASE)
-        if not m:
-            continue
-        price = _normalize_int(m.group(1))
-        if price is None:
-            continue
-        unit = m.group(2).lower()
-        if unit in ("litre", "liter"):
-            unit = "l"
-        return price, f"Ft/{unit}"
-    return None
+    for p in possible_price_paths:
+        v = dig(obj, p)
+        n = normalize_huf(v)
+        if n is not None:
+            price_candidates.append(n)
 
+    # unit price候補（値 + 単位）
+    possible_unit_paths = [
+        (["unitPrice", "value"], ["unitPrice", "unit"]),
+        (["unit_price", "value"], ["unit_price", "unit"]),
+        (["prices", "unitPrice", "value"], ["prices", "unitPrice", "unit"]),
+        (["product", "unitPrice", "value"], ["product", "unitPrice", "unit"]),
+    ]
+    for pv, pu in possible_unit_paths:
+        v = dig(obj, pv)
+        u = dig(obj, pu)
+        n = normalize_huf(v)
+        if n is not None and isinstance(u, str) and u:
+            unit_candidates.append((n, u))
 
-def _extract_pack_price_any(text: str) -> Optional[int]:
-    """
-    ページ内の "xxxx Ft" を拾う（basketの 0 Ft などノイズもあるので、最初に出た値が怪しい時は候補を増やす）
-    """
-    candidates: List[int] = []
-    for m in re.finditer(r"(\d[\d\s\u00A0]{1,12})\s*Ft\b", text, flags=re.IGNORECASE):
-        price = _normalize_int(m.group(1))
-        if price is None:
-            continue
-        if price <= 0:
-            continue
-        candidates.append(price)
+    # どうしても取れない時のために全探索（高コストだが月1なのでOK）
+    def walk(x: Any):
+        if isinstance(x, dict):
+            for k, v in x.items():
+                yield k, v
+                yield from walk(v)
+        elif isinstance(x, list):
+            for v in x:
+                yield from walk(v)
 
-    if not candidates:
-        return None
+    # unit price文字列（"Ft/kg"など）がどこかに埋まってる場合
+    # pack price数値が散らばってる場合
+    for k, v in walk(obj):
+        if isinstance(v, str):
+            # "1084 Ft/kg" 的な表記
+            m = re.search(r"(\d[\d\s\u00A0]{1,12})\s*Ft\s*/\s*(kg|l|db|litre|liter)\b", v, flags=re.IGNORECASE)
+            if m:
+                n = normalize_huf(m.group(1))
+                if n is not None:
+                    unit = m.group(2).lower()
+                    if unit in ("litre", "liter"):
+                        unit = "l"
+                    unit_candidates.append((n, f"Ft/{unit}"))
+        else:
+            # 数値っぽい
+            if k.lower() in ("price", "value", "amount", "currentprice", "unitprice"):
+                n = normalize_huf(v)
+                if n is not None:
+                    # unitpriceかどうかは判別できないので一旦pack側へ
+                    price_candidates.append(n)
 
-    # 0 Ftや極端に小さい値（例: 1 Ft）が混ざることがあるので、妥当そうな最小を返す
-    # （クラブカード価格等が別に出てくるが、今回は「通常価格」を優先するため最初の有力候補）
-    return candidates[0]
+    # unit優先
+    if prefer_unit_price and unit_candidates:
+        # いちばん小さいのを採用（変な候補を避ける）
+        unit_candidates.sort(key=lambda t: t[0])
+        val, unit = unit_candidates[0]
+        # unitが "kg" だけ等の場合があるので整形
+        if unit in ("kg", "l", "db"):
+            unit = f"Ft/{unit}"
+        return val, unit
 
+    # pack price
+    if price_candidates:
+        # 価格候補が複数あれば、最小を採用（割引/通常が混在でも変なのを避ける）
+        price_candidates.sort()
+        return price_candidates[0], "Ft"
 
-def _maybe_accept_cookies(page) -> None:
-    """
-    Tescoの同意UIを閉じる（テキスト/role両方で雑に対応）
-    失敗しても落とさない
-    """
-    try:
-        # まず短時間待つ（同意UIが出る場合）
-        page.wait_for_timeout(800)
-
-        # ボタン文言候補（英/ハンガリー語）
-        candidates = [
-            "Accept all",
-            "Reject all",
-            "Összes elfogadása",
-            "Összes cookie elfogadása",
-            "Elfogadom",
-            "Elutasítom",
-            "Mindent elfogad",
-            "Mindent elutasít",
-        ]
-
-        # role=button で探す
-        for label in candidates:
-            loc = page.get_by_role("button", name=label)
-            if loc.count() > 0:
-                loc.first.click(timeout=2000)
-                page.wait_for_timeout(600)
-                return
-
-        # テキストで探す（roleに載らない場合）
-        for label in candidates:
-            loc2 = page.locator(f"text={label}")
-            if loc2.count() > 0:
-                loc2.first.click(timeout=2000)
-                page.wait_for_timeout(600)
-                return
-    except Exception:
-        return
-
-
-def _fetch_and_extract(page, url: str, prefer_unit: bool) -> Tuple[Optional[int], str]:
-    """
-    1 URL につき:
-    - 同意UIを処理
-    - bodyテキスト + HTMLを解析して価格抽出
-    """
-    page.goto(url, wait_until="domcontentloaded", timeout=35000)
-    _maybe_accept_cookies(page)
-
-    # 価格が描画されるのを少し待つ
-    page.wait_for_timeout(1200)
-
-    # 1) bodyテキスト
-    try:
-        body_text = page.inner_text("body")
-    except Exception:
-        body_text = ""
-
-    # 2) HTML（inner_textに出ない値がある場合に備える）
-    try:
-        html = page.content()
-    except Exception:
-        html = ""
-
-    # 解析対象を合成（順序は body_text 優先）
-    combined = body_text + "\n" + html
-
-    # ユニット価格（Ft/kg等）
-    unit = _extract_unit_price_any(combined)
-    pack = _extract_pack_price_any(combined)
-
-    if prefer_unit and unit is not None:
-        return unit[0], unit[1]
-
-    if pack is not None:
-        return pack, "Ft"
-
-    if unit is not None:
-        return unit[0], unit[1]
+    # unitしかない場合
+    if unit_candidates:
+        unit_candidates.sort(key=lambda t: t[0])
+        val, unit = unit_candidates[0]
+        if unit in ("kg", "l", "db"):
+            unit = f"Ft/{unit}"
+        return val, unit
 
     return None, ""
 
 
-def _swap_lang_to_en(url: str) -> str:
-    # hu-HU -> en-HU のフォールバック
-    return url.replace("/hu-HU/", "/en-HU/")
+def fetch_product_json_via_xhr(page, product_page_url: str) -> Optional[Dict[str, Any]]:
+    """
+    商品ページを開くと、内部で商品JSONを取りに行く。
+    そのJSONレスポンスを捕まえてパースする。
+    """
+    captured: Dict[str, Any] = {"json": None}
+
+    def on_response(response):
+        try:
+            url = response.url
+            # それっぽいJSONだけ拾う（広め）
+            if "product" in url.lower() and "json" in (response.headers.get("content-type", "")).lower():
+                data = response.json()
+                if isinstance(data, dict):
+                    captured["json"] = data
+        except Exception:
+            pass
+
+    page.on("response", on_response)
+
+    page.goto(product_page_url, wait_until="domcontentloaded", timeout=35000)
+    page.wait_for_timeout(2500)
+
+    return captured["json"]
 
 
 def collect_one(page, item: BasketItem) -> Dict[str, Any]:
@@ -200,14 +238,17 @@ def collect_one(page, item: BasketItem) -> Dict[str, Any]:
     }
 
     try:
-        # 1回目：指定URL
-        price, unit_label = _fetch_and_extract(page, item.url, item.prefer_unit_price)
+        pj = fetch_product_json_via_xhr(page, item.url)
 
-        # 2回目：言語フォールバック（hu-HUが死ぬ場合）
-        if price is None and "/hu-HU/" in item.url:
-            fallback = _swap_lang_to_en(item.url)
-            price, unit_label = _fetch_and_extract(page, fallback, item.prefer_unit_price)
+        # フォールバック：言語切替
+        if pj is None and "/hu-HU/" in item.url:
+            pj = fetch_product_json_via_xhr(page, item.url.replace("/hu-HU/", "/en-HU/"))
 
+        if pj is None:
+            result["status"] = "not_found"
+            return result
+
+        price, unit_label = pick_price_from_product_json(pj, item.prefer_unit_price)
         if price is None:
             result["status"] = "not_found"
             return result
@@ -253,7 +294,6 @@ def collect_prices(basket_path: str, out_path: str) -> None:
         for it in items:
             r = collect_one(page, it)
             results.append(r)
-            # 負荷配慮（最小限）
             time.sleep(1.2)
 
         context.close()
