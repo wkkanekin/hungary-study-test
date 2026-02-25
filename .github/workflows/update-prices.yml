@@ -2,7 +2,6 @@ name: update-prices
 
 on:
   schedule:
-    # 毎月1日 06:20 UTC（GitHub Actions cronはUTC）
     - cron: "20 6 1 * *"
   workflow_dispatch:
 
