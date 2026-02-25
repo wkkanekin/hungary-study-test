@@ -1,7 +1,7 @@
 {
   "source": "tesco_groceries",
   "currency": "HUF",
-  "updated_at": "2026-02-25T12:16:41.644122+00:00",
+  "updated_at": "2026-02-25T12:37:28.072292+00:00",
   "items": [
     {
       "id": "milk_1l",
@@ -10,8 +10,8 @@
       "note": "1L",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:16:41.962371+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:37:28.469623+00:00"
     },
     {
       "id": "eggs_10",
@@ -20,8 +20,8 @@
       "note": "10個",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:16:48.431551+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:37:32.882840+00:00"
     },
     {
       "id": "chicken_breast",
@@ -30,8 +30,8 @@
       "note": "量り売り（Ft/kg表示）",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:16:54.682593+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:37:37.115713+00:00"
     },
     {
       "id": "pasta_500g",
@@ -40,8 +40,8 @@
       "note": "500g",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:17:00.928349+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:37:41.332122+00:00"
     },
     {
       "id": "rice_1kg",
@@ -50,8 +50,8 @@
       "note": "1kg",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:17:07.175821+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:37:45.581664+00:00"
     },
     {
       "id": "banana",
@@ -60,8 +60,8 @@
       "note": "量り売り（Ft/kg表示）",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:17:13.427594+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:37:49.799269+00:00"
     },
     {
       "id": "cheese_250g",
@@ -70,8 +70,8 @@
       "note": "250g",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:17:19.676732+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:37:54.015180+00:00"
     },
     {
       "id": "bread_500g",
@@ -80,8 +80,8 @@
       "note": "500g",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:17:25.925116+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:37:58.231686+00:00"
     },
     {
       "id": "tomato",
@@ -90,8 +90,8 @@
       "note": "量り売り（Ft/kg表示）",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:17:32.172573+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:38:02.448322+00:00"
     },
     {
       "id": "yogurt_500g",
@@ -100,8 +100,8 @@
       "note": "4x125g（合計500g）",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:17:38.422233+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:38:06.664805+00:00"
     },
     {
       "id": "minced_meat_500g",
@@ -110,8 +110,8 @@
       "note": "500g",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:17:44.670039+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:38:10.881632+00:00"
     },
     {
       "id": "tuna_160g",
@@ -120,8 +120,8 @@
       "note": "160g（表記上の固形量あり）",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:17:50.925023+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:38:15.098080+00:00"
     },
     {
       "id": "onion_1kg",
@@ -130,8 +130,8 @@
       "note": "1kg",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:17:57.174086+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:38:19.314992+00:00"
     },
     {
       "id": "potato_1kg",
@@ -140,8 +140,8 @@
       "note": "1kg",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:18:03.442475+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:38:23.531418+00:00"
     },
     {
       "id": "frozen_veg_mix_1kg",
@@ -150,8 +150,8 @@
       "note": "1kg",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:18:09.689964+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:38:27.747299+00:00"
     },
     {
       "id": "toilet_paper_8",
@@ -160,8 +160,8 @@
       "note": "8ロール",
       "price_huf": null,
       "unit_label": "",
-      "status": "not_found",
-      "fetched_at": "2026-02-25T12:18:15.939770+00:00"
+      "status": "blocked_or_consent:access denied",
+      "fetched_at": "2026-02-25T12:38:31.963758+00:00"
     }
   ]
 }
