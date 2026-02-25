@@ -112,7 +112,7 @@
   </div>
 </section>
 
-<!-- ✅ 物価（KSH：月1更新）※ここだけ追加 -->
+<!-- 物価（KSH：月1更新） -->
 <section class="section" id="prices">
   <h2>物価（学生がよく買うもの：月1更新）</h2>
 
@@ -129,11 +129,10 @@
             <th>価格</th>
             <th>単位</th>
             <th>備考</th>
-            <th>状態</th>
           </tr>
         </thead>
         <tbody id="pricesTbody">
-          <tr><td colspan="5">読み込み中…</td></tr>
+          <tr><td colspan="4">読み込み中…</td></tr>
         </tbody>
       </table>
     </div>
@@ -224,7 +223,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
   /* =========================
-     既存：画像JSONから差し替え（ここは元のまま）
+     画像JSONから差し替え（元のまま）
   ========================== */
   const map = {
     hero: "imgHero",
@@ -253,8 +252,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /* =========================
-     追加：物価（prices.json）読み込み＆描画（KSH）
-     ※画像処理には一切触らない
+     物価（prices.json）読み込み＆描画（KSH）
+     ※状態列は表示しない
   ========================== */
   async function loadPrices() {
     const metaEl = document.getElementById("pricesMeta");
@@ -274,7 +273,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const items = Array.isArray(data?.items) ? data.items : [];
       if (!items.length) {
-        tbodyEl.innerHTML = `<tr><td colspan="5">データがありません</td></tr>`;
+        tbodyEl.innerHTML = `<tr><td colspan="4">データがありません</td></tr>`;
         return;
       }
 
@@ -284,7 +283,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const price = it?.price_huf;
         const unit = String(it?.ksh_unit || "");
         const note = String(it?.label_ja || it?.note || "");
-        const status = String(it?.status || "");
 
         const priceText =
           typeof price === "number" && isFinite(price) ? formatNumber(price) : "";
@@ -295,7 +293,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           <td>${escapeHtml(priceText)}</td>
           <td>${escapeHtml(unit)}</td>
           <td>${escapeHtml(note)}</td>
-          <td>${escapeHtml(status)}</td>
         `;
         tbodyEl.appendChild(tr);
       }
@@ -304,7 +301,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const metaEl = document.getElementById("pricesMeta");
       const tbodyEl = document.getElementById("pricesTbody");
       if (metaEl) metaEl.textContent = "物価データの読み込みに失敗しました";
-      if (tbodyEl) tbodyEl.innerHTML = `<tr><td colspan="5">読み込みエラー</td></tr>`;
+      if (tbodyEl) tbodyEl.innerHTML = `<tr><td colspan="4">読み込みエラー</td></tr>`;
     }
   }
 
