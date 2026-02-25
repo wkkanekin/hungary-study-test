@@ -2,21 +2,85 @@
   "source": "KSH_STADAT_1.2.1.8_ara0044",
   "currency": "HUF",
   "items": [
-    { "id": "milk_esl_28_1l", "name": "牛乳（ESL 2.8%）", "ksh_code": "10803", "unit_label": "Ft/l", "note": "KSH平均価格（全国）" },
-    { "id": "eggs_10", "name": "卵 10個", "ksh_code": "11101", "unit_label": "Ft/10pcs", "note": "KSH平均価格（全国）" },
-    { "id": "chicken_breast", "name": "鶏むね肉（フィレ）", "ksh_code": "10411", "unit_label": "Ft/kg", "note": "KSH平均価格（全国）" },
-    { "id": "rice_kg", "name": "米（精米）", "ksh_code": "10901", "unit_label": "Ft/kg", "note": "KSH表記: Husked rice, unpolished" },
-    { "id": "spaghetti_egg", "name": "スパゲッティ（卵入り）", "ksh_code": "11308", "unit_label": "Ft/pack", "note": "KSH表記: 4-egg spaghetti 400–500g" },
-    { "id": "bread_white", "name": "パン（白パン）", "ksh_code": "11201", "unit_label": "Ft/kg", "note": "KSH表記: White bread" },
-    { "id": "tomatoes", "name": "トマト", "ksh_code": "11506", "unit_label": "Ft/kg", "note": "KSH平均価格（全国）" },
-    { "id": "bananas", "name": "バナナ", "ksh_code": "11602", "unit_label": "Ft/kg", "note": "KSH平均価格（全国）" },
-    { "id": "cheese_trappist", "name": "チーズ（トラピスト系ブロック）", "ksh_code": "11004", "unit_label": "Ft/kg", "note": "KSH表記: Trappist-style cheese block" },
-    { "id": "yoghurt_fruit", "name": "ヨーグルト（フルーツ）", "ksh_code": "11012", "unit_label": "Ft/pack", "note": "KSH表記: 125–150g" },
-    { "id": "onions_red", "name": "玉ねぎ（赤玉）", "ksh_code": "11501", "unit_label": "Ft/kg", "note": "KSH表記: Red onions" },
-    { "id": "potatoes_old", "name": "じゃがいも（旧じゃが）", "ksh_code": "11402", "unit_label": "Ft/kg", "note": "KSH表記: 'Old' potatoes" },
-    { "id": "cucumbers", "name": "きゅうり", "ksh_code": "11505", "unit_label": "Ft/kg", "note": "KSH平均価格（全国）" },
-    { "id": "apples", "name": "りんご", "ksh_code": "11601", "unit_label": "Ft/kg", "note": "KSH平均価格（全国）" },
-    { "id": "sunflower_oil", "name": "食用油（ひまわり）", "ksh_code": "10701", "unit_label": "Ft/l", "note": "KSH表記: Cooking oil, sunflower-seed" },
-    { "id": "plain_flour", "name": "小麦粉（薄力/標準）", "ksh_code": "11301", "unit_label": "Ft/kg", "note": "KSH表記: Plain flour" }
+    {
+      "id": "milk",
+      "label_ja": "牛乳（ESL 2.8%）",
+      "ksh_match_contains": ["milk", "2.8"]
+    },
+    {
+      "id": "eggs_10",
+      "label_ja": "卵 10個",
+      "ksh_match_contains": ["eggs", "10 pieces"]
+    },
+    {
+      "id": "chicken",
+      "label_ja": "鶏肉（フィレ/胸系）",
+      "ksh_match_contains": ["chicken", "fillet"]
+    },
+    {
+      "id": "pasta",
+      "label_ja": "パスタ（卵入りスパゲッティ）",
+      "ksh_match_contains": ["spaghetti"]
+    },
+    {
+      "id": "bread",
+      "label_ja": "パン（白パン）",
+      "ksh_match_contains": ["white bread"]
+    },
+    {
+      "id": "tomato",
+      "label_ja": "トマト",
+      "ksh_match_contains": ["tomatoes"]
+    },
+    {
+      "id": "banana",
+      "label_ja": "バナナ",
+      "ksh_match_contains": ["bananas"]
+    },
+    {
+      "id": "cheese",
+      "label_ja": "チーズ（トラピスト系）",
+      "ksh_match_contains": ["trappist"]
+    },
+    {
+      "id": "yoghurt",
+      "label_ja": "ヨーグルト（125–150g）",
+      "ksh_match_contains": ["yoghurt", "125"]
+    },
+    {
+      "id": "onion",
+      "label_ja": "玉ねぎ（赤玉）",
+      "ksh_match_contains": ["red onions"]
+    },
+    {
+      "id": "potato",
+      "label_ja": "じゃがいも（old）",
+      "ksh_match_contains": ["potatoes", "old"]
+    },
+    {
+      "id": "cucumber",
+      "label_ja": "きゅうり",
+      "ksh_match_contains": ["cucumbers"]
+    },
+    {
+      "id": "apple",
+      "label_ja": "りんご",
+      "ksh_match_contains": ["apples"]
+    },
+    {
+      "id": "oil",
+      "label_ja": "食用油（ひまわり）",
+      "ksh_match_contains": ["cooking oil", "sunflower"]
+    },
+    {
+      "id": "flour",
+      "label_ja": "小麦粉（plain）",
+      "ksh_match_contains": ["plain flour"]
+    },
+    {
+      "id": "rice",
+      "label_ja": "米（KSH表記に合わせる）",
+      "ksh_match_contains": ["rice"]
+    }
   ]
 }
