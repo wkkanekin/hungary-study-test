@@ -112,7 +112,7 @@
   </div>
 </section>
 
-<!-- 物価（KSH：月1更新） -->
+<!-- ✅ 物価（KSH：月1更新）※追加：状態列なし -->
 <section class="section" id="prices">
   <h2>物価（学生がよく買うもの：月1更新）</h2>
 
@@ -223,7 +223,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
   /* =========================
-     画像JSONから差し替え（元のまま）
+     画像JSONから差し替え（元のまま・一切変更しない）
   ========================== */
   const map = {
     hero: "imgHero",
@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   /* =========================
      物価（prices.json）読み込み＆描画（KSH）
-     ※状態列は表示しない
+     ✅ 状態列は出さない（statusは一切描画しない）
   ========================== */
   async function loadPrices() {
     const metaEl = document.getElementById("pricesMeta");
@@ -269,7 +269,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       const source = String(data?.source || "");
       const latestMonth = String(data?.ksh_latest_month || "");
 
-      metaEl.textContent = `最終更新：${updated || "不明"} / 取得元：${source || "不明"} / 統計月：${latestMonth || "不明"}`;
+      metaEl.textContent =
+        `最終更新：${updated || "不明"} / 取得元：${source || "不明"} / 統計月：${latestMonth || "不明"}`;
 
       const items = Array.isArray(data?.items) ? data.items : [];
       if (!items.length) {
@@ -298,8 +299,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     } catch (err) {
       console.error(err);
-      const metaEl = document.getElementById("pricesMeta");
-      const tbodyEl = document.getElementById("pricesTbody");
       if (metaEl) metaEl.textContent = "物価データの読み込みに失敗しました";
       if (tbodyEl) tbodyEl.innerHTML = `<tr><td colspan="4">読み込みエラー</td></tr>`;
     }
