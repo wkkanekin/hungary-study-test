@@ -30,6 +30,13 @@ jobs:
         run: |
           python collect_prices_tesco.py basket.json prices.json
 
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug_prices
+          path: debug_prices
+
       - name: Commit and push if changed
         run: |
           git config user.name "price-bot"
