@@ -1,118 +1,22 @@
 {
-  "source": "tesco_groceries",
+  "source": "KSH_STADAT_1.2.1.8_ara0044",
   "currency": "HUF",
   "items": [
-    {
-      "id": "milk_1l",
-      "name": "牛乳 1L",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004009847312",
-      "note": "1L",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "eggs_10",
-      "name": "卵 10個",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004009712559",
-      "note": "10個",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "chicken_breast",
-      "name": "鶏むね肉（目安）",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004003176258",
-      "note": "量り売り（Ft/kg表示）",
-      "prefer_unit_price": true
-    },
-    {
-      "id": "pasta_500g",
-      "name": "パスタ 500g",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2005100501330",
-      "note": "500g",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "rice_1kg",
-      "name": "米 1kg",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2005100501435",
-      "note": "1kg",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "banana",
-      "name": "バナナ",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004005406742",
-      "note": "量り売り（Ft/kg表示）",
-      "prefer_unit_price": true
-    },
-    {
-      "id": "cheese_250g",
-      "name": "チーズ 250g",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004020336876",
-      "note": "250g",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "bread_500g",
-      "name": "パン 500g（スライス）",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2005105015724",
-      "note": "500g",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "tomato",
-      "name": "トマト",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004003274480",
-      "note": "量り売り（Ft/kg表示）",
-      "prefer_unit_price": true
-    },
-    {
-      "id": "yogurt_500g",
-      "name": "ヨーグルト（合計500g）",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004010563690",
-      "note": "4x125g（合計500g）",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "minced_meat_500g",
-      "name": "ひき肉 500g",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2005105000159",
-      "note": "500g",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "tuna_160g",
-      "name": "ツナ缶 160g",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004006252584",
-      "note": "160g（表記上の固形量あり）",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "onion_1kg",
-      "name": "玉ねぎ 1kg",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004006650625",
-      "note": "1kg",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "potato_1kg",
-      "name": "じゃがいも 1kg",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004007929164",
-      "note": "1kg",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "frozen_veg_mix_1kg",
-      "name": "冷凍ミックス野菜 1kg",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2005100687903",
-      "note": "1kg",
-      "prefer_unit_price": false
-    },
-    {
-      "id": "toilet_paper_8",
-      "name": "トイレットペーパー（8ロール）",
-      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/105322431",
-      "note": "8ロール",
-      "prefer_unit_price": false
-    }
+    { "id": "milk_esl_28_1l", "name": "牛乳（ESL 2.8%）", "ksh_code": "10803", "unit_label": "Ft/l", "note": "KSH平均価格（全国）" },
+    { "id": "eggs_10", "name": "卵 10個", "ksh_code": "11101", "unit_label": "Ft/10pcs", "note": "KSH平均価格（全国）" },
+    { "id": "chicken_breast", "name": "鶏むね肉（フィレ）", "ksh_code": "10411", "unit_label": "Ft/kg", "note": "KSH平均価格（全国）" },
+    { "id": "rice_kg", "name": "米（精米）", "ksh_code": "10901", "unit_label": "Ft/kg", "note": "KSH表記: Husked rice, unpolished" },
+    { "id": "spaghetti_egg", "name": "スパゲッティ（卵入り）", "ksh_code": "11308", "unit_label": "Ft/pack", "note": "KSH表記: 4-egg spaghetti 400–500g" },
+    { "id": "bread_white", "name": "パン（白パン）", "ksh_code": "11201", "unit_label": "Ft/kg", "note": "KSH表記: White bread" },
+    { "id": "tomatoes", "name": "トマト", "ksh_code": "11506", "unit_label": "Ft/kg", "note": "KSH平均価格（全国）" },
+    { "id": "bananas", "name": "バナナ", "ksh_code": "11602", "unit_label": "Ft/kg", "note": "KSH平均価格（全国）" },
+    { "id": "cheese_trappist", "name": "チーズ（トラピスト系ブロック）", "ksh_code": "11004", "unit_label": "Ft/kg", "note": "KSH表記: Trappist-style cheese block" },
+    { "id": "yoghurt_fruit", "name": "ヨーグルト（フルーツ）", "ksh_code": "11012", "unit_label": "Ft/pack", "note": "KSH表記: 125–150g" },
+    { "id": "onions_red", "name": "玉ねぎ（赤玉）", "ksh_code": "11501", "unit_label": "Ft/kg", "note": "KSH表記: Red onions" },
+    { "id": "potatoes_old", "name": "じゃがいも（旧じゃが）", "ksh_code": "11402", "unit_label": "Ft/kg", "note": "KSH表記: 'Old' potatoes" },
+    { "id": "cucumbers", "name": "きゅうり", "ksh_code": "11505", "unit_label": "Ft/kg", "note": "KSH平均価格（全国）" },
+    { "id": "apples", "name": "りんご", "ksh_code": "11601", "unit_label": "Ft/kg", "note": "KSH平均価格（全国）" },
+    { "id": "sunflower_oil", "name": "食用油（ひまわり）", "ksh_code": "10701", "unit_label": "Ft/l", "note": "KSH表記: Cooking oil, sunflower-seed" },
+    { "id": "plain_flour", "name": "小麦粉（薄力/標準）", "ksh_code": "11301", "unit_label": "Ft/kg", "note": "KSH表記: Plain flour" }
   ]
 }
