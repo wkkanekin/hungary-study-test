@@ -18,19 +18,14 @@
   </p>
 </header>
 
-<!-- Hero -->
 <section class="section">
   <div class="card heroWrap">
-    <img id="imgHero" class="heroImg"
-      src="images/dummy.jpg"
-      alt="ダミー画像">
+    <img id="imgHero" class="heroImg" src="images/dummy.jpg" alt="ダミー画像">
   </div>
 </section>
 
-<!-- 30秒まとめ -->
 <section class="section">
   <h2>まずこれだけ知っておけばOK（30秒）</h2>
-
   <div class="card simpleCard">
     <ul style="line-height:1.9; padding-left:18px;">
       <li>英語だけでOK（大学による）</li>
@@ -42,77 +37,22 @@
   </div>
 </section>
 
-<!-- 安全 -->
-<section class="section">
-  <h2>① 安全？</h2>
-
-  <div class="card heroWrap" style="margin-bottom:12px;">
-    <img id="imgSafety" class="heroImg"
-      src="images/dummy.jpg"
-      alt="ダミー画像">
-  </div>
-
-  <div class="card simpleCard">
-    <p>
-      体感としては、<b>夜の繁華街を避ける・スリに注意</b>くらいでOKです。
-    </p>
-
-    <h3>よくある注意</h3>
-    <ul style="line-height:1.9; padding-left:18px;">
-      <li>観光地・トラムでスリ</li>
-      <li>深夜の繁華街（特に週末）</li>
-      <li>知らない人に声をかけられてついていかない</li>
-    </ul>
-
-    <p class="muted">
-      → 対策していれば、普通に生活できます。
-    </p>
-  </div>
-</section>
-
-<!-- 生活費 -->
 <section class="section">
   <h2>② いくらかかる？</h2>
-
-  <div class="card heroWrap" style="margin-bottom:12px;">
-    <img id="imgCosts" class="heroImg"
-      src="images/dummy.jpg"
-      alt="ダミー画像">
-  </div>
-
   <div class="card simpleCard">
-    <p>
-      生活費は<b>住む場所と家賃でほぼ決まります。</b>
-    </p>
-
-    <h3>目安</h3>
-    <ul style="line-height:1.9; padding-left:18px;">
-      <li>最低ライン：<b>月25万Ft</b></li>
-      <li>ブダペストは高め</li>
-      <li>地方都市はやや安め</li>
-    </ul>
-
-    <h3>住まいの選択</h3>
-    <ul style="line-height:1.9; padding-left:18px;">
-      <li>寮 → 安いが枠が少ない</li>
-      <li>シェア → バランス良い</li>
-      <li>一人暮らし → 高くなりやすい</li>
-    </ul>
-
-    <p class="muted">
-      → 面談では、あなたの希望条件で具体的に計算します。
-    </p>
+    <p>生活費は<b>住む場所と家賃でほぼ決まります。</b></p>
   </div>
 </section>
 
-<!-- 物価（月1自動更新：単価一覧） -->
+<!-- =========================
+     物価セクション（KSH）
+========================= -->
+
 <section class="section" id="prices">
   <h2>物価（学生がよく買うもの：月1更新）</h2>
 
   <div class="card simpleCard">
-    <p class="muted" id="pricesMeta" style="margin-top:0;">
-      読み込み中…
-    </p>
+    <p class="muted" id="pricesMeta">読み込み中...</p>
 
     <div class="tableWrap">
       <table>
@@ -126,84 +66,16 @@
           </tr>
         </thead>
         <tbody id="pricesTbody">
-          <tr><td colspan="5">読み込み中…</td></tr>
+          <tr>
+            <td colspan="5">読み込み中...</td>
+          </tr>
         </tbody>
       </table>
     </div>
 
-    <p class="muted" style="margin-bottom:0;">
-      ※ 価格は在庫・店舗・時期で変動します。取得に失敗した品目は「error / not_found」になります。
+    <p class="muted" style="margin-top:12px;">
+      ※ 価格はKSH（ハンガリー中央統計局）の全国平均小売価格（月次）です。
     </p>
-  </div>
-</section>
-
-<!-- 奨学金 -->
-<section class="section">
-  <h2>③ 奨学金で足りる？</h2>
-
-  <div class="card heroWrap" style="margin-bottom:12px;">
-    <img id="imgScholarship" class="heroImg"
-      src="images/dummy.jpg"
-      alt="ダミー画像">
-  </div>
-
-  <div class="card simpleCard">
-    <p>
-      条件に当てはまれば、奨学金で生活費の大部分をカバーできます。
-    </p>
-
-    <h3>ポイント</h3>
-    <ul style="line-height:1.9; padding-left:18px;">
-      <li>学費免除の有無</li>
-      <li>寮の提供があるか</li>
-      <li>毎月の支給額（生活費に足りるか）</li>
-    </ul>
-
-    <p class="muted">
-      → 大学・奨学金別にシミュレーションします。
-    </p>
-  </div>
-</section>
-
-<!-- 英語 -->
-<section class="section">
-  <h2>④ 英語だけで大丈夫？</h2>
-
-  <div class="card heroWrap" style="margin-bottom:12px;">
-    <img id="imgEnglish" class="heroImg"
-      src="images/dummy.jpg"
-      alt="ダミー画像">
-  </div>
-
-  <div class="card simpleCard">
-    <p>
-      <b>英語プログラム</b>を選べば基本OKです（大学・学部で条件は異なります）。
-    </p>
-
-    <h3>よくある要件</h3>
-    <ul style="line-height:1.9; padding-left:18px;">
-      <li>IELTS/TOEFL など（不要の場合もある）</li>
-      <li>オンライン面接</li>
-      <li>志望理由書（Motivation Letter）</li>
-    </ul>
-
-    <p class="muted">
-      → あなたの出願先に合わせて必要条件を整理します。
-    </p>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="section">
-  <div class="card simpleCard" style="text-align:center;">
-    <h2 style="margin-top:0;">次はあなたの条件で整理しよう</h2>
-    <p class="muted" style="max-width:780px; margin:10px auto 16px;">
-      大学・学部・奨学金・生活費は、条件次第で最適解が変わります。<br>
-      現役生が、あなたの状況に合わせて整理します。
-    </p>
-    <a href="index.html#consult" class="btn primary">
-      オンライン面談を見る
-    </a>
   </div>
 </section>
 
@@ -215,69 +87,73 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
-  const map = {
-    hero: "imgHero",
-    safety: "imgSafety",
-    costs: "imgCosts",
-    scholarship: "imgScholarship",
-    english: "imgEnglish"
-  };
 
-  try {
-    const res = await fetch("basics-hungary.images.json", { cache: "no-store" });
-    if (!res.ok) return;
+  /* =========================
+     物価（KSH版）
+  ========================== */
 
-    const data = await res.json();
-    const images = data.images;
+  const metaEl = document.getElementById("pricesMeta");
+  const tbodyEl = document.getElementById("pricesTbody");
 
-    for (const key in map) {
-      const el = document.getElementById(map[key]);
-      if (!el) continue;
-
-      if (images[key]?.url) el.src = images[key].url;
-      if (images[key]?.alt) el.alt = images[key].alt;
-    }
-  } catch (e) {
-    console.log("画像JSONが読み込めませんでした（ダミー表示）");
-  }
-
-
-  // 物価（prices.json）読み込み＆描画（追加）
   async function loadPrices() {
-    const metaEl = document.getElementById("pricesMeta");
-    const tbodyEl = document.getElementById("pricesTbody");
     if (!metaEl || !tbodyEl) return;
 
     try {
       const r = await fetch("prices.json?v=" + Date.now(), { cache: "no-store" });
-      if (!r.ok) throw new Error("prices.json の取得に失敗しました");
+      if (!r.ok) throw new Error("prices.json の取得に失敗");
 
       const data = await r.json();
-      const updated = String(data?.updated_at || "");
-      const source = String(data?.source || "");
 
-      metaEl.textContent = `最終更新：${updated || "不明"} / 取得元：${source || "不明"}`;
+      const updated = data?.updated_at || "";
+      const source = data?.source || "";
+      const latestMonth = data?.ksh_latest_month || "";
+
+      metaEl.textContent =
+        `最終更新：${updated || "不明"} / 取得元：${source || "不明"} / 統計月：${latestMonth || "不明"}`;
 
       const items = Array.isArray(data?.items) ? data.items : [];
+
       if (!items.length) {
         tbodyEl.innerHTML = `<tr><td colspan="5">データがありません</td></tr>`;
         return;
       }
 
       tbodyEl.innerHTML = "";
+
       for (const it of items) {
-        const name = String(it?.name || "");
-        const price = it?.price_huf;
-        const unit = String(it?.unit_label || "");
-        const note = String(it?.note || "");
+
+        const denom =
+          String(
+            it?.ksh_denomination ||
+            it?.label_ja ||
+            it?.name ||
+            ""
+          );
+
+        const unit =
+          String(
+            it?.ksh_unit ||
+            ""
+          );
+
+        const note =
+          String(
+            it?.label_ja ||
+            it?.note ||
+            ""
+          );
+
         const status = String(it?.status || "");
 
+        const price = it?.price_huf;
         const priceText =
-          typeof price === "number" && isFinite(price) ? formatNumber(price) : "";
+          typeof price === "number" && isFinite(price)
+            ? formatNumber(price)
+            : "";
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td>${escapeHtml(name)}</td>
+          <td>${escapeHtml(denom)}</td>
           <td>${escapeHtml(priceText)}</td>
           <td>${escapeHtml(unit)}</td>
           <td>${escapeHtml(note)}</td>
@@ -285,15 +161,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         `;
         tbodyEl.appendChild(tr);
       }
+
     } catch (err) {
+      console.error(err);
       metaEl.textContent = "物価データの読み込みに失敗しました";
       tbodyEl.innerHTML = `<tr><td colspan="5">読み込みエラー</td></tr>`;
-      console.error(err);
     }
   }
 
   function formatNumber(n) {
-    if (typeof n !== "number" || !isFinite(n)) return "";
     return n.toLocaleString("en-US");
   }
 
