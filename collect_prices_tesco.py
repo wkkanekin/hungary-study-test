@@ -44,43 +44,148 @@ def load_basket(path: str) -> Tuple[str, str, List[BasketItem]]:
     return source, currency, items
 
 
-def normalize_int_huf(s: str) -> Optional[int]:
-    s = s.replace("\u00A0", " ").strip()
-    s = re.sub(r"\s+", "", s)
+def _normalize_int(s: str) -> Optional[int]:
+    # "2 999" / "2 999" / "2999" -> 2999
+    s = s.replace("\u00A0", " ")
+    s = re.sub(r"\s+", "", s).strip()
     if not s.isdigit():
         return None
     return int(s)
 
 
-def extract_unit_price(text: str) -> Optional[Tuple[int, str]]:
+def _extract_unit_price_any(text: str) -> Optional[Tuple[int, str]]:
     """
-    例: "1084 Ft/kg" / "399 Ft/l" / "97 Ft/db"
+    例: "1084 Ft/kg" / "2999 Ft/litre" / "2999 Ft/l" / "97 Ft/db"
+    Tescoは英語ページだと litre など表記が混ざる可能性があるので広めに取る
     """
-    m = re.search(r"(\d[\d\s\u00A0]{1,12})\s*Ft\s*/\s*(kg|l|db)\b", text, flags=re.IGNORECASE)
-    if not m:
-        return None
-    price = normalize_int_huf(m.group(1))
-    if price is None:
-        return None
-    unit = m.group(2).lower()
-    return price, f"Ft/{unit}"
+    patterns = [
+        r"(\d[\d\s\u00A0]{1,12})\s*Ft\s*/\s*(kg|l|db)\b",
+        r"(\d[\d\s\u00A0]{1,12})\s*Ft\s*/\s*(litre|liter)\b",
+    ]
+    for pat in patterns:
+        m = re.search(pat, text, flags=re.IGNORECASE)
+        if not m:
+            continue
+        price = _normalize_int(m.group(1))
+        if price is None:
+            continue
+        unit = m.group(2).lower()
+        if unit in ("litre", "liter"):
+            unit = "l"
+        return price, f"Ft/{unit}"
+    return None
 
 
-def extract_pack_price(text: str) -> Optional[int]:
+def _extract_pack_price_any(text: str) -> Optional[int]:
     """
-    ページ内の "xxxx Ft" の最初のまともな値を拾う（0 Ftは除外）
+    ページ内の "xxxx Ft" を拾う（basketの 0 Ft などノイズもあるので、最初に出た値が怪しい時は候補を増やす）
     """
+    candidates: List[int] = []
     for m in re.finditer(r"(\d[\d\s\u00A0]{1,12})\s*Ft\b", text, flags=re.IGNORECASE):
-        price = normalize_int_huf(m.group(1))
+        price = _normalize_int(m.group(1))
         if price is None:
             continue
         if price <= 0:
             continue
-        return price
-    return None
+        candidates.append(price)
+
+    if not candidates:
+        return None
+
+    # 0 Ftや極端に小さい値（例: 1 Ft）が混ざることがあるので、妥当そうな最小を返す
+    # （クラブカード価格等が別に出てくるが、今回は「通常価格」を優先するため最初の有力候補）
+    return candidates[0]
 
 
-def collect_one(page, item: BasketItem, timeout_ms: int = 30000) -> Dict[str, Any]:
+def _maybe_accept_cookies(page) -> None:
+    """
+    Tescoの同意UIを閉じる（テキスト/role両方で雑に対応）
+    失敗しても落とさない
+    """
+    try:
+        # まず短時間待つ（同意UIが出る場合）
+        page.wait_for_timeout(800)
+
+        # ボタン文言候補（英/ハンガリー語）
+        candidates = [
+            "Accept all",
+            "Reject all",
+            "Összes elfogadása",
+            "Összes cookie elfogadása",
+            "Elfogadom",
+            "Elutasítom",
+            "Mindent elfogad",
+            "Mindent elutasít",
+        ]
+
+        # role=button で探す
+        for label in candidates:
+            loc = page.get_by_role("button", name=label)
+            if loc.count() > 0:
+                loc.first.click(timeout=2000)
+                page.wait_for_timeout(600)
+                return
+
+        # テキストで探す（roleに載らない場合）
+        for label in candidates:
+            loc2 = page.locator(f"text={label}")
+            if loc2.count() > 0:
+                loc2.first.click(timeout=2000)
+                page.wait_for_timeout(600)
+                return
+    except Exception:
+        return
+
+
+def _fetch_and_extract(page, url: str, prefer_unit: bool) -> Tuple[Optional[int], str]:
+    """
+    1 URL につき:
+    - 同意UIを処理
+    - bodyテキスト + HTMLを解析して価格抽出
+    """
+    page.goto(url, wait_until="domcontentloaded", timeout=35000)
+    _maybe_accept_cookies(page)
+
+    # 価格が描画されるのを少し待つ
+    page.wait_for_timeout(1200)
+
+    # 1) bodyテキスト
+    try:
+        body_text = page.inner_text("body")
+    except Exception:
+        body_text = ""
+
+    # 2) HTML（inner_textに出ない値がある場合に備える）
+    try:
+        html = page.content()
+    except Exception:
+        html = ""
+
+    # 解析対象を合成（順序は body_text 優先）
+    combined = body_text + "\n" + html
+
+    # ユニット価格（Ft/kg等）
+    unit = _extract_unit_price_any(combined)
+    pack = _extract_pack_price_any(combined)
+
+    if prefer_unit and unit is not None:
+        return unit[0], unit[1]
+
+    if pack is not None:
+        return pack, "Ft"
+
+    if unit is not None:
+        return unit[0], unit[1]
+
+    return None, ""
+
+
+def _swap_lang_to_en(url: str) -> str:
+    # hu-HU -> en-HU のフォールバック
+    return url.replace("/hu-HU/", "/en-HU/")
+
+
+def collect_one(page, item: BasketItem) -> Dict[str, Any]:
     now_iso = datetime.now(timezone.utc).isoformat()
 
     result: Dict[str, Any] = {
@@ -95,36 +200,21 @@ def collect_one(page, item: BasketItem, timeout_ms: int = 30000) -> Dict[str, An
     }
 
     try:
-        page.goto(item.url, wait_until="domcontentloaded", timeout=timeout_ms)
-        # 価格がJSで描画される可能性があるので少し待つ
-        page.wait_for_timeout(1200)
+        # 1回目：指定URL
+        price, unit_label = _fetch_and_extract(page, item.url, item.prefer_unit_price)
 
-        # bodyのテキストを取る（DOMが多少変わっても耐える）
-        text = page.inner_text("body")
+        # 2回目：言語フォールバック（hu-HUが死ぬ場合）
+        if price is None and "/hu-HU/" in item.url:
+            fallback = _swap_lang_to_en(item.url)
+            price, unit_label = _fetch_and_extract(page, fallback, item.prefer_unit_price)
 
-        unit_price = extract_unit_price(text)
-        pack_price = extract_pack_price(text)
-
-        if item.prefer_unit_price and unit_price is not None:
-            result["price_huf"] = unit_price[0]
-            result["unit_label"] = unit_price[1]
-            result["status"] = "ok"
+        if price is None:
+            result["status"] = "not_found"
             return result
 
-        if pack_price is not None:
-            result["price_huf"] = pack_price
-            result["unit_label"] = "Ft"
-            result["status"] = "ok"
-            return result
-
-        # pack price取れず、unit priceだけ取れた場合の保険
-        if unit_price is not None:
-            result["price_huf"] = unit_price[0]
-            result["unit_label"] = unit_price[1]
-            result["status"] = "ok"
-            return result
-
-        result["status"] = "not_found"
+        result["price_huf"] = int(price)
+        result["unit_label"] = unit_label
+        result["status"] = "ok"
         return result
 
     except PlaywrightTimeoutError:
@@ -142,13 +232,21 @@ def collect_prices(basket_path: str, out_path: str) -> None:
     results: List[Dict[str, Any]] = []
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-blink-features=AutomationControlled",
+            ],
+        )
         context = browser.new_context(
             user_agent=(
                 "Mozilla/5.0 (X11; Linux x86_64) "
                 "AppleWebKit/537.36 (KHTML, like Gecko) "
                 "Chrome/121.0.0.0 Safari/537.36"
-            )
+            ),
+            locale="en-US",
         )
         page = context.new_page()
 
@@ -156,7 +254,7 @@ def collect_prices(basket_path: str, out_path: str) -> None:
             r = collect_one(page, it)
             results.append(r)
             # 負荷配慮（最小限）
-            time.sleep(1.5)
+            time.sleep(1.2)
 
         context.close()
         browser.close()
