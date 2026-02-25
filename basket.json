@@ -1,0 +1,118 @@
+{
+  "source": "tesco_groceries",
+  "currency": "HUF",
+  "items": [
+    {
+      "id": "milk_1l",
+      "name": "牛乳 1L",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004009847312",
+      "note": "1L",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "eggs_10",
+      "name": "卵 10個",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004009712559",
+      "note": "10個",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "chicken_breast",
+      "name": "鶏むね肉（目安）",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004003176258",
+      "note": "量り売り（Ft/kg表示）",
+      "prefer_unit_price": true
+    },
+    {
+      "id": "pasta_500g",
+      "name": "パスタ 500g",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2005100501330",
+      "note": "500g",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "rice_1kg",
+      "name": "米 1kg",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2005100501435",
+      "note": "1kg",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "banana",
+      "name": "バナナ",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004005406742",
+      "note": "量り売り（Ft/kg表示）",
+      "prefer_unit_price": true
+    },
+    {
+      "id": "cheese_250g",
+      "name": "チーズ 250g",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004020336876",
+      "note": "250g",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "bread_500g",
+      "name": "パン 500g（スライス）",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2005105015724",
+      "note": "500g",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "tomato",
+      "name": "トマト",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004003274480",
+      "note": "量り売り（Ft/kg表示）",
+      "prefer_unit_price": true
+    },
+    {
+      "id": "yogurt_500g",
+      "name": "ヨーグルト（合計500g）",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004010563690",
+      "note": "4x125g（合計500g）",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "minced_meat_500g",
+      "name": "ひき肉 500g",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2005105000159",
+      "note": "500g",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "tuna_160g",
+      "name": "ツナ缶 160g",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004006252584",
+      "note": "160g（表記上の固形量あり）",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "onion_1kg",
+      "name": "玉ねぎ 1kg",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004006650625",
+      "note": "1kg",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "potato_1kg",
+      "name": "じゃがいも 1kg",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2004007929164",
+      "note": "1kg",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "frozen_veg_mix_1kg",
+      "name": "冷凍ミックス野菜 1kg",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/2005100687903",
+      "note": "1kg",
+      "prefer_unit_price": false
+    },
+    {
+      "id": "toilet_paper_8",
+      "name": "トイレットペーパー（8ロール）",
+      "url": "https://bevasarlas.tesco.hu/groceries/hu-HU/products/105322431",
+      "note": "8ロール",
+      "prefer_unit_price": false
+    }
+  ]
+}
