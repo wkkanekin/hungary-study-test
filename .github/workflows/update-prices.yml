@@ -29,9 +29,13 @@ jobs:
         run: |
           python collect_prices_ksh.py basket.json prices.json
 
+      - name: Collect university rankings
+        run: |
+          python collect_rankings_the.py
+
       - name: Commit and push if changed
         run: |
           git config user.name "price-bot"
           git config user.email "price-bot@users.noreply.github.com"
-          git add prices.json
-          git diff --cached --quiet || (git commit -m "Update prices.json (KSH)" && git push)
+          git add prices.json rankings.json collect_rankings_the.py
+          git diff --cached --quiet || (git commit -m "Update prices.json and rankings.json" && git push)
