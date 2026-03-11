@@ -32,7 +32,7 @@
       <div class="card simpleCard">
         <ol class="stepList">
           <li>学びたい<b>分野</b>を決めます（大枠で問題ありません）。</li>
-          <li>取得したい<b>学位</b>を決めます（学士・修士・博士など） 。</li>
+          <li>取得したい<b>学位</b>を決めます（学士・修士・博士など）。</li>
           <li>候補の大学・プログラムを広めに出します。</li>
           <li>要件を確認し、現実的な大学に絞ります。</li>
         </ol>
@@ -136,9 +136,68 @@
       </div>
     </section>
 
+    <!-- 自動更新セクション -->
+    <section class="section" id="admissions-db">
+      <h2>③ 英語プログラムの要件一覧（月1更新）</h2>
+
+      <div class="card simpleCard">
+        <p class="muted" id="admissionsMeta" style="margin-top:0;">
+          読み込み中…
+        </p>
+
+        <div class="filterBox">
+          <div class="filterGrid">
+            <div>
+              <label for="filterKeyword" class="filterLabel">大学名・学部・プログラム名</label>
+              <input id="filterKeyword" type="text" placeholder="例：ELTE / Medicine / Engineering / Business" />
+            </div>
+
+            <div>
+              <label for="filterExamType" class="filterLabel">試験形式</label>
+              <select id="filterExamType">
+                <option value="">指定なし</option>
+                <option value="oral">oral を含む</option>
+                <option value="written">written を含む</option>
+                <option value="no">試験なしに近いもの</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filterActions">
+            <button class="btn primary" type="button" id="applyAdmissionFilter">絞り込む</button>
+            <button class="btn" type="button" id="clearAdmissionFilter">条件クリア</button>
+          </div>
+        </div>
+
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>大学</th>
+                <th>学部</th>
+                <th>プログラム</th>
+                <th>英語要件</th>
+                <th>入試</th>
+                <th>試験形式</th>
+                <th>試験内容</th>
+              </tr>
+            </thead>
+            <tbody id="admissionsTbody">
+              <tr><td colspan="7">読み込み中…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="muted" style="margin-bottom:0;">
+          ※ Stipendium Hungaricum の英語プログラム情報をもとに自動抽出しています。<br />
+          ※ 最終確認は必ず各プログラム公式ページで行ってください。
+        </p>
+      </div>
+    </section>
+
     <!-- 専攻別傾向 -->
     <section class="section">
-      <h2>③ 専攻別の傾向</h2>
+      <h2>④ 専攻別の傾向</h2>
 
       <div class="card heroWrap" style="margin-bottom:12px;">
         <img id="imgPatterns" class="heroImg" src="images/dummy.jpg" alt="専攻別の選考傾向のイメージ" />
@@ -186,7 +245,7 @@
 
     <!-- 絞り込み -->
     <section class="section">
-      <h2>④ 最後に絞り込むポイント</h2>
+      <h2>⑤ 最後に絞り込むポイント</h2>
       <div class="card simpleCard">
         <ul style="margin:0; padding-left:18px; line-height:1.9;">
           <li><b>要件を満たしているか</b>を確認します（英語・成績・試験の有無など）。</li>
@@ -233,22 +292,215 @@
       patterns: "imgPatterns"
     };
 
+    const admissionsMetaEl = document.getElementById("admissionsMeta");
+    const admissionsTbodyEl = document.getElementById("admissionsTbody");
+    const filterKeywordEl = document.getElementById("filterKeyword");
+    const filterExamTypeEl = document.getElementById("filterExamType");
+    const applyAdmissionFilterBtn = document.getElementById("applyAdmissionFilter");
+    const clearAdmissionFilterBtn = document.getElementById("clearAdmissionFilter");
+
+    let admissionRows = [];
+
+    function esc(str) {
+      return String(str ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function norm(str) {
+      return String(str ?? "").trim().toLowerCase();
+    }
+
+    function shorten(str, max = 160) {
+      const s = String(str ?? "").trim();
+      if (!s) return "—";
+      if (s.length <= max) return s;
+      return s.slice(0, max) + "…";
+    }
+
+    function loadImages() {
+      return fetch("basics-university.images.json", { cache: "no-store" })
+        .then((res) => {
+          if (!res.ok) return null;
+          return res.json();
+        })
+        .then((data) => {
+          if (!data) return;
+          const images = data.images || {};
+
+          for (const key in map) {
+            const el = document.getElementById(map[key]);
+            if (!el) continue;
+            if (images[key]?.url) el.src = images[key].url;
+            if (images[key]?.alt) el.alt = images[key].alt;
+          }
+        })
+        .catch(() => {
+          console.log("画像JSONが読み込めませんでした");
+        });
+    }
+
+    function flattenProgrammes(data) {
+      const universities = Array.isArray(data?.universities) ? data.universities : [];
+      const rows = [];
+
+      for (const uni of universities) {
+        const institution = String(uni?.institution || "");
+        const programmes = Array.isArray(uni?.programmes) ? uni.programmes : [];
+
+        for (const p of programmes) {
+          rows.push({
+            institution,
+            faculty: String(p?.faculty || ""),
+            programme: String(p?.programme || ""),
+            english_requirement: String(
+              p?.english_requirement ||
+              p?.entry_requirements ||
+              p?.language_requirement ||
+              ""
+            ),
+            entrance_exam: String(p?.entrance_exam || ""),
+            entrance_exam_type: String(p?.entrance_exam_type || ""),
+            entrance_exam_location: String(p?.entrance_exam_location || ""),
+            entrance_exam_description: String(p?.entrance_exam_description || ""),
+            course_url: String(p?.course_url || "")
+          });
+        }
+      }
+
+      return rows.sort((a, b) => {
+        const aa = `${a.institution} ${a.faculty} ${a.programme}`.toLowerCase();
+        const bb = `${b.institution} ${b.faculty} ${b.programme}`.toLowerCase();
+        return aa.localeCompare(bb);
+      });
+    }
+
+    function renderAdmissions(rows) {
+      if (!admissionsTbodyEl) return;
+
+      if (!rows.length) {
+        admissionsTbodyEl.innerHTML = '<tr><td colspan="7">該当データがありません</td></tr>';
+        return;
+      }
+
+      admissionsTbodyEl.innerHTML = "";
+
+      for (const row of rows) {
+        const examText = row.entrance_exam || "";
+        const examTypeText = row.entrance_exam_type || "";
+        const descriptionText = row.entrance_exam_description || "";
+        const linkedProgramme = row.course_url
+          ? `<a href="${esc(row.course_url)}" target="_blank" rel="noopener">${esc(row.programme || "詳細ページ")}</a>`
+          : esc(row.programme || "—");
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${esc(row.institution || "—")}</td>
+          <td>${esc(row.faculty || "—")}</td>
+          <td>${linkedProgramme}</td>
+          <td>${esc(shorten(row.english_requirement, 140))}</td>
+          <td>${esc(shorten(examText, 60))}</td>
+          <td>${esc(shorten(examTypeText, 60))}</td>
+          <td>${esc(shorten(descriptionText, 220))}</td>
+        `;
+        admissionsTbodyEl.appendChild(tr);
+      }
+    }
+
+    function applyAdmissionFilter() {
+      const keyword = norm(filterKeywordEl?.value);
+      const examType = String(filterExamTypeEl?.value || "");
+
+      const filtered = admissionRows.filter((row) => {
+        const text = norm([
+          row.institution,
+          row.faculty,
+          row.programme,
+          row.english_requirement,
+          row.entrance_exam,
+          row.entrance_exam_type,
+          row.entrance_exam_description,
+          row.entrance_exam_location
+        ].join(" "));
+
+        const okKeyword = !keyword || text.includes(keyword);
+
+        let okExamType = true;
+        const typeText = norm([
+          row.entrance_exam,
+          row.entrance_exam_type,
+          row.entrance_exam_description,
+          row.entrance_exam_location
+        ].join(" "));
+
+        if (examType === "oral") {
+          okExamType = typeText.includes("oral");
+        } else if (examType === "written") {
+          okExamType = typeText.includes("written");
+        } else if (examType === "no") {
+          okExamType =
+            !typeText ||
+            typeText.includes("no entrance exam") ||
+            typeText.includes("without entrance exam") ||
+            typeText.includes("none");
+        }
+
+        return okKeyword && okExamType;
+      });
+
+      renderAdmissions(filtered);
+    }
+
+    if (applyAdmissionFilterBtn) {
+      applyAdmissionFilterBtn.addEventListener("click", applyAdmissionFilter);
+    }
+
+    if (clearAdmissionFilterBtn) {
+      clearAdmissionFilterBtn.addEventListener("click", () => {
+        if (filterKeywordEl) filterKeywordEl.value = "";
+        if (filterExamTypeEl) filterExamTypeEl.value = "";
+        renderAdmissions(admissionRows);
+      });
+    }
+
+    if (filterKeywordEl) {
+      filterKeywordEl.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          applyAdmissionFilter();
+        }
+      });
+    }
+
+    await loadImages();
+
     try {
-      const res = await fetch("basics-university.images.json", { cache: "no-store" });
-      if (!res.ok) return;
+      const res = await fetch("sh_admissions.json?v=" + Date.now(), { cache: "no-store" });
+      if (!res.ok) {
+        throw new Error("sh_admissions.json の取得に失敗しました");
+      }
 
       const data = await res.json();
-      const images = data.images || {};
+      admissionRows = flattenProgrammes(data);
 
-      for (const key in map) {
-        const el = document.getElementById(map[key]);
-        if (!el) continue;
-
-        if (images[key]?.url) el.src = images[key].url;
-        if (images[key]?.alt) el.alt = images[key].alt;
+      if (admissionsMetaEl) {
+        admissionsMetaEl.textContent =
+          `最終更新：${data?.generated_at || "不明"} / 大学数：${data?.university_count || 0} / プログラム数：${data?.programme_count || 0}`;
       }
+
+      renderAdmissions(admissionRows);
     } catch (e) {
-      console.log("画像JSONが読み込めませんでした");
+      console.error(e);
+
+      if (admissionsMetaEl) {
+        admissionsMetaEl.textContent = "要件データの読み込みに失敗しました";
+      }
+
+      if (admissionsTbodyEl) {
+        admissionsTbodyEl.innerHTML = '<tr><td colspan="7">読み込みエラー</td></tr>';
+      }
     }
   });
   </script>
