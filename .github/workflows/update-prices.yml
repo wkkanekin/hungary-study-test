@@ -29,9 +29,13 @@ jobs:
         run: |
           python collect_prices_ksh.py basket.json prices.json
 
+      - name: Collect SH admissions
+        run: |
+          python collect_sh_admissions.py sh_admissions.json
+
       - name: Commit and push if changed
         run: |
           git config user.name "price-bot"
           git config user.email "price-bot@users.noreply.github.com"
-          git add prices.json
-          git diff --cached --quiet || (git commit -m "Update prices.json (KSH)" && git push)
+          git add prices.json sh_admissions.json collect_sh_admissions.py
+          git diff --cached --quiet || (git commit -m "Update prices.json and sh_admissions.json" && git push)
