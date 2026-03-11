@@ -1,31 +1,266 @@
 {
   "source": "Times Higher Education",
-  "updated": "2026-03-11T13:53:37.497219",
+  "updated": "2026-03-11T14:34:25.217680+00:00",
+  "count": 37,
   "universities": [
     {
-      "university": "Budapest University of Technology and Economics",
-      "rank": "1201–1500",
-      "url": "https://www.timeshighereducation.com/world-university-rankings/budapest-university-technology-and-economics"
+      "university": "Semmelweis University",
+      "city": "Budapest",
+      "rank": "251–300",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/semmelweis-university",
+      "listed_in_the": true
+    },
+    {
+      "university": "Óbuda University",
+      "city": "Budapest",
+      "rank": "601–800",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/obuda-university",
+      "listed_in_the": true
     },
     {
       "university": "Eötvös Loránd University",
+      "city": "Budapest",
       "rank": "801–1000",
-      "url": "https://www.timeshighereducation.com/world-university-rankings/eotvos-lorand-university"
+      "url": "https://www.timeshighereducation.com/world-university-rankings/eotvos-lorand-university",
+      "listed_in_the": true
     },
     {
       "university": "University of Debrecen",
+      "city": "Debrecen",
       "rank": "801–1000",
-      "url": "https://www.timeshighereducation.com/world-university-rankings/university-debrecen"
+      "url": "https://www.timeshighereducation.com/world-university-rankings/university-debrecen",
+      "listed_in_the": true
     },
     {
       "university": "University of Szeged",
+      "city": "Szeged",
       "rank": "1001–1200",
-      "url": "https://www.timeshighereducation.com/world-university-rankings/university-szeged"
+      "url": "https://www.timeshighereducation.com/world-university-rankings/university-szeged",
+      "listed_in_the": true
     },
     {
-      "university": "Semmelweis University",
-      "rank": "251–300",
-      "url": "https://www.timeshighereducation.com/world-university-rankings/semmelweis-university"
+      "university": "University of Pécs",
+      "city": "Pécs",
+      "rank": "1001–1200",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/university-pecs",
+      "listed_in_the": true
+    },
+    {
+      "university": "Budapest University of Technology and Economics",
+      "city": "Budapest",
+      "rank": "1201–1500",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/budapest-university-technology-and-economics",
+      "listed_in_the": true
+    },
+    {
+      "university": "Corvinus University of Budapest",
+      "city": "Budapest",
+      "rank": "1201–1500",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/corvinus-university-budapest",
+      "listed_in_the": true
+    },
+    {
+      "university": "Hungarian University of Agriculture and Life Sciences (MATE)",
+      "city": "Gödöllő",
+      "rank": "1201–1500",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/hungarian-university-agriculture-and-life-sciences",
+      "listed_in_the": true
+    },
+    {
+      "university": "University of Miskolc",
+      "city": "Miskolc",
+      "rank": "1501+",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/university-miskolc",
+      "listed_in_the": true
+    },
+    {
+      "university": "Hungarian University of Fine Arts",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Hungarian University of Sports Science",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Hungarian Dance University",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Liszt Ferenc Academy of Music",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Moholy-Nagy University of Art and Design",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Pázmány Péter Catholic University",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Károli Gáspár University of the Reformed Church in Hungary",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Ludovika University of Public Service",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "John Wesley Theological College",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Dharma Gate Buddhist College",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Budapest Metropolitan University",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/budapest-metropolitan-university",
+      "listed_in_the": false
+    },
+    {
+      "university": "Budapest University of Economics and Business",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/budapest-business-school",
+      "listed_in_the": false
+    },
+    {
+      "university": "University of Veterinary Medicine Budapest",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "MFA Balassi Preparatory Programme",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "University of Sopron",
+      "city": "Sopron",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Széchenyi István University",
+      "city": "Győr",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "University of Pannonia",
+      "city": "Veszprém",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "University of Nyíregyháza",
+      "city": "Nyíregyháza",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "University of Dunaújváros",
+      "city": "Dunaújváros",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "John von Neumann University",
+      "city": "Kecskemét",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Eszterházy Károly Catholic University",
+      "city": "Eger",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "University of Tokaj",
+      "city": "Sárospatak",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Apor Vilmos Catholic College",
+      "city": "Vác",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Episcopal Theological College of Pécs",
+      "city": "Pécs",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Eötvös József College",
+      "city": "Baja",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "Kodály Institute",
+      "city": "Kecskemét",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
+    },
+    {
+      "university": "International Business School Budapest",
+      "city": "Budapest",
+      "rank": "—",
+      "url": "",
+      "listed_in_the": false
     }
   ]
 }
