@@ -1,0 +1,31 @@
+{
+  "source": "Times Higher Education",
+  "updated": "2026-03-11T13:53:37.497219",
+  "universities": [
+    {
+      "university": "Budapest University of Technology and Economics",
+      "rank": "1201–1500",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/budapest-university-technology-and-economics"
+    },
+    {
+      "university": "Eötvös Loránd University",
+      "rank": "801–1000",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/eotvos-lorand-university"
+    },
+    {
+      "university": "University of Debrecen",
+      "rank": "801–1000",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/university-debrecen"
+    },
+    {
+      "university": "University of Szeged",
+      "rank": "1001–1200",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/university-szeged"
+    },
+    {
+      "university": "Semmelweis University",
+      "rank": "251–300",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/semmelweis-university"
+    }
+  ]
+}
