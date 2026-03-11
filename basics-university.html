@@ -282,26 +282,35 @@
         .replaceAll("'", "&#039;");
     }
 
-    function loadImages() {
-      return fetch("basics-university.images.json", { cache: "no-store" })
-        .then((res) => {
-          if (!res.ok) return null;
-          return res.json();
-        })
-        .then((data) => {
-          if (!data) return;
-          const images = data.images || {};
+    function formatDate(value) {
+      if (!value) return "不明";
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) return String(value);
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      return `${y}-${m}-${day} ${hh}:${mm}`;
+    }
 
-          for (const key in map) {
-            const el = document.getElementById(map[key]);
-            if (!el) continue;
-            if (images[key]?.url) el.src = images[key].url;
-            if (images[key]?.alt) el.alt = images[key].alt;
-          }
-        })
-        .catch(() => {
-          console.log("画像JSONが読み込めませんでした");
-        });
+    async function loadImages() {
+      try {
+        const res = await fetch("basics-university.images.json", { cache: "no-store" });
+        if (!res.ok) return;
+
+        const data = await res.json();
+        const images = data.images || {};
+
+        for (const key in map) {
+          const el = document.getElementById(map[key]);
+          if (!el) continue;
+          if (images[key]?.url) el.src = images[key].url;
+          if (images[key]?.alt) el.alt = images[key].alt;
+        }
+      } catch (error) {
+        console.log("画像JSONが読み込めませんでした", error);
+      }
     }
 
     function renderRankings(rows) {
@@ -343,12 +352,12 @@
 
       if (rankingMetaEl) {
         rankingMetaEl.textContent =
-          `最終更新：${data?.updated || "不明"} / 掲載大学数：${rows.length || 0}`;
+          `最終更新：${formatDate(data?.updated)} / 掲載大学数：${rows.length}`;
       }
 
       renderRankings(rows);
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error(error);
 
       if (rankingMetaEl) {
         rankingMetaEl.textContent = "ランキングデータの読み込みに失敗しました";
