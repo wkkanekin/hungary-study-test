@@ -78,6 +78,44 @@ document.addEventListener("DOMContentLoaded", () => {
  return String(str ?? "").trim().toLowerCase();
  }
 
+ function resolveVersionedAssetUrl(url, version) {
+ const cleanUrl = String(url ?? "").trim();
+ if (!cleanUrl) return "";
+
+ const rawVersion = String(version ?? "").trim();
+ if (!rawVersion) return cleanUrl;
+
+ const hasQuery = cleanUrl.includes("?");
+ const separator = hasQuery ? "&" : "?";
+ return `${cleanUrl}${separator}v=${encodeURIComponent(rawVersion)}`;
+ }
+
+ function getVersionedImageUrl(obj, urlKeys = ["url", "imageUrl"], versionKeys = ["version", "v", "imageVersion"]) {
+ if (!obj || typeof obj !== "object") return "";
+
+ let rawUrl = "";
+ for (const key of urlKeys) {
+ const value = String(obj?.[key] ?? "").trim();
+ if (value) {
+ rawUrl = value;
+ break;
+ }
+ }
+
+ if (!rawUrl) return "";
+
+ let rawVersion = "";
+ for (const key of versionKeys) {
+ const value = String(obj?.[key] ?? "").trim();
+ if (value) {
+ rawVersion = value;
+ break;
+ }
+ }
+
+ return resolveVersionedAssetUrl(rawUrl, rawVersion);
+ }
+
  function scrollToStudents() {
  document.getElementById("students")?.scrollIntoView({ behavior: "smooth", block: "start" });
  }
@@ -96,8 +134,8 @@ document.addEventListener("DOMContentLoaded", () => {
  return !!stu.enabled;
  }
 
- // 初期表示を短くするため「おすすめ」を最大2件だけ出す
- function getFeaturedStudents(max = 2) {
+ // 初期表示を短くするため「おすすめ」を最大3件だけ出す
+ function getFeaturedStudents(max = 3) {
  const featured = students.filter((s) => !!s.enabled && !!s.featured);
  if (featured.length) return featured.slice(0, max);
  return students.filter((s) => !!s.enabled).slice(0, max);
@@ -255,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
  const bookingBtn = disabled
  ? `<a class="btn" href="#" aria-disabled="true" onclick="return false;">空き枠を見る（準備中）</a>`
- : `<a class="btn primary" href="${esc(stu.bookingUrl)}" target="_blank" rel="noopener">空き枠を見る（3,800円 / 40分）</a>`;
+ : `<a class="btn primary" href="${esc(stu.bookingUrl)}" target="_blank" rel="noopener">空き枠を見る（25 USD (約3,800円)) / 40分）</a>`;
 
  // 追加メタ行（存在するものだけ表示）
  const metaHtml = [
@@ -319,7 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
  // ----------------------------
  function applyFilterAndJump() {
  if (!hasAnySearchCondition()) {
- const featured = getFeaturedStudents(2);
+ const featured = getFeaturedStudents(3); // ★ 2→3
  renderStudents(featured);
  setHitLabel(`おすすめ：${featured.length}名`);
  scrollToStudents();
@@ -355,7 +393,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
  closeSuggest();
 
- const featured = getFeaturedStudents(2);
+ const featured = getFeaturedStudents(3); // ★ 2→3
  renderStudents(featured);
  setHitLabel(`おすすめ：${featured.length}名`);
  }
@@ -497,7 +535,7 @@ document.addEventListener("DOMContentLoaded", () => {
  students = data;
  suggestPool = buildSuggestPool(students);
 
- const featured = getFeaturedStudents(2);
+ const featured = getFeaturedStudents(3); // ★ 2→3
  renderStudents(featured);
  setHitLabel(`おすすめ：${featured.length}名`);
  }
@@ -542,12 +580,16 @@ document.addEventListener("DOMContentLoaded", () => {
  function applyImages(cfg) {
  if (!cfg || typeof cfg !== "object") return;
 
- const heroUrl = String(cfg?.hero?.imageUrl || "").trim();
+ const heroUrl = getVersionedImageUrl(cfg?.hero, ["imageUrl", "url"], ["imageVersion", "version", "v"]);
  if (heroUrl) {
  document.documentElement.style.setProperty("--hero-image", `url("${heroUrl}")`);
  }
 
- const logoUrl = String(cfg?.hero?.logoUrl || "").trim();
+ const logoUrl = getVersionedImageUrl(
+ cfg?.hero,
+ ["logoUrl", "url"],
+ ["logoVersion", "version", "v"]
+ );
  const logoAlt = String(cfg?.hero?.logoAlt || "HU").trim();
  if (heroLogoImg) {
  if (logoUrl) heroLogoImg.src = logoUrl;
@@ -557,7 +599,7 @@ document.addEventListener("DOMContentLoaded", () => {
  // ============================
  // FAVICON（images.jsonで管理）
  // ============================
- const faviconUrl = String(cfg?.favicon?.url || "").trim();
+ const faviconUrl = getVersionedImageUrl(cfg?.favicon, ["url", "imageUrl"], ["version", "v", "imageVersion"]);
  const faviconType = String(cfg?.favicon?.type || "image/png").trim();
 
  if (faviconUrl) {
@@ -583,23 +625,28 @@ document.addEventListener("DOMContentLoaded", () => {
  });
 
  const cHungary = map.get("hungary");
- if (basicImgHungary && cHungary?.imageUrl) {
- basicImgHungary.src = String(cHungary.imageUrl);
- basicImgHungary.alt = String(cHungary.alt || basicImgHungary.alt || "ハンガリーについて");
+ if (basicImgHungary) {
+ const url = getVersionedImageUrl(cHungary, ["imageUrl", "url"], ["version", "v", "imageVersion"]);
+ if (url) basicImgHungary.src = url;
+ if (cHungary?.alt) basicImgHungary.alt = String(cHungary.alt || basicImgHungary.alt || "ハンガリーについて");
  }
 
  const cUniversity = map.get("university");
- if (basicImgUniversity && cUniversity?.imageUrl) {
- basicImgUniversity.src = String(cUniversity.imageUrl);
- basicImgUniversity.alt = String(cUniversity.alt || basicImgUniversity.alt || "大学の探し方");
+ if (basicImgUniversity) {
+ const url = getVersionedImageUrl(cUniversity, ["imageUrl", "url"], ["version", "v", "imageVersion"]);
+ if (url) basicImgUniversity.src = url;
+ if (cUniversity?.alt) basicImgUniversity.alt = String(cUniversity.alt || basicImgUniversity.alt || "大学の探し方");
  }
 
  const cScholarship = map.get("scholarship");
- if (basicImgScholarship && cScholarship?.imageUrl) {
- basicImgScholarship.src = String(cScholarship.imageUrl);
+ if (basicImgScholarship) {
+ const url = getVersionedImageUrl(cScholarship, ["imageUrl", "url"], ["version", "v", "imageVersion"]);
+ if (url) basicImgScholarship.src = url;
+ if (cScholarship?.alt) {
  basicImgScholarship.alt = String(
  cScholarship.alt || basicImgScholarship.alt || "奨学金（スティペンディウム・ハンガリカム）"
  );
+ }
  }
  }
 

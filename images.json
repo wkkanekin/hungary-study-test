@@ -2,29 +2,33 @@
   "hero": {
     "imageUrl": "images/hero-image.jpg",
     "logoUrl": "images/logo-hungary-study.png",
-    "logoAlt": "Hungary Study"
+    "logoAlt": "Hungary Study",
+    "imageVersion": "20260316-1",
+    "logoVersion": "20260316-1"
   },
-
   "favicon": {
     "url": "images/favicon.png",
-    "type": "image/png"
+    "type": "image/png",
+    "version": "20260316-1"
   },
-
   "basicsCards": [
     {
       "id": "hungary",
       "imageUrl": "images/hungary.jpg",
-      "alt": "ハンガリーについて"
+      "alt": "ハンガリーについて",
+      "version": "20260316-1"
     },
     {
       "id": "university",
       "imageUrl": "images/university-campus.jpg",
-      "alt": "大学の探し方"
+      "alt": "大学の探し方",
+      "version": "20260316-1"
     },
     {
       "id": "scholarship",
       "imageUrl": "images/scholarship.jpg",
-      "alt": "奨学金（スティペンディウム・ハンガリカム）"
+      "alt": "奨学金（スティペンディウム・ハンガリカム）",
+      "version": "20260316-1"
     }
   ],
   "snsIcons": {

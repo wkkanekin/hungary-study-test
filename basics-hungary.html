@@ -222,8 +222,27 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", async () => {
+  function resolveVersionedAssetUrl(url, version) {
+    const cleanUrl = String(url ?? "").trim();
+    if (!cleanUrl) return "";
+
+    const rawVersion = String(version ?? "").trim();
+    if (!rawVersion) return cleanUrl;
+
+    const hasQuery = cleanUrl.includes("?");
+    const separator = hasQuery ? "&" : "?";
+    return `${cleanUrl}${separator}v=${encodeURIComponent(rawVersion)}`;
+  }
+
+  function getVersionedImageUrl(obj) {
+    if (!obj || typeof obj !== "object") return "";
+    const url = String(obj.url ?? obj.imageUrl ?? "").trim();
+    const version = String(obj.version ?? obj.v ?? obj.imageVersion ?? "").trim();
+    return resolveVersionedAssetUrl(url, version);
+  }
+
   /* =========================
-     画像JSONから差し替え（元のまま・一切変更しない）
+     画像JSONから差し替え（version付きURL対応）
   ========================== */
   const map = {
     hero: "imgHero",
@@ -238,13 +257,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!res.ok) return;
 
     const data = await res.json();
-    const images = data.images;
+    const images = data.images || {};
 
     for (const key in map) {
       const el = document.getElementById(map[key]);
       if (!el) continue;
 
-      if (images[key]?.url) el.src = images[key].url;
+      const imageUrl = getVersionedImageUrl(images[key]);
+      if (imageUrl) el.src = imageUrl;
       if (images[key]?.alt) el.alt = images[key].alt;
     }
   } catch (e) {

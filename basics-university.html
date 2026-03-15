@@ -294,6 +294,25 @@
       return `${y}-${m}-${day} ${hh}:${mm}`;
     }
 
+    function resolveVersionedAssetUrl(url, version) {
+      const cleanUrl = String(url ?? "").trim();
+      if (!cleanUrl) return "";
+
+      const rawVersion = String(version ?? "").trim();
+      if (!rawVersion) return cleanUrl;
+
+      const hasQuery = cleanUrl.includes("?");
+      const separator = hasQuery ? "&" : "?";
+      return `${cleanUrl}${separator}v=${encodeURIComponent(rawVersion)}`;
+    }
+
+    function getVersionedImageUrl(obj) {
+      if (!obj || typeof obj !== "object") return "";
+      const url = String(obj.url ?? obj.imageUrl ?? "").trim();
+      const version = String(obj.version ?? obj.v ?? obj.imageVersion ?? "").trim();
+      return resolveVersionedAssetUrl(url, version);
+    }
+
     async function loadImages() {
       try {
         const res = await fetch("basics-university.images.json", { cache: "no-store" });
@@ -305,7 +324,9 @@
         for (const key in map) {
           const el = document.getElementById(map[key]);
           if (!el) continue;
-          if (images[key]?.url) el.src = images[key].url;
+
+          const imageUrl = getVersionedImageUrl(images[key]);
+          if (imageUrl) el.src = imageUrl;
           if (images[key]?.alt) el.alt = images[key].alt;
         }
       } catch (error) {

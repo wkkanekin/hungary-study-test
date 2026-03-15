@@ -2,19 +2,23 @@
   "images": {
     "hero": {
       "url": "images/university-campus.jpg",
-      "alt": "大学キャンパスのイメージ"
+      "alt": "大学キャンパスのイメージ",
+      "version": "20260316-1"
     },
     "search": {
       "url": "images/university-search.jpg",
-      "alt": "大学を調べるイメージ"
+      "alt": "大学を調べるイメージ",
+      "version": "20260316-1"
     },
     "requirements": {
       "url": "images/university-requirements.jpg",
-      "alt": "出願要件の確認イメージ"
+      "alt": "出願要件の確認イメージ",
+      "version": "20260316-1"
     },
     "patterns": {
       "url": "images/university-patterns.jpg",
-      "alt": "専攻別の選考イメージ"
+      "alt": "専攻別の選考イメージ",
+      "version": "20260316-1"
     }
   }
 }
