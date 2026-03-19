@@ -6,27 +6,19 @@
 
   <title>ハンガリー留学相談 Hungary Study</title>
 
-  <!-- ✅ Google検索の「タイトル下の説明文」を狙う（最重要） -->
   <meta name="description" content="ハンガリー現役大学生に1対1で直接聞けるオンライン留学相談。あなたの目指す大学・学部の現役生が、大学選び・出願準備・英語要件・生活費・奨学金・過去の入学試験の内容まで、実体験ベースで具体的にお話します（Zoom40分）。" />
-
-  <!-- ✅ URLの正規化（www有無・重複対策） -->
   <link rel="canonical" href="https://hungarystudy.org/" />
 
-  <!-- ✅ SNS共有の見え方（任意だが入れると強い） -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Hungary Study" />
   <meta property="og:title" content="ハンガリー留学相談 Hungary Study" />
   <meta property="og:description" content="ハンガリー現役大学生に1対1で直接聞けるオンライン留学相談。あなたの目指す大学・学部の現役生が、大学選び・出願準備・英語要件・生活費・奨学金・過去の入学試験の内容まで、実体験ベースで具体的にお話します（Zoom40分）。" />
   <meta property="og:url" content="https://hungarystudy.org/" />
-
-  <!-- ⚠️ 画像があるなら差し替え（例：/images/ogp.jpg） -->
   <!-- <meta property="og:image" content="https://hungarystudy.org/images/ogp.jpg" /> -->
 
   <link rel="stylesheet" href="style.css" />
-
   <link id="dynamicFavicon" rel="icon" type="image/png" href="">
 
-  <!-- Leaflet (Map) -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -37,7 +29,6 @@
 
 <body>
   <div class="container">
-    <!-- Header / Hero -->
     <header class="card heroHeader" id="top">
       <div class="heroBg" aria-hidden="true"></div>
 
@@ -55,13 +46,13 @@
       </div>
     </header>
 
-    <!-- ✅ ヒーローの下に横目次（sticky） -->
     <header class="topBar" aria-label="目次">
       <div class="topBarInner">
         <nav class="topNav" aria-label="横目次">
           <a href="#service">サービス内容</a>
           <a href="#flow">相談の流れ</a>
           <a href="#basics-cards">ハンガリー留学の全体像</a>
+          <a href="guide.html">Guide</a>
           <a href="#search">現役生を探す</a>
           <a href="#mapSearch">地図から大学を探す</a>
           <a href="#students">現役生</a>
@@ -73,7 +64,6 @@
       </div>
     </header>
 
-    <!-- Service -->
     <section class="section" id="service">
       <h2 class="secTitle">サービス内容</h2>
 
@@ -117,7 +107,6 @@
       </div>
     </section>
 
-    <!-- Flow -->
     <section class="section" id="flow">
       <h2 class="secTitle">相談の流れ（かんたん3ステップ）</h2>
       <div class="grid3 flowWrap">
@@ -136,7 +125,6 @@
       </div>
     </section>
 
-    <!-- Basics cards -->
     <section class="section" id="basics-cards">
       <h2 class="secTitle">ハンガリー留学の全体像</h2>
       <p class="basicsIntro">
@@ -183,14 +171,26 @@
           </div>
         </article>
       </div>
+
+      <div class="guideLeadBox">
+        <div class="guideLeadText">
+          <h3 class="guideLeadTitle">もっと詳しく知りたい方へ</h3>
+          <p class="guideLeadDesc">
+            ハンガリー留学の費用、奨学金、大学選び、現役生の体験談、コラムなどを
+            記事としてまとめていきます。
+          </p>
+        </div>
+
+        <div class="guideLeadActions">
+          <a class="btn primary" href="guide.html">Guideを見る</a>
+        </div>
+      </div>
     </section>
 
-    <!-- Search -->
     <section class="section" id="search">
       <h2 class="secTitle">現役生を探す</h2>
 
       <div class="card searchBox">
-        <!-- row 1 -->
         <div class="searchRow">
           <label class="srOnly" for="keyword">大学名・地域・キーワード</label>
           <div class="suggestWrap">
@@ -205,7 +205,6 @@
           </div>
         </div>
 
-        <!-- row 2 -->
         <div class="searchRow twoColsRow">
           <div>
             <select id="regionFilter" aria-label="地域">
@@ -233,7 +232,6 @@
           </div>
         </div>
 
-        <!-- row 3 -->
         <div class="searchRow centerActions">
           <button class="btn primary" id="applySearch" type="button">検索</button>
           <button class="btn" id="clearSearch" type="button">条件クリア</button>
@@ -246,7 +244,6 @@
       </div>
     </section>
 
-    <!-- Map Search -->
     <section class="section" id="mapSearch">
       <h2 class="secTitle">地図から大学を探す</h2>
       <p class="muted">
@@ -284,7 +281,6 @@
       </div>
     </section>
 
-    <!-- Students -->
     <section class="section" id="students">
       <h2 class="secTitle">現役生一覧 <span id="hitCount" class="hitCount"></span></h2>
 
@@ -299,7 +295,6 @@
       <div id="studentList" class="studentList" aria-label="現役生一覧"></div>
     </section>
 
-    <!-- Comparison -->
     <section class="section" id="comparison">
       <h2 class="secTitle">どの方法が自分に合っている？</h2>
 
@@ -381,212 +376,206 @@
         </p>
       </div>
     </section>
-<!-- FAQ -->
-<section class="section" id="faq">
-  <h2 class="secTitle">よくある質問（FAQ）</h2>
 
-  <div class="faqCard">
+    <section class="section" id="faq">
+      <h2 class="secTitle">よくある質問（FAQ）</h2>
 
-    <details class="faqItem">
-      <summary class="faqQ">留学エージェントや無料相談と何が違うのですか？</summary>
-      <div class="faqA">
-        <p>
-          留学エージェントは、出願手続きや書類準備などのサポートを行うサービスです。
-          また、無料相談では制度や入学条件の説明が中心になることが一般的です。
-        </p>
-        <p>
-          当サービスは「手続き」ではなく、
-          実際にその大学・学部に在籍している現役生から、
-          合格時の英語力、入学試験の体感難易度、進級の厳しさ、
-          授業の負荷、生活のリアルなどを直接聞き、
-          本当に自分に合っているかを判断するための面談です。
-        </p>
-        <p>
-          公式サイトやSNSだけでは分かりにくい一次情報をもとに、
-          「自分が通用するか」「本当に進学すべきか」を整理することを目的としています。
-        </p>
+      <div class="faqCard">
+
+        <details class="faqItem">
+          <summary class="faqQ">留学エージェントや無料相談と何が違うのですか？</summary>
+          <div class="faqA">
+            <p>
+              留学エージェントは、出願手続きや書類準備などのサポートを行うサービスです。
+              また、無料相談では制度や入学条件の説明が中心になることが一般的です。
+            </p>
+            <p>
+              当サービスは「手続き」ではなく、
+              実際にその大学・学部に在籍している現役生から、
+              合格時の英語力、入学試験の体感難易度、進級の厳しさ、
+              授業の負荷、生活のリアルなどを直接聞き、
+              本当に自分に合っているかを判断するための面談です。
+            </p>
+            <p>
+              公式サイトやSNSだけでは分かりにくい一次情報をもとに、
+              「自分が通用するか」「本当に進学すべきか」を整理することを目的としています。
+            </p>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">まだ出願するか決めていませんが、相談しても大丈夫ですか？</summary>
+          <div class="faqA">
+            <p>はい、大丈夫です。</p>
+            <p>
+              実際にご利用いただく方の多くは、
+              「この英語力で大丈夫か」
+              「進級できるのか」
+              「想像と現実のギャップはどれくらいか」
+              といった不安を整理するために相談されています。
+            </p>
+            <p>
+              無理に出願を勧めることはありません。
+              合わない場合は、その可能性も率直にお伝えします。
+            </p>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">どの現役生が対応するか選べますか？</summary>
+          <div class="faqA">
+            <p>
+              はい。大学・学部・専攻・奨学金の有無・社会人経験などを参考に、
+              ご自身の状況に近い現役生を選んで予約できます。
+            </p>
+
+            <p>
+              似た背景を持つ学生と話すことで、
+              より具体的で実践的な判断材料を得ることができます。
+            </p>
+
+            <p>
+              なお、現在すべての大学・学部の現役生が登録しているわけではありません。
+              そのため、ご希望の大学の学生がまだ掲載されていない場合があります。
+            </p>
+
+            <p>
+              本サービスでは現役生の参加も随時募集しています。
+              ハンガリーの大学に在籍している方で、
+              留学志願者の相談に協力していただける方は
+              <a href="#contact">お問い合わせ</a>からご連絡ください。
+            </p>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">面談ではどんなことを相談できますか？</summary>
+          <div class="faqA">
+            <p>よくある相談内容は以下の通りです。</p>
+            <p>
+              ・合格時の英語レベルと準備方法<br>
+              ・入学試験や面接の具体的な内容<br>
+              ・授業の難易度や単位取得の実情<br>
+              ・生活費や住居、治安<br>
+              ・後悔しやすいポイント
+            </p>
+            <p>
+              パンフレットやSNSでは分からない、
+              実際に通っているからこそ分かる部分が中心です。
+            </p>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">医学部の相談はできますか？</summary>
+          <div class="faqA">
+            <p>
+              現在、このサービスでは医学部に関する面談・相談は提供していません。
+            </p>
+            <p>
+              医学部は入試制度、学費体系、進級制度が他学部と大きく異なるため、
+              本サービスの対象外としています。
+            </p>
+            <p>
+              本サービスでは、主にハンガリーの学士・修士課程（医学部以外）について、
+              現役生の経験をもとに情報共有を行っています。
+            </p>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">なぜ有料なのですか？</summary>
+          <div class="faqA">
+            <p>
+              当サービスは、現役生の時間と経験そのものに対価をいただく仕組みです。
+            </p>
+            <p>
+              出願代行や合格保証ではなく、
+              「判断材料を得るための時間」に価値を置いています。
+            </p>
+            <p>
+              情報を集めるだけであれば無料でも可能ですが、
+              実際に在学している学生と直接話せる機会は多くありません。
+            </p>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">なぜ料金がドル（USD）表記なのですか？</summary>
+          <div class="faqA">
+            <p>
+              当サービスの決済には、国際的なオンライン決済サービス
+              <b>Stripe（ストライプ）</b>を使用しています。
+            </p>
+            <p>
+              Stripeの仕様上、海外向けサービスでは
+              <b>USD（米ドル）などの国際通貨で決済を設定する場合</b>があります。
+              そのため、サイト上では <b>25 USD</b> と表示しています。
+            </p>
+            <p>
+              日本からのお支払いでは、クレジットカード会社や決済システムによって
+              自動的に円換算されるため、実際の請求額は
+              <b>約3,800円前後</b>になります。
+              為替レートにより多少前後する場合があります。
+            </p>
+            <p>
+              Stripeは世界中のオンラインサービスで利用されている決済システムで、
+              日本のクレジットカードをそのまま使って簡単にお支払いいただけます。
+            </p>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">支払い方法は？</summary>
+          <div class="faqA">
+            <p>
+              予約ページの案内に従って、Stripeでお支払いください。
+              決済完了後、予約が確定します。
+            </p>
+            <p>
+              決済はオンラインで完結するため、特別な手続きは不要です。
+            </p>
+          </div>
+        </details>
+
+        <details class="faqItem">
+          <summary class="faqQ">キャンセルや日程変更はできますか？返金はありますか？</summary>
+          <div class="faqA">
+            <p>
+              予約完了後に届くメール内の
+              「Cancel（キャンセル）」または「Reschedule（日程変更）」リンクから
+              お手続きください。
+            </p>
+
+            <p>
+              <b>日程変更・キャンセルは面談開始24時間前まで可能です。</b>
+            </p>
+
+            <p>
+              面談開始まで24時間を切ってからのキャンセル・日程変更は、
+              原則としてお受けしていません。
+            </p>
+
+            <p>
+              <b>面談開始24時間以内のキャンセルは返金対象外</b>となります。
+              無断欠席（No-show）の場合も返金対象外です。
+            </p>
+
+            <p>
+              面談時間は<b>40分</b>です。
+              予約システムの仕様上、時間になると自動終了となります。
+            </p>
+
+            <p>
+              面談をより有意義な時間にするため、
+              予約時の事前質問へのご回答をお願いしています。
+            </p>
+          </div>
+        </details>
+
       </div>
-    </details>
+    </section>
 
-    <details class="faqItem">
-      <summary class="faqQ">まだ出願するか決めていませんが、相談しても大丈夫ですか？</summary>
-      <div class="faqA">
-        <p>
-          はい、大丈夫です。
-        </p>
-        <p>
-          実際にご利用いただく方の多くは、
-          「この英語力で大丈夫か」
-          「進級できるのか」
-          「想像と現実のギャップはどれくらいか」
-          といった不安を整理するために相談されています。
-        </p>
-        <p>
-          無理に出願を勧めることはありません。
-          合わない場合は、その可能性も率直にお伝えします。
-        </p>
-      </div>
-    </details>
-
-    <details class="faqItem">
-      <summary class="faqQ">どの現役生が対応するか選べますか？</summary>
-      <div class="faqA">
-        <p>
-          はい。大学・学部・専攻・奨学金の有無・社会人経験などを参考に、
-          ご自身の状況に近い現役生を選んで予約できます。
-        </p>
-
-        <p>
-          似た背景を持つ学生と話すことで、
-          より具体的で実践的な判断材料を得ることができます。
-        </p>
-
-        <p>
-          なお、現在すべての大学・学部の現役生が登録しているわけではありません。
-          そのため、ご希望の大学の学生がまだ掲載されていない場合があります。
-        </p>
-
-        <p>
-          本サービスでは現役生の参加も随時募集しています。
-          ハンガリーの大学に在籍している方で、
-          留学志願者の相談に協力していただける方は
-          <a href="#contact">お問い合わせ</a>からご連絡ください。
-        </p>
-      </div>
-    </details>
-
-    <details class="faqItem">
-      <summary class="faqQ">面談ではどんなことを相談できますか？</summary>
-      <div class="faqA">
-        <p>
-          よくある相談内容は以下の通りです。
-        </p>
-        <p>
-          ・合格時の英語レベルと準備方法<br>
-          ・入学試験や面接の具体的な内容<br>
-          ・授業の難易度や単位取得の実情<br>
-          ・生活費や住居、治安<br>
-          ・後悔しやすいポイント
-        </p>
-        <p>
-          パンフレットやSNSでは分からない、
-          実際に通っているからこそ分かる部分が中心です。
-        </p>
-      </div>
-    </details>
-
-    <details class="faqItem">
-      <summary class="faqQ">医学部の相談はできますか？</summary>
-      <div class="faqA">
-        <p>
-          現在、このサービスでは医学部に関する面談・相談は提供していません。
-        </p>
-        <p>
-          医学部は入試制度、学費体系、進級制度が他学部と大きく異なるため、
-          本サービスの対象外としています。
-        </p>
-        <p>
-          本サービスでは、主にハンガリーの学士・修士課程（医学部以外）について、
-          現役生の経験をもとに情報共有を行っています。
-        </p>
-      </div>
-    </details>
-
-    <details class="faqItem">
-      <summary class="faqQ">なぜ有料なのですか？</summary>
-      <div class="faqA">
-        <p>
-          当サービスは、現役生の時間と経験そのものに対価をいただく仕組みです。
-        </p>
-        <p>
-          出願代行や合格保証ではなく、
-          「判断材料を得るための時間」に価値を置いています。
-        </p>
-        <p>
-          情報を集めるだけであれば無料でも可能ですが、
-          実際に在学している学生と直接話せる機会は多くありません。
-        </p>
-      </div>
-    </details>
-
-    <details class="faqItem">
-      <summary class="faqQ">なぜ料金がドル（USD）表記なのですか？</summary>
-      <div class="faqA">
-        <p>
-          当サービスの決済には、国際的なオンライン決済サービス
-          <b>Stripe（ストライプ）</b>を使用しています。
-        </p>
-        <p>
-          Stripeの仕様上、海外向けサービスでは
-          <b>USD（米ドル）などの国際通貨で決済を設定する場合</b>があります。
-          そのため、サイト上では <b>25 USD</b> と表示しています。
-        </p>
-        <p>
-          日本からのお支払いでは、クレジットカード会社や決済システムによって
-          自動的に円換算されるため、実際の請求額は
-          <b>約3,800円前後</b>になります。
-          為替レートにより多少前後する場合があります。
-        </p>
-        <p>
-          Stripeは世界中のオンラインサービスで利用されている決済システムで、
-          日本のクレジットカードをそのまま使って簡単にお支払いいただけます。
-        </p>
-      </div>
-    </details>
-
-    <details class="faqItem">
-      <summary class="faqQ">支払い方法は？</summary>
-      <div class="faqA">
-        <p>
-          予約ページの案内に従って、Stripeでお支払いください。
-          決済完了後、予約が確定します。
-        </p>
-        <p>
-          決済はオンラインで完結するため、特別な手続きは不要です。
-        </p>
-      </div>
-    </details>
-
-    <details class="faqItem">
-      <summary class="faqQ">キャンセルや日程変更はできますか？返金はありますか？</summary>
-      <div class="faqA">
-        <p>
-          予約完了後に届くメール内の
-          「Cancel（キャンセル）」または「Reschedule（日程変更）」リンクから
-          お手続きください。
-        </p>
-
-        <p>
-          <b>日程変更・キャンセルは面談開始24時間前まで可能です。</b>
-        </p>
-
-        <p>
-          面談開始まで24時間を切ってからのキャンセル・日程変更は、
-          原則としてお受けしていません。
-        </p>
-
-        <p>
-          <b>面談開始24時間以内のキャンセルは返金対象外</b>となります。
-          無断欠席（No-show）の場合も返金対象外です。
-        </p>
-
-        <p>
-          面談時間は<b>40分</b>です。
-          予約システムの仕様上、時間になると自動終了となります。
-        </p>
-
-        <p>
-          面談をより有意義な時間にするため、
-          予約時の事前質問へのご回答をお願いしています。
-        </p>
-      </div>
-    </details>
-
-  </div>
-</section>
-
-
-    <!-- Contact (統合フォーム版：現役生登録もここ) -->
     <section class="section" id="contact">
       <h2 class="secTitle">お問い合わせ（現役生登録含む）</h2>
 
@@ -596,7 +585,6 @@
         </p>
 
         <form id="contactForm" class="contactForm" autocomplete="on">
-          <!-- 用件 -->
           <div class="field full">
             <div class="contactLabel">用件（必須）</div>
 
@@ -623,7 +611,6 @@
             </div>
           </div>
 
-          <!-- 共通：名前 / メール -->
           <div class="formGrid">
             <div class="field">
               <label for="cf_name">お名前（必須）</label>
@@ -635,7 +622,6 @@
               <input id="cf_email" name="email" type="email" required />
             </div>
 
-            <!-- 現役生のみ表示：大学名 / 学年 -->
             <div class="field isHidden" id="cf_uni_wrap">
               <label for="cf_uni">大学名（現役生は必須）</label>
               <input id="cf_uni" name="university" type="text" />
@@ -652,7 +638,6 @@
             </div>
           </div>
 
-          <!-- 種別ごとの注意文（JSで差し替え） -->
           <div class="contactNote" id="contactNote" aria-live="polite">
             予約は各現役生の「空き枠を見る」からお願いします（このフォームでは予約できません）。
           </div>
@@ -669,18 +654,15 @@
       </div>
     </section>
 
-    <!-- SNS -->
     <section class="section" id="sns">
       <h2 class="secTitle">SNS・外部リンク</h2>
 
       <div class="card simpleCard">
         <p class="muted">各アイコンをタップすると移動します。</p>
-
         <div class="snsGrid" id="snsGrid" aria-label="SNSリンク"></div>
       </div>
     </section>
 
-    <!-- Philosophy -->
     <section class="section" id="philosophy">
       <div class="philosophyCard">
         <h2 class="secTitle">理念</h2>
@@ -705,7 +687,6 @@
     </footer>
   </div>
 
-  <!-- Leaflet JS -->
   <script
     src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="

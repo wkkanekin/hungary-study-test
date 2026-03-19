@@ -374,6 +374,48 @@ code{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Libera
  font-weight:950;
 }
 
+/* Guide lead */
+.guideLeadBox{
+ margin-top:24px;
+ padding:22px 20px;
+ border-radius:18px;
+ background: rgba(255,255,255,.92);
+ border:1px solid rgba(229,231,235,.9);
+ box-shadow: 0 10px 22px rgba(17,24,39,.05);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:18px;
+ flex-wrap:wrap;
+}
+
+.guideLeadText{
+ flex:1 1 520px;
+}
+
+.guideLeadTitle{
+ margin:0 0 8px;
+ font-size:22px;
+ line-height:1.4;
+ color:#0f2a5a;
+ font-weight:950;
+}
+
+.guideLeadDesc{
+ margin:0;
+ color:#475569;
+ font-weight:800;
+ line-height:1.75;
+}
+
+.guideLeadActions{
+ flex:0 0 auto;
+}
+
+.guideLeadActions .btn{
+ min-width:180px;
+}
+
 /* Search */
 .searchBox{padding:16px; max-width:820px; margin:0 auto;}
 .searchLabel{
@@ -835,6 +877,22 @@ details p{
  .headerTitle{ font-size:22px; }
  .logoBox{ width:48px; height:48px; border-radius:14px; }
  :root{ --hero-pos: 55% 40%; }
+
+ .guideLeadBox{
+  padding:18px 16px;
+ }
+
+ .guideLeadTitle{
+  font-size:19px;
+ }
+
+ .guideLeadActions{
+  width:100%;
+ }
+
+ .guideLeadActions .btn{
+  width:100%;
+ }
 }
 
 /* Responsive */
