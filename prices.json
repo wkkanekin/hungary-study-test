@@ -1,9 +1,9 @@
 {
   "source": "KSH_STADAT_1.2.1.8_ara0044",
   "currency": "HUF",
-  "updated_at": "2026-05-01T08:26:06.564495+00:00",
+  "updated_at": "2026-06-01T12:12:14.514333+00:00",
   "ksh_table": "1.2.1.8 / ara0044",
-  "ksh_latest_month": "2026 March",
+  "ksh_latest_month": "2026 April",
   "items": [
     {
       "id": "milk",
@@ -16,9 +16,9 @@
       "ksh_denomination": "Pasteurised ESL milk, 2.8% fat content, litre",
       "ksh_unit": "Ft/litre",
       "note": "KSH平均価格（全国）",
-      "price_huf": 392,
+      "price_huf": 386,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "eggs_10",
@@ -31,9 +31,9 @@
       "ksh_denomination": "Eggs, 10 pieces",
       "ksh_unit": "Ft/10 pieces",
       "note": "KSH平均価格（全国）",
-      "price_huf": 925,
+      "price_huf": 926,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "chicken",
@@ -46,9 +46,9 @@
       "ksh_denomination": "Filleted chicken breast, kg",
       "ksh_unit": "Ft/kg",
       "note": "KSH平均価格（全国）",
-      "price_huf": 2460,
+      "price_huf": 2500,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "pasta",
@@ -60,9 +60,9 @@
       "ksh_denomination": "4-egg spaghetti, 400-500 g",
       "ksh_unit": "Ft/400-500 g",
       "note": "KSH平均価格（全国）",
-      "price_huf": 596,
+      "price_huf": 609,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "bread",
@@ -74,9 +74,9 @@
       "ksh_denomination": "White bread, kg",
       "ksh_unit": "Ft/kg",
       "note": "KSH平均価格（全国）",
-      "price_huf": 901,
+      "price_huf": 916,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "tomato",
@@ -88,9 +88,9 @@
       "ksh_denomination": "Tomatoes, kg",
       "ksh_unit": "Ft/kg",
       "note": "KSH平均価格（全国）",
-      "price_huf": 1680,
+      "price_huf": 1940,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "banana",
@@ -102,9 +102,9 @@
       "ksh_denomination": "Bananas, kg",
       "ksh_unit": "Ft/kg",
       "note": "KSH平均価格（全国）",
-      "price_huf": 789,
+      "price_huf": 803,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "cheese",
@@ -116,9 +116,9 @@
       "ksh_denomination": "Trappist-style cheese block, kg",
       "ksh_unit": "Ft/kg",
       "note": "KSH平均価格（全国）",
-      "price_huf": 2780,
+      "price_huf": 2710,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "yoghurt",
@@ -133,7 +133,7 @@
       "note": "KSH平均価格（全国）",
       "price_huf": 154,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "onion",
@@ -145,9 +145,9 @@
       "ksh_denomination": "Red onions, kg",
       "ksh_unit": "Ft/kg",
       "note": "KSH平均価格（全国）",
-      "price_huf": 338,
+      "price_huf": 336,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "potato",
@@ -160,9 +160,9 @@
       "ksh_denomination": "'Old' potatoes, kg",
       "ksh_unit": "Ft/kg",
       "note": "KSH平均価格（全国）",
-      "price_huf": 333,
+      "price_huf": 355,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "cucumber",
@@ -174,9 +174,9 @@
       "ksh_denomination": "Cucumbers, kg",
       "ksh_unit": "Ft/kg",
       "note": "KSH平均価格（全国）",
-      "price_huf": 1770,
+      "price_huf": 1520,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "apple",
@@ -188,9 +188,9 @@
       "ksh_denomination": "Apples, kg",
       "ksh_unit": "Ft/kg",
       "note": "KSH平均価格（全国）",
-      "price_huf": 566,
+      "price_huf": 570,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "oil",
@@ -203,9 +203,9 @@
       "ksh_denomination": "Cooking oil, sunflower-seed, litre",
       "ksh_unit": "Ft/litre",
       "note": "KSH平均価格（全国）",
-      "price_huf": 849,
+      "price_huf": 854,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "flour",
@@ -219,7 +219,7 @@
       "note": "KSH平均価格（全国）",
       "price_huf": 233,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     },
     {
       "id": "rice",
@@ -231,9 +231,9 @@
       "ksh_denomination": "Husked rice, unpolished, kg",
       "ksh_unit": "Ft/kg",
       "note": "KSH平均価格（全国）",
-      "price_huf": 708,
+      "price_huf": 712,
       "status": "ok",
-      "fetched_at": "2026-05-01T08:26:06.564495+00:00"
+      "fetched_at": "2026-06-01T12:12:14.514333+00:00"
     }
   ]
 }
