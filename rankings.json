@@ -1,19 +1,12 @@
 {
   "source": "Times Higher Education",
-  "updated": "2026-09-01T11:47:12.408948+00:00",
+  "updated": "2026-10-01T13:30:52.881111+00:00",
   "count": 37,
   "universities": [
     {
-      "university": "Semmelweis University",
-      "city": "Budapest",
-      "rank": "251–300",
-      "url": "https://www.timeshighereducation.com/world-university-rankings/semmelweis-university",
-      "listed_in_the": true
-    },
-    {
       "university": "Óbuda University",
       "city": "Budapest",
-      "rank": "601–800",
+      "rank": "701–800",
       "url": "https://www.timeshighereducation.com/world-university-rankings/obuda-university",
       "listed_in_the": true
     },
@@ -32,6 +25,13 @@
       "listed_in_the": true
     },
     {
+      "university": "Corvinus University of Budapest",
+      "city": "Budapest",
+      "rank": "1001–1200",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/corvinus-university-budapest",
+      "listed_in_the": true
+    },
+    {
       "university": "University of Szeged",
       "city": "Szeged",
       "rank": "1001–1200",
@@ -46,31 +46,31 @@
       "listed_in_the": true
     },
     {
-      "university": "Budapest University of Technology and Economics",
-      "city": "Budapest",
-      "rank": "1201–1500",
-      "url": "https://www.timeshighereducation.com/world-university-rankings/budapest-university-technology-and-economics",
-      "listed_in_the": true
-    },
-    {
-      "university": "Corvinus University of Budapest",
-      "city": "Budapest",
-      "rank": "1201–1500",
-      "url": "https://www.timeshighereducation.com/world-university-rankings/corvinus-university-budapest",
-      "listed_in_the": true
-    },
-    {
       "university": "Hungarian University of Agriculture and Life Sciences (MATE)",
       "city": "Gödöllő",
-      "rank": "1201–1500",
+      "rank": "1201–1400",
       "url": "https://www.timeshighereducation.com/world-university-rankings/hungarian-university-agriculture-and-life-sciences",
+      "listed_in_the": true
+    },
+    {
+      "university": "Budapest University of Technology and Economics",
+      "city": "Budapest",
+      "rank": "1401–1600",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/budapest-university-technology-and-economics",
       "listed_in_the": true
     },
     {
       "university": "University of Miskolc",
       "city": "Miskolc",
-      "rank": "1501+",
+      "rank": "1801–2000",
       "url": "https://www.timeshighereducation.com/world-university-rankings/university-miskolc",
+      "listed_in_the": true
+    },
+    {
+      "university": "Semmelweis University",
+      "city": "Budapest",
+      "rank": "=247",
+      "url": "https://www.timeshighereducation.com/world-university-rankings/semmelweis-university",
       "listed_in_the": true
     },
     {
